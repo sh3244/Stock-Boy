@@ -7,19 +7,30 @@
 //
 
 import UIKit
+import Stevia
 
-class SecondViewController: UIViewController {
+class SecondViewController: ViewController {
+  var webView: UIWebView = UIWebView()
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    view.backgroundColor = .gray
+    title = "Second"
   }
 
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
   }
 
-
+  override func viewWillLayoutSubviews() {
+    super.viewWillLayoutSubviews()
+    view.sv([webView])
+    view.layout(
+      0,
+      |webView|,
+      0
+    )
+  }
 }
 

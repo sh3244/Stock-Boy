@@ -9,10 +9,16 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+
   override func viewDidLoad() {
     super.viewDidLoad()
-//    let first = FirstViewController()
-//    let second = SecondViewController()
-//    self.setViewControllers([first, second], animated: true)
+    setupAppearance()
+  }
+
+  func setupAppearance() {
+    view.backgroundColor = .darkGray
+
+    tabBar.barStyle = .black
+    tabBar.isTranslucent = false
   }
 }
