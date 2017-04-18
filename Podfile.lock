@@ -1,0 +1,24 @@
+PODS:
+  - Argo (4.1.2):
+    - Runes (>= 4.0.0)
+  - Curry (3.0.0)
+  - FLEX (2.4.0)
+  - Runes (4.0.1)
+  - SteviaLayout (3.1.3)
+
+DEPENDENCIES:
+  - Argo (~> 4.1.2)
+  - Curry (~> 3.0.0)
+  - FLEX (~> 2.0)
+  - SteviaLayout (~> 3.1.2)
+
+SPEC CHECKSUMS:
+  Argo: 5db06502fc1222d83011f574243089dab25202ff
+  Curry: eb3d2c75aec678b3cc7fb2729d2ad6dd121531d1
+  FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
+  Runes: ff20f163b478ac2c0e18158d6086fd5b1997f983
+  SteviaLayout: 807c742a8e4bcb94f47f018b23873a40f1f1cc1d
+
+PODFILE CHECKSUM: eb2755e1e671103631a41bae66ea7718454eeeb5
+
+COCOAPODS: 1.2.1
