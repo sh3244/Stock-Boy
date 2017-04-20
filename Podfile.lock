@@ -1,27 +1,40 @@
 PODS:
+  - Alamofire (4.4.0)
   - Argo (4.1.2):
     - Runes (>= 4.0.0)
   - Curry (3.0.0)
   - Device (3.0.1)
   - FLEX (2.4.0)
   - Runes (4.0.1)
+  - RxCocoa (3.4.0):
+    - RxSwift (~> 3.4)
+  - RxSwift (3.4.0)
   - SteviaLayout (3.1.3)
+  - STRegex (0.4.3)
 
 DEPENDENCIES:
+  - Alamofire (~> 4.4)
   - Argo (~> 4.1.2)
   - Curry (~> 3.0.0)
   - Device (~> 3.0.1)
   - FLEX (~> 2.0)
+  - RxCocoa (~> 3.0)
+  - RxSwift (~> 3.0)
   - SteviaLayout (~> 3.1.2)
+  - STRegex (~> 0.4.0)
 
 SPEC CHECKSUMS:
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   Argo: 5db06502fc1222d83011f574243089dab25202ff
   Curry: eb3d2c75aec678b3cc7fb2729d2ad6dd121531d1
   Device: c793851589633bc515b65e08a2b5a223bc87c45a
   FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
   Runes: ff20f163b478ac2c0e18158d6086fd5b1997f983
+  RxCocoa: d14ef6b6029e1ddc6e966508c09289090de68ff9
+  RxSwift: 3789a1af753002a14edecdb698a2424624296a9c
   SteviaLayout: 807c742a8e4bcb94f47f018b23873a40f1f1cc1d
+  STRegex: c7decbba8601717274774a3f341c4807a327a6d0
 
-PODFILE CHECKSUM: fd5577fe6591eca1006a0f6104cebe8cc1166571
+PODFILE CHECKSUM: ae81ba5ffb66ffb483c0022db6790af688001a24
 
 COCOAPODS: 1.2.1

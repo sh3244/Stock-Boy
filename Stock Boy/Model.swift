@@ -11,6 +11,13 @@ import Argo
 import Curry
 import Runes
 
+struct Auth: Decodable {
+  static func decode(_ json: JSON) -> Decoded<Auth> {
+    return curry(Auth.init)
+      <^> json <| "token"
+  }
+}
+
 struct Team {
   var abbrev: String
   var city: String

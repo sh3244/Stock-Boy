@@ -9,16 +9,14 @@
 import UIKit
 import Stevia
 
-class ChartViewController: ViewController, UIWebViewDelegate, UISearchBarDelegate {
-//  var imageView: UIImageView = UIImageView()
+class ChartViewController: ViewController, UISearchBarDelegate {
+  var imageView: UIImageView = UIImageView()
   var searchBar: SearchBar = SearchBar()
-  var webView: UIWebView = UIWebView()
+  var scrollView: UIScrollView = UIScrollView()
 
   override func viewDidLoad() {
     super.viewDidLoad()
     title = "Chart"
-
-    webView.delegate = self
     searchBar.delegate = self
   }
 
@@ -26,21 +24,32 @@ class ChartViewController: ViewController, UIWebViewDelegate, UISearchBarDelegat
     super.viewDidAppear(animated)
   }
 
+  override func viewDidLayoutSubviews() {
+    loadChartFor(symbol: "URRE")
+  }
+
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([searchBar, webView])
+    view.sv([searchBar, scrollView])
     view.layout(
       0,
       |searchBar|,
-      |webView|,
+      |scrollView|,
       0
     )
+    scrollView.sv(imageView)
+    scrollView.layout(
+      0,
+      |imageView|,
+      0
+    )
+    imageView.contentMode = .scaleAspectFit
   }
 
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     searchBar.resignFirstResponder()
     if let text = searchBar.text {
-      loadChartFor(Symbol: text)
+      loadChartFor(symbol: text)
     }
   }
 
@@ -56,12 +65,17 @@ class ChartViewController: ViewController, UIWebViewDelegate, UISearchBarDelegat
 
   }
 
-  func loadChartFor(Symbol: String) {
-    guard let url = URL(string: "http://stockcharts.com/h-sc/ui?s=" + Symbol) else {
+  func loadChartFor(symbol: String) {
+    guard let url = chartURLFor(symbol: symbol) else {
       return
     }
-    let request = URLRequest(url: url)
-    webView.loadRequest(request)
+
+    let data = try! Data(contentsOf: url)
+    if !data.isEmpty {
+      DispatchQueue.main.async {
+        self.imageView.image = UIImage(data: data)
+      }
+    }
   }
 
 }

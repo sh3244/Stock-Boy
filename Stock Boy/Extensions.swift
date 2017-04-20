@@ -8,6 +8,10 @@
 
 import UIKit
 
+
+
+// MARK: Unused
+
 func resizedIcon(image: UIImage, targetSize: Double) -> UIImage? {
   let newImage = resizedImage(image: image, targetSize: CGSize(width: targetSize, height: targetSize))
   return newImage

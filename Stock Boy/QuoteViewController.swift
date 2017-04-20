@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  QuoteViewController.swift
 //  Stock Boy
 //
 //  Created by Huang, Samuel on 4/18/17.
@@ -9,13 +9,13 @@
 import UIKit
 import Stevia
 
-class SecondViewController: ViewController {
+class QuoteViewController: ViewController {
   var webView: UIWebView = UIWebView()
 
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .gray
-    title = "Second"
+    title = "Quote"
   }
 
   override func viewDidAppear(_ animated: Bool) {

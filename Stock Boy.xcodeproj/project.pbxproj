@@ -14,16 +14,30 @@
 		A21460991EA6AF9400831F14 /* StockTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460981EA6AF9400831F14 /* StockTabBarController.swift */; };
 		A214609B1EA6BC1200831F14 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214609A1EA6BC1200831F14 /* SearchBar.swift */; };
 		A214609D1EA6C2B700831F14 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214609C1EA6C2B700831F14 /* Extensions.swift */; };
+		A214609F1EA6CEEF00831F14 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214609E1EA6CEEF00831F14 /* URLManager.swift */; };
+		A21460A71EA6D29900831F14 /* Stock_Boy_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460A61EA6D29900831F14 /* Stock_Boy_Tests.swift */; };
+		A21460AE1EA6D3C900831F14 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214609E1EA6CEEF00831F14 /* URLManager.swift */; };
 		A226E8711EA69C9900354283 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226E8701EA69C9900354283 /* AppDelegate.swift */; };
 		A226E8731EA69C9900354283 /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226E8721EA69C9900354283 /* ChartViewController.swift */; };
-		A226E8751EA69C9900354283 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226E8741EA69C9900354283 /* SecondViewController.swift */; };
+		A226E8751EA69C9900354283 /* QuoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226E8741EA69C9900354283 /* QuoteViewController.swift */; };
 		A226E87A1EA69C9900354283 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A226E8791EA69C9900354283 /* Assets.xcassets */; };
 		A226E87D1EA69C9900354283 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A226E87B1EA69C9900354283 /* LaunchScreen.storyboard */; };
+		A2F9F78B1EA90E2400340A51 /* QuoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */; };
+		A2F9F78D1EA9103300340A51 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9F78C1EA9103300340A51 /* DataManager.swift */; };
 		E38F51EEF98293DCC537241E /* Pods_Stock_Boy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAC6870C3FC2C5F110DABCB /* Pods_Stock_Boy.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A21460A91EA6D29900831F14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A226E8651EA69C9900354283 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A226E86C1EA69C9900354283;
+			remoteInfo = "Stock Boy";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		0F2A263A79A9A91A3192BDEA /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 		5AAC6870C3FC2C5F110DABCB /* Pods_Stock_Boy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Boy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.release.xcconfig"; sourceTree = "<group>"; };
 		A214608F1EA69E0F00831F14 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -33,16 +47,31 @@
 		A21460981EA6AF9400831F14 /* StockTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockTabBarController.swift; sourceTree = "<group>"; };
 		A214609A1EA6BC1200831F14 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A214609C1EA6C2B700831F14 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A214609E1EA6CEEF00831F14 /* URLManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
+		A21460A41EA6D29900831F14 /* Stock Boy Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Stock Boy Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A21460A61EA6D29900831F14 /* Stock_Boy_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock_Boy_Tests.swift; sourceTree = "<group>"; };
+		A21460A81EA6D29900831F14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A226E86D1EA69C9900354283 /* Stock Boy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stock Boy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A226E8701EA69C9900354283 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A226E8721EA69C9900354283 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
-		A226E8741EA69C9900354283 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		A226E8741EA69C9900354283 /* QuoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteViewController.swift; sourceTree = "<group>"; };
 		A226E8791EA69C9900354283 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A226E87C1EA69C9900354283 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A226E87E1EA69C9900354283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
+		A2F9F78C1EA9103300340A51 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		A2F9F78E1EA914D000340A51 /* TestPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = TestPlayground.playground; sourceTree = "<group>"; };
+		AB14FDBA82CB58D5E9987298 /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A21460A11EA6D29900831F14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A226E86A1EA69C9900354283 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -57,8 +86,8 @@
 		5104A7FBCD1614E2998738E9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0F2A263A79A9A91A3192BDEA /* Pods-Stock Boy.debug.xcconfig */,
 				81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */,
+				AB14FDBA82CB58D5E9987298 /* Pods-Stock Boy.debug.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -74,10 +103,21 @@
 			name = Subclass;
 			sourceTree = "<group>";
 		};
+		A21460A51EA6D29900831F14 /* Stock Boy Tests */ = {
+			isa = PBXGroup;
+			children = (
+				A21460A61EA6D29900831F14 /* Stock_Boy_Tests.swift */,
+				A2F9F78E1EA914D000340A51 /* TestPlayground.playground */,
+				A21460A81EA6D29900831F14 /* Info.plist */,
+			);
+			path = "Stock Boy Tests";
+			sourceTree = "<group>";
+		};
 		A226E8641EA69C9900354283 = {
 			isa = PBXGroup;
 			children = (
 				A226E86F1EA69C9900354283 /* Stock Boy */,
+				A21460A51EA6D29900831F14 /* Stock Boy Tests */,
 				A226E86E1EA69C9900354283 /* Products */,
 				5104A7FBCD1614E2998738E9 /* Pods */,
 				AD2E210AB8F0B4ABD56FDBA3 /* Frameworks */,
@@ -88,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				A226E86D1EA69C9900354283 /* Stock Boy.app */,
+				A21460A41EA6D29900831F14 /* Stock Boy Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,8 +137,11 @@
 			isa = PBXGroup;
 			children = (
 				A226E8701EA69C9900354283 /* AppDelegate.swift */,
+				A214609E1EA6CEEF00831F14 /* URLManager.swift */,
+				A2F9F78C1EA9103300340A51 /* DataManager.swift */,
 				A226E8721EA69C9900354283 /* ChartViewController.swift */,
-				A226E8741EA69C9900354283 /* SecondViewController.swift */,
+				A226E8741EA69C9900354283 /* QuoteViewController.swift */,
+				A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */,
 				A21460981EA6AF9400831F14 /* StockTabBarController.swift */,
 				A214608F1EA69E0F00831F14 /* Model.swift */,
 				A226E8791EA69C9900354283 /* Assets.xcassets */,
@@ -120,6 +164,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A21460A31EA6D29900831F14 /* Stock Boy Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A21460AD1EA6D29900831F14 /* Build configuration list for PBXNativeTarget "Stock Boy Tests" */;
+			buildPhases = (
+				A21460A01EA6D29900831F14 /* Sources */,
+				A21460A11EA6D29900831F14 /* Frameworks */,
+				A21460A21EA6D29900831F14 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A21460AA1EA6D29900831F14 /* PBXTargetDependency */,
+			);
+			name = "Stock Boy Tests";
+			productName = "Stock Boy Tests";
+			productReference = A21460A41EA6D29900831F14 /* Stock Boy Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		A226E86C1EA69C9900354283 /* Stock Boy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A226E8811EA69C9900354283 /* Build configuration list for PBXNativeTarget "Stock Boy" */;
@@ -150,6 +212,12 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Huang, Samuel";
 				TargetAttributes = {
+					A21460A31EA6D29900831F14 = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 2GK5GPF253;
+						ProvisioningStyle = Automatic;
+						TestTargetID = A226E86C1EA69C9900354283;
+					};
 					A226E86C1EA69C9900354283 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = 2GK5GPF253;
@@ -171,11 +239,19 @@
 			projectRoot = "";
 			targets = (
 				A226E86C1EA69C9900354283 /* Stock Boy */,
+				A21460A31EA6D29900831F14 /* Stock Boy Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A21460A21EA6D29900831F14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A226E86B1EA69C9900354283 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -236,24 +312,44 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A21460A01EA6D29900831F14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A21460A71EA6D29900831F14 /* Stock_Boy_Tests.swift in Sources */,
+				A21460AE1EA6D3C900831F14 /* URLManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A226E8691EA69C9900354283 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2F9F78B1EA90E2400340A51 /* QuoteCell.swift in Sources */,
 				A21460941EA6A62400831F14 /* ViewController.swift in Sources */,
-				A226E8751EA69C9900354283 /* SecondViewController.swift in Sources */,
+				A226E8751EA69C9900354283 /* QuoteViewController.swift in Sources */,
 				A21460991EA6AF9400831F14 /* StockTabBarController.swift in Sources */,
 				A226E8711EA69C9900354283 /* AppDelegate.swift in Sources */,
+				A214609F1EA6CEEF00831F14 /* URLManager.swift in Sources */,
 				A226E8731EA69C9900354283 /* ChartViewController.swift in Sources */,
 				A214609D1EA6C2B700831F14 /* Extensions.swift in Sources */,
 				A214609B1EA6BC1200831F14 /* SearchBar.swift in Sources */,
 				A21460921EA69F3200831F14 /* TabBarController.swift in Sources */,
 				A21460961EA6A79000831F14 /* NavigationController.swift in Sources */,
+				A2F9F78D1EA9103300340A51 /* DataManager.swift in Sources */,
 				A21460901EA69E0F00831F14 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A21460AA1EA6D29900831F14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A226E86C1EA69C9900354283 /* Stock Boy */;
+			targetProxy = A21460A91EA6D29900831F14 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A226E87B1EA69C9900354283 /* LaunchScreen.storyboard */ = {
@@ -267,6 +363,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A21460AB1EA6D29900831F14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 2GK5GPF253;
+				INFOPLIST_FILE = "Stock Boy Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "samhuang.Stock-Boy-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stock Boy.app/Stock Boy";
+			};
+			name = Debug;
+		};
+		A21460AC1EA6D29900831F14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 2GK5GPF253;
+				INFOPLIST_FILE = "Stock Boy Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "samhuang.Stock-Boy-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stock Boy.app/Stock Boy";
+			};
+			name = Release;
+		};
 		A226E87F1EA69C9900354283 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -362,7 +486,7 @@
 		};
 		A226E8821EA69C9900354283 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F2A263A79A9A91A3192BDEA /* Pods-Stock Boy.debug.xcconfig */;
+			baseConfigurationReference = AB14FDBA82CB58D5E9987298 /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -395,6 +519,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A21460AD1EA6D29900831F14 /* Build configuration list for PBXNativeTarget "Stock Boy Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A21460AB1EA6D29900831F14 /* Debug */,
+				A21460AC1EA6D29900831F14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A226E8681EA69C9900354283 /* Build configuration list for PBXProject "Stock Boy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
