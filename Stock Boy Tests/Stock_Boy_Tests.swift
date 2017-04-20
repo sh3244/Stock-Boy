@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import Just
 
 class Stock_Boy_Tests: XCTestCase {
 
@@ -32,16 +31,10 @@ class Stock_Boy_Tests: XCTestCase {
 
     url = chartURLFor(symbol: "dog")
     XCTAssertNotNil(url)
-
-    url = chartURLFor(symbol: "")
-    XCTAssertNotNil(url)
-
-    url = chartURLFor(symbol: "~")
-    XCTAssertNotNil(url)
   }
 
   func testModels() {
-
+    
   }
 
 }

@@ -20,7 +20,9 @@ class QuoteViewController: ViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-
+    DataManager.shared.fetchRobinhoodAuthWith(completion: { auth in
+      print(auth)
+    })
   }
 
   override func viewWillLayoutSubviews() {

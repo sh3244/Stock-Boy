@@ -11,10 +11,28 @@ import Argo
 import Curry
 import Runes
 
-struct Auth: Decodable {
+struct Auth {
+  var token: String
+}
+
+extension Auth: Decodable {
   static func decode(_ json: JSON) -> Decoded<Auth> {
     return curry(Auth.init)
       <^> json <| "token"
+  }
+}
+
+struct Quote {
+  var last_trade_price: String
+  var symbol: String
+
+}
+
+extension Quote: Decodable {
+  static func decode(_ json: JSON) -> Decoded<Quote> {
+    return curry(Quote.init)
+      <^> json <| "last_trade_price"
+      <*> json <| "symbol"
   }
 }
 

@@ -20,44 +20,28 @@ class DataManager: NSObject {
     return instance
   }()
 
-  func fetchRobinhoodAuthWith(completion:@escaping (Auth) -> ()) {
+  func fetchRobinhoodAuthWith(completion:@escaping ((Auth) -> Void)) {
     let parameters: Parameters = ["username": "sh3244",
                                   "password": "5ezypqj9omp"
     ]
 
     Alamofire.request(baseURL + "api-token-auth/", method: .post, parameters: parameters).responseJSON { response in
       if let json = response.result.value {
-        let auth: Auth = decode(json)
+        let auth: Auth = decode(json)!
         completion(auth)
       }
     }
   }
 
-  func fetchCatalogResponse() -> BallResponse {
-    let empty = BallResponse(GameStates: [], Players: [], PlayerStats: [], Teams: [], Games: [])
+  func fetchRobinhoodQuoteWith(symbol: String, completion:@escaping ((Quote) -> Void)) {
+    let quoteURL = "quotes/" + symbol
 
-    guard let path = Bundle.main.path(forResource: "basketballdata", ofType: "json") else {
-      return empty
-    }
-
-    guard let data = NSData(contentsOfFile: path) else {
-      return empty
-    }
-    do {
-      if let results = try JSONSerialization.jsonObject(with: data as Data, options: []) as? NSDictionary {
-        let gameStates: [GameState] = decode(results["Game State"]!)!
-        let players: [Player] = decode(results["Players"]!)!
-        let playerStats: [PlayerStat] = decode(results["Player Stats"]!)!
-        let teams: [Team] = decode(results["Teams"]!)!
-        let games: [Game] = decode(results["Games"]!)!
-
-        let response = BallResponse(GameStates: gameStates, Players: players, PlayerStats: playerStats, Teams: teams, Games: games)
-        return response
+    Alamofire.request(baseURL + quoteURL, method: .get).responseJSON { response in
+      if let json = response.result.value {
+        let quote: Quote = decode(json)!
+        completion(quote)
       }
-
-    } catch {
-
     }
-    return empty
   }
+
 }
