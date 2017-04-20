@@ -33,8 +33,35 @@ class Stock_Boy_Tests: XCTestCase {
     XCTAssertNotNil(url)
   }
 
-  func testModels() {
-    
+  func testRobinhoodQuote() {
+    let expect = expectation(description: "Quote call works")
+    DataManager.shared.fetchRobinhoodQuoteWith(symbol: "URRE") { (data) in
+      print(data)
+      XCTAssertNotNil(data)
+      expect.fulfill()
+    }
+
+    waitForExpectations(timeout: 1) { error in
+      if let error = error {
+        XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+      }
+    }
+  }
+
+  func testRobinhoodAuth() {
+    let expect = expectation(description: "Auth call works")
+
+    DataManager.shared.fetchRobinhoodAuthWith { (data) in
+      print(data)
+      XCTAssertNotNil(data)
+      expect.fulfill()
+    }
+
+    waitForExpectations(timeout: 1) { error in
+      if let error = error {
+        XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+      }
+    }
   }
 
 }

@@ -34,7 +34,7 @@ class DataManager: NSObject {
   }
 
   func fetchRobinhoodQuoteWith(symbol: String, completion:@escaping ((Quote) -> Void)) {
-    let quoteURL = "quotes/" + symbol
+    let quoteURL = "quotes/" + symbol + "/"
 
     Alamofire.request(baseURL + quoteURL, method: .get).responseJSON { response in
       if let json = response.result.value {
@@ -43,5 +43,27 @@ class DataManager: NSObject {
       }
     }
   }
+
+//  func updated(quote: Quote?) -> Quote {
+//    if let quotee = quote {
+//      let quoteURL = "quotes/" + quotee.symbol + "/"
+//
+//      Alamofire.request(baseURL + quoteURL, method: .get).responseJSON { response in
+//        if let json = response.result.value {
+//          let quoted: Quote = decode(json)!
+//          return quoted
+//        }
+//      }
+//    }
+//    return quote
+//  }
+//
+//  func update(quotes: [Quote], completion:@escaping (([Quote]) -> Void)) {
+//    var newQuotes: [Quote] = []
+//    quotes.forEach({ (quote) in
+//      newQuotes.append(updated(quote: quote))
+//    })
+//
+//  }
 
 }
