@@ -64,4 +64,36 @@ class Stock_Boy_Tests: XCTestCase {
     }
   }
 
+  func testRobinhoodInstruments() {
+    let expect = expectation(description: "Instruments call works")
+
+    DataManager.shared.fetchRobinhoodInstruments { (data) in
+      print(data)
+      XCTAssertNotNil(data)
+      expect.fulfill()
+    }
+
+    waitForExpectations(timeout: 1) { error in
+      if let error = error {
+        XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+      }
+    }
+  }
+
+  func testRobinhoodFundamentals() {
+    let expect = expectation(description: "Fundamentals call works")
+
+    DataManager.shared.fetchRobinhoodFundamentalsWith(symbol: "MSFT") { (data) in
+      print(data)
+      XCTAssertNotNil(data)
+      expect.fulfill()
+    }
+
+    waitForExpectations(timeout: 1) { error in
+      if let error = error {
+        XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+      }
+    }
+  }
+
 }

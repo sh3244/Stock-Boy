@@ -34,12 +34,34 @@ class DataManager: NSObject {
   }
 
   func fetchRobinhoodQuoteWith(symbol: String, completion:@escaping ((Quote) -> Void)) {
-    let quoteURL = "quotes/" + symbol + "/"
+    let subURL = "quotes/" + symbol + "/"
 
-    Alamofire.request(baseURL + quoteURL, method: .get).responseJSON { response in
+    Alamofire.request(baseURL + subURL, method: .get).responseJSON { response in
       if let json = response.result.value {
-        let quote: Quote = decode(json)!
-        completion(quote)
+        let object: Quote = decode(json)!
+        completion(object)
+      }
+    }
+  }
+
+  func fetchRobinhoodInstruments(completion:@escaping (([Instrument]) -> Void)) {
+    let subURL = "instruments/"
+    Alamofire.request(baseURL + subURL, method: .get).responseJSON { response in
+      if let json = response.result.value {
+        let instruments: Instruments = decode(json)!
+        completion(instruments.results)
+      }
+    }
+  }
+
+  //api.robinhood.com/fundamentals/{symbol}/
+  func fetchRobinhoodFundamentalsWith(symbol: String, completion:@escaping ((Fundamentals) -> Void)) {
+    let subURL = "fundamentals/" + symbol + "/"
+
+    Alamofire.request(baseURL + subURL, method: .get).responseJSON { response in
+      if let json = response.result.value {
+        let object: Fundamentals = decode(json)!
+        completion(object)
       }
     }
   }
