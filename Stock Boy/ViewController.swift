@@ -12,7 +12,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    view.backgroundColor = .gray
+    view.backgroundColor = .black
   }
 
   // MARK: UITextFieldDelegate

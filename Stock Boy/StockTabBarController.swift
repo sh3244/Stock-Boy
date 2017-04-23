@@ -23,8 +23,8 @@ class StockTabBarController: TabBarController {
     let watchlistImage = resizedIcon(image: #imageLiteral(resourceName: "imageCoffee"), targetSize: 50)
     watchlistNav.tabBarItem = UITabBarItem(title: "Watchlist", image: watchlistImage, selectedImage: nil)
 
-    setViewControllers([chartNav, watchlistNav], animated: false)
-    selectedViewController = chartNav
+    setViewControllers([watchlistNav, chartNav], animated: false)
+    selectedViewController = watchlistNav
   }
 
 }

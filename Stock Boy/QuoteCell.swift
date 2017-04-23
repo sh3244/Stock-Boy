@@ -11,19 +11,19 @@ import Stevia
 
 class QuoteCell: UITableViewCell {
   var symbol = Label()
+  var name = Label()
   var price = Label()
   var change = Label()
-  var indicator = UIView()
 
-  public static let heightValue: CGFloat = 80.0
-  let height: CGFloat = 80.0
+  public static let heightValue: CGFloat = 40.0
+  let height: CGFloat = QuoteCell.heightValue
 
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     price.text = "$$$"
 
     backgroundColor = .black
-    sv([symbol, price, change, indicator])
+    sv([symbol, name, price, change])
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -32,11 +32,12 @@ class QuoteCell: UITableViewCell {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    indicator.width(40)
+    change.width(70)
+    symbol.width(60)
+    price.width(70)
     layout(
       0,
-      |-symbol-indicator-| ~ 40,
-      |-price-change-| ~ 40,
+      |-symbol-name-price-change-|,
       0
     )
   }
@@ -49,6 +50,5 @@ class QuoteCell: UITableViewCell {
 
   func apply(color: UIColor) {
     change.textColor = color
-    indicator.backgroundColor = color
   }
 }

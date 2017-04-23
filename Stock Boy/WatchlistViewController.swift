@@ -18,7 +18,6 @@ class WatchlistViewController: ViewController, UITableViewDelegate, UITableViewD
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    view.backgroundColor = .black
     title = "Robinhood Watchlist"
 
     searchBar.delegate = self
@@ -94,13 +93,16 @@ class WatchlistViewController: ViewController, UITableViewDelegate, UITableViewD
     if let quoteCell = cell as? QuoteCell{
       let quote = quotes[indexPath.row]
       quoteCell.symbol.text = quote.symbol
-      quoteCell.price.text = quote.last_trade_price
+      quoteCell.price.text = quote.last_trade_price.toUSD()
       quoteCell.change.text = String(Double(quote.last_trade_price)! / Double(quote.adjusted_previous_close)!).toPercentChange()
       if quote.last_trade_price > quote.adjusted_previous_close {
         quoteCell.apply(color: .green)
       } else {
         quoteCell.apply(color: .red)
       }
+      DataManager.shared.fetchRobinhoodInstrumentWith(url: quote.instrument, completion: { (instrument) in
+        quoteCell.name.text = instrument.name
+      })
     }
   }
 
