@@ -103,4 +103,16 @@ extension String {
   func trimZeros() -> String {
     return self.replacingFirstMatching("^0{0,4}([0-9]\\.)", with: "$1")
   }
+
+  func toVolume() -> String {
+    let trimmed = self.replacingFirstMatching("^([0-9]+)\\..*", with: "$1")
+    if trimmed.characters.count > 9 {
+      return trimmed.replacingFirstMatching("[0-9]{9}$", with: "B")
+    } else if trimmed.characters.count > 6 {
+      return trimmed.replacingFirstMatching("[0-9]{6}$", with: "M")
+    } else if trimmed.characters.count > 3 {
+      return trimmed.replacingFirstMatching("[0-9]{3}$", with: "K")
+    }
+    return trimmed
+  }
 }

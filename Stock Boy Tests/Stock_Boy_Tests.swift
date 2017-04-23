@@ -32,6 +32,9 @@ class Stock_Boy_Tests: XCTestCase {
 
     string = "0.88231".toPercentChange()
     XCTAssertEqual(string, "-11.76%")
+
+    string = "1234".toVolume()
+    XCTAssertEqual(string, "1K")
   }
 
   func testURL() {

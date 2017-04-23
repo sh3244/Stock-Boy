@@ -13,6 +13,7 @@ class Label: UILabel {
   override init(frame: CGRect) {
     super.init(frame: frame)
     textColor = .white
+    textAlignment = .center
 //    translatesAutoresizingMaskIntoConstraints = false
   }
 

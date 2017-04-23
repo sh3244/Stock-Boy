@@ -18,10 +18,10 @@ struct Fundamentals {
   var volume: String
   var average_volume: String
   var high_52_weeks: String
-  var dividend_yield: String
+  var dividend_yield: String?
   var low_52_weeks: String
   var market_cap: String
-  var pe_ratio: String
+  var pe_ratio: String?
   var description: String
   var instrument: String
 }
@@ -36,10 +36,10 @@ extension Fundamentals: Decodable {
       <*> json <| "average_volume"
     return f
       <*> json <| "high_52_weeks"
-      <*> json <| "dividend_yield"
+      <*> json <|? "dividend_yield"
       <*> json <| "low_52_weeks"
       <*> json <| "market_cap"
-      <*> json <| "pe_ratio"
+      <*> json <|? "pe_ratio"
       <*> json <| "description"
       <*> json <| "instrument"
   }
