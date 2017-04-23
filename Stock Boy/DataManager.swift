@@ -44,6 +44,33 @@ class DataManager: NSObject {
     }
   }
 
+  func fetchRobinhoodQuoteWith(url: String, completion:@escaping ((Quote) -> Void)) {
+    Alamofire.request(url, method: .get).responseJSON { response in
+      if response.result.value != nil {
+        if let json = response.result.value {
+          let object: Quote = decode(json)!
+          completion(object)
+        }
+      }
+    }
+  }
+
+  func fetchRobinhoodQuotesWith(instruments: [Instrument], completion:@escaping (([Quote]) -> Void)) {
+    var quotes: [Quote] = []
+    for i in 0..<instruments.count {
+      DispatchQueue.global().sync {
+        self.fetchRobinhoodQuoteWith(url: instruments[i].quote) { quote in
+          quotes.append(quote)
+          if i == instruments.count - 1 {
+            completion(quotes)
+          }
+        }
+      }
+    }
+  }
+
+  // MARK: Instruments
+
   func fetchRobinhoodInstruments(completion:@escaping (([Instrument]) -> Void)) {
     let subURL = "instruments/"
     Alamofire.request(baseURL + subURL, method: .get).responseJSON { response in
@@ -53,6 +80,29 @@ class DataManager: NSObject {
       }
     }
   }
+
+  func fetchRobinhoodInstrumentWith(url: String, completion:@escaping ((Instrument) -> Void)) {
+    Alamofire.request(url, method: .get).responseJSON { response in
+      if let json = response.result.value {
+        let object: Instrument = decode(json)!
+        completion(object)
+      }
+    }
+  }
+
+  func fetchRobinhoodInstrumentsWith(watchlist: [WatchlistItem], completion:@escaping (([Instrument]) -> Void)) {
+    var instruments: [Instrument] = []
+    watchlist.forEach { (item) in
+      fetchRobinhoodInstrumentWith(url: item.instrument, completion: { (instrument) in
+        instruments.append(instrument)
+        if instruments.count == watchlist.count {
+          completion(instruments)
+        }
+      })
+    }
+  }
+
+  // MARK: Fundamentals
 
   //api.robinhood.com/fundamentals/{symbol}/
   func fetchRobinhoodFundamentalsWith(symbol: String, completion:@escaping ((Fundamentals) -> Void)) {
@@ -66,26 +116,19 @@ class DataManager: NSObject {
     }
   }
 
-//  func updated(quote: Quote?) -> Quote {
-//    if let quotee = quote {
-//      let quoteURL = "quotes/" + quotee.symbol + "/"
-//
-//      Alamofire.request(baseURL + quoteURL, method: .get).responseJSON { response in
-//        if let json = response.result.value {
-//          let quoted: Quote = decode(json)!
-//          return quoted
-//        }
-//      }
-//    }
-//    return quote
-//  }
-//
-//  func update(quotes: [Quote], completion:@escaping (([Quote]) -> Void)) {
-//    var newQuotes: [Quote] = []
-//    quotes.forEach({ (quote) in
-//      newQuotes.append(updated(quote: quote))
-//    })
-//
-//  }
+  // MARK: Watchlist
+
+  func fetchRobinhoodDefaultWatchlistWith(auth: Auth, completion:@escaping ((Watchlist) -> Void)) {
+    let subURL = "watchlists/Default/"
+
+    let headers = ["authorization": "token " + auth.token]
+
+    Alamofire.request(baseURL + subURL, method: .get, headers:headers).responseJSON { response in
+      if let json = response.result.value {
+        let object: Watchlist = decode(json)!
+        completion(object)
+      }
+    }
+  }
 
 }

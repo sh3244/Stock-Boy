@@ -17,7 +17,7 @@ struct Quote {
   var bid_price: String
   var bid_size: Int
   var last_trade_price: String
-  var last_extended_hours_trade_price: String
+  var last_extended_hours_trade_price: String?
   var previous_close: String
   var adjusted_previous_close: String
   var previous_close_date: String
@@ -38,7 +38,7 @@ extension Quote: Decodable {
       <*> json <| "bid_size"
       <*> json <| "last_trade_price"
     return f
-      <*> json <| "last_extended_hours_trade_price"
+      <*> json <|? "last_extended_hours_trade_price"
       <*> json <| "previous_close"
       <*> json <| "adjusted_previous_close"
       <*> json <| "previous_close_date"

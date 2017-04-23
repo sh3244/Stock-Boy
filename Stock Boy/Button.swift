@@ -16,6 +16,7 @@ class Button: UIButton {
     titleLabel?.textColor = .white
     titleLabel?.highlightedTextColor = .red
     showsTouchWhenHighlighted = true
+//    translatesAutoresizingMaskIntoConstraints = false
   }
 
   required init?(coder aDecoder: NSCoder) {

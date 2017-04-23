@@ -21,8 +21,10 @@ class Stock_Boy_Tests: XCTestCase {
   }
 
   func testRegex() {
-    let string = stringByReplacingParameter(string: "hey${oh}", parameter: "no")
+    var string = stringByReplacingParameter(string: "hey${oh}", parameter: "no")
     XCTAssertEqual(string, "heyno")
+    string = "123.3213202".toUSD()
+    XCTAssertEqual(string, "$123.32")
   }
 
   func testURL() {
@@ -36,7 +38,6 @@ class Stock_Boy_Tests: XCTestCase {
   func testRobinhoodQuote() {
     let expect = expectation(description: "Quote call works")
     DataManager.shared.fetchRobinhoodQuoteWith(symbol: "URRE") { (data) in
-      print(data)
       XCTAssertNotNil(data)
       expect.fulfill()
     }
@@ -52,7 +53,6 @@ class Stock_Boy_Tests: XCTestCase {
     let expect = expectation(description: "Auth call works")
 
     DataManager.shared.fetchRobinhoodAuthWith { (data) in
-      print(data)
       XCTAssertNotNil(data)
       expect.fulfill()
     }
@@ -68,7 +68,6 @@ class Stock_Boy_Tests: XCTestCase {
     let expect = expectation(description: "Instruments call works")
 
     DataManager.shared.fetchRobinhoodInstruments { (data) in
-      print(data)
       XCTAssertNotNil(data)
       expect.fulfill()
     }
@@ -84,12 +83,50 @@ class Stock_Boy_Tests: XCTestCase {
     let expect = expectation(description: "Fundamentals call works")
 
     DataManager.shared.fetchRobinhoodFundamentalsWith(symbol: "MSFT") { (data) in
-      print(data)
       XCTAssertNotNil(data)
       expect.fulfill()
     }
 
     waitForExpectations(timeout: 1) { error in
+      if let error = error {
+        XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+      }
+    }
+  }
+
+  func testRobinhoodWatchlist() {
+    let expect = expectation(description: "Watchlist call works")
+
+    DataManager.shared.fetchRobinhoodAuthWith { (auth) in
+      DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { (data) in
+        XCTAssertNotNil(data)
+        expect.fulfill()
+      })
+    }
+
+    waitForExpectations(timeout: 1) { error in
+      if let error = error {
+        XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+      }
+    }
+  }
+
+  func testRobinhoodWatchlistQuotes() {
+    let expect = expectation(description: "Watchlist quotes call works")
+
+    DataManager.shared.fetchRobinhoodAuthWith { (auth) in
+      DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { (watchlist) in
+        DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
+          DataManager.shared.fetchRobinhoodQuotesWith(instruments: instruments, completion: { (quotes) in
+            print(quotes.count)
+            XCTAssertNotNil(quotes)
+            expect.fulfill()
+          })
+        })
+      })
+    }
+
+    waitForExpectations(timeout: 5) { error in
       if let error = error {
         XCTFail("waitForExpectationsWithTimeout errored: \(error)")
       }

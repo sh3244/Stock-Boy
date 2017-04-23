@@ -1,5 +1,5 @@
 //
-//  QuoteViewController.swift
+//  WatchlistViewController.swift
 //  Stock Boy
 //
 //  Created by Huang, Samuel on 4/18/17.
@@ -9,8 +9,8 @@
 import UIKit
 import Stevia
 
-class QuoteViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
-  var searchBar = UISearchBar()
+class WatchlistViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+  var searchBar = SearchBar()
   var tableView = UITableView()
   var refreshControl = UIRefreshControl()
 
@@ -19,7 +19,7 @@ class QuoteViewController: ViewController, UITableViewDelegate, UITableViewDataS
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .black
-    title = "Quote"
+    title = "Robinhood Watchlist"
 
     searchBar.delegate = self
 
@@ -29,11 +29,13 @@ class QuoteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     tableView.backgroundColor = .black
     tableView.refreshControl = refreshControl
     refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+
+    view.sv([searchBar, tableView])
+    refreshTable()
   }
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([searchBar, tableView])
     view.layout(
       0,
       |searchBar|,
@@ -43,9 +45,17 @@ class QuoteViewController: ViewController, UITableViewDelegate, UITableViewDataS
   }
 
   func refreshTable() {
-//    DataManager.shared.update(quotes: quotes)
-    tableView.reloadData()
-    refreshControl.endRefreshing()
+    DataManager.shared.fetchRobinhoodAuthWith { (auth) in
+      DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { watchlist in
+        DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
+          DataManager.shared.fetchRobinhoodQuotesWith(instruments: instruments, completion: { (quotes) in
+            self.quotes = quotes
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+          })
+        })
+      })
+    }
   }
 
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -70,6 +80,9 @@ class QuoteViewController: ViewController, UITableViewDelegate, UITableViewDataS
     
   }
 
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: false)
+  }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = QuoteCell()
@@ -79,8 +92,15 @@ class QuoteViewController: ViewController, UITableViewDelegate, UITableViewDataS
 
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if let quoteCell = cell as? QuoteCell{
-      quoteCell.symbol.text = quotes[indexPath.row].symbol
-      quoteCell.price.text = quotes[indexPath.row].last_trade_price
+      let quote = quotes[indexPath.row]
+      quoteCell.symbol.text = quote.symbol
+      quoteCell.price.text = quote.last_trade_price
+      quoteCell.change.text = String(Double(quote.last_trade_price)! / Double(quote.adjusted_previous_close)!)
+      if quote.last_trade_price > quote.adjusted_previous_close {
+        quoteCell.apply(color: .green)
+      } else {
+        quoteCell.apply(color: .red)
+      }
     }
   }
 

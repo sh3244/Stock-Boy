@@ -1,5 +1,5 @@
 //
-//  URLManager.swift
+//  StringManager.swift
 //  Stock Boy
 //
 //  Created by Huang, Samuel on 4/18/17.
@@ -81,3 +81,8 @@ func stringByReplacingParameter(string: String, parameter: String) -> String {
   return string.replacingFirstMatching("\\$\\{[a-zA-Z]+\\}", with: parameter)
 }
 
+extension String {
+  func toUSD() -> String {
+    return self.replacingFirstMatching("([0-9]+.[0-9]{2}).*", with: "\\$$1")
+  }
+}

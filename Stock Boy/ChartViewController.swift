@@ -12,36 +12,25 @@ import Stevia
 class ChartViewController: ViewController, UISearchBarDelegate {
   var imageView: UIImageView = UIImageView()
   var searchBar: SearchBar = SearchBar()
-  var scrollView: UIScrollView = UIScrollView()
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Chart"
+    title = "Stockcharts.com Chart"
     searchBar.delegate = self
+    view.sv([searchBar, imageView])
+    loadChartFor(symbol: "URRE")
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
   }
 
-  override func viewDidLayoutSubviews() {
-    loadChartFor(symbol: "URRE")
-  }
-
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([searchBar, scrollView])
     view.layout(
       0,
       |searchBar|,
-      |scrollView|,
-      0
-    )
-    scrollView.sv(imageView)
-    scrollView.layout(
-      0,
-      |imageView|,
-      0
+      |imageView|
     )
     imageView.contentMode = .scaleAspectFit
   }

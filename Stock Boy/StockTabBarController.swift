@@ -10,7 +10,7 @@ import UIKit
 
 class StockTabBarController: TabBarController {
   var chart = ChartViewController()
-  var quote = QuoteViewController()
+  var watchlist = WatchlistViewController()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -19,11 +19,11 @@ class StockTabBarController: TabBarController {
     let chartImage = resizedIcon(image: #imageLiteral(resourceName: "imageChart"), targetSize: 40)
     chartNav.tabBarItem = UITabBarItem(title: "Chart", image: chartImage, selectedImage: nil)
 
-    let quoteNav = NavigationController(rootViewController: quote)
-    let quoteImage = resizedIcon(image: #imageLiteral(resourceName: "imageCoffee"), targetSize: 50)
-    quoteNav.tabBarItem = UITabBarItem(title: "quote", image: quoteImage, selectedImage: nil)
+    let watchlistNav = NavigationController(rootViewController: watchlist)
+    let watchlistImage = resizedIcon(image: #imageLiteral(resourceName: "imageCoffee"), targetSize: 50)
+    watchlistNav.tabBarItem = UITabBarItem(title: "Watchlist", image: watchlistImage, selectedImage: nil)
 
-    setViewControllers([chartNav, quoteNav], animated: false)
+    setViewControllers([chartNav, watchlistNav], animated: false)
     selectedViewController = chartNav
   }
 
