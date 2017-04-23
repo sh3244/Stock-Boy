@@ -23,8 +23,15 @@ class Stock_Boy_Tests: XCTestCase {
   func testRegex() {
     var string = stringByReplacingParameter(string: "hey${oh}", parameter: "no")
     XCTAssertEqual(string, "heyno")
+
     string = "123.3213202".toUSD()
     XCTAssertEqual(string, "$123.32")
+
+    string = "1.037294".toPercentChange()
+    XCTAssertEqual(string, "3.72%")
+
+    string = "0.88231".toPercentChange()
+    XCTAssertEqual(string, "-11.76%")
   }
 
   func testURL() {

@@ -81,8 +81,26 @@ func stringByReplacingParameter(string: String, parameter: String) -> String {
   return string.replacingFirstMatching("\\$\\{[a-zA-Z]+\\}", with: parameter)
 }
 
+// MARK: Money
 extension String {
   func toUSD() -> String {
     return self.replacingFirstMatching("([0-9]+.[0-9]{2}).*", with: "\\$$1")
+  }
+
+  func toPercentChange() -> String {
+    if let value = Double(self) {
+      if value > 1 && value < 2 {
+        return self.replacingFirstMatching("^[1]\\.([0-9]{2})([0-9]{2}).*", with: "$1.$2%").trimZeros()
+      }
+      else if value > 0 && value < 1 {
+        let adjusted = String(1 - value)
+        return "-" + adjusted.replacingFirstMatching("^.{0,4}\\.([0-9]{2})([0-9]{2}).*", with: "$1.$2%").trimZeros()
+      }
+    }
+    return "0.00%"
+  }
+
+  func trimZeros() -> String {
+    return self.replacingFirstMatching("^0{0,4}([0-9]\\.)", with: "$1")
   }
 }

@@ -95,7 +95,7 @@ class WatchlistViewController: ViewController, UITableViewDelegate, UITableViewD
       let quote = quotes[indexPath.row]
       quoteCell.symbol.text = quote.symbol
       quoteCell.price.text = quote.last_trade_price
-      quoteCell.change.text = String(Double(quote.last_trade_price)! / Double(quote.adjusted_previous_close)!)
+      quoteCell.change.text = String(Double(quote.last_trade_price)! / Double(quote.adjusted_previous_close)!).toPercentChange()
       if quote.last_trade_price > quote.adjusted_previous_close {
         quoteCell.apply(color: .green)
       } else {
