@@ -15,8 +15,12 @@ class QuoteCell: UITableViewCell {
   var price = Label()
   var change = Label()
 
+  
+
   public static let heightValue: CGFloat = 40.0
-  let height: CGFloat = QuoteCell.heightValue
+  public static let expandedHeightValue: CGFloat = 240.0
+  let regularHeight: CGFloat = QuoteCell.heightValue
+  let expandedHeight: CGFloat = QuoteCell.expandedHeightValue
 
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,11 +39,20 @@ class QuoteCell: UITableViewCell {
     change.width(70)
     symbol.width(60)
     price.width(70)
-    layout(
-      0,
-      |-symbol-name-price-change-|,
-      0
-    )
+    if contentView.bounds.height > 40.0 {
+      layout(
+        0,
+fdsa,
+        0
+      )
+    }
+    else {
+      layout(
+        0,
+        |-symbol-name-price-change-|,
+        0
+      )
+    }
   }
 
   override func prepareForReuse() {
