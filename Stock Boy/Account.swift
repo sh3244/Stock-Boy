@@ -11,6 +11,17 @@ import Argo
 import Curry
 import Runes
 
+struct Accounts {
+  var results: [Account]
+}
+
+extension Accounts: Decodable {
+  static func decode(_ json: JSON) -> Decoded<Accounts> {
+    return curry(Accounts.init)
+      <^> json <|| "results"
+  }
+}
+
 struct Account {
   var updated_at: String
   var margin_balances: MarginBalance
@@ -29,7 +40,6 @@ struct Account {
 
   var cash: String
   var account_number: String
-  var uncleared_deposits: String
   var unsettled_funds: String
 }
 
@@ -51,7 +61,6 @@ extension Account: Decodable {
       <*> json <| "created_at"
       <*> json <| "cash"
       <*> json <| "account_number"
-      <*> json <| "uncleared_deposits"
       <*> json <| "unsettled_funds"
   }
 }
@@ -59,7 +68,6 @@ extension Account: Decodable {
 struct MarginBalance {
   var day_trade_buying_power: String
   var start_of_day_overnight_buying_power: String
-  var overnight_buying_power_held_for_orders: String
   var cash_held_for_orders: String
 
   var created_at: String
@@ -83,11 +91,10 @@ extension MarginBalance: Decodable {
     let f = curry(MarginBalance.init)
       <^> json <| "day_trade_buying_power"
       <*> json <| "start_of_day_overnight_buying_power"
-      <*> json <| "overnight_buying_power_held_for_orders"
       <*> json <| "cash_held_for_orders"
       <*> json <| "created_at"
-    return f
       <*> json <| "start_of_day_dtbp"
+    return f
       <*> json <| "day_trade_buying_power_held_for_orders"
       <*> json <| "overnight_buying_power"
       <*> json <| "cash"

@@ -53,9 +53,11 @@ class RobinhoodAPITests: XCTestCase {
   func testRobinhoodAccount() {
     let expect = expectation(description: "Account call works")
 
-    DataManager.shared.fetchRobinhoodAccountWith { (data) in
-      XCTAssertNotNil(data)
-      expect.fulfill()
+    DataManager.shared.fetchRobinhoodAuthWith { (auth) in
+      DataManager.shared.fetchRobinhoodAccountWith(auth: auth) { (data) in
+        XCTAssertNotNil(data)
+        expect.fulfill()
+      }
     }
 
     waitForExpectations(timeout: 1) { error in
@@ -127,7 +129,7 @@ class RobinhoodAPITests: XCTestCase {
       })
     }
 
-    waitForExpectations(timeout: 5) { error in
+    waitForExpectations(timeout: 1) { error in
       if let error = error {
         XCTFail("waitForExpectationsWithTimeout errored: \(error)")
       }
@@ -143,7 +145,7 @@ class RobinhoodAPITests: XCTestCase {
       expect.fulfill()
     }
 
-    waitForExpectations(timeout: 5) { error in
+    waitForExpectations(timeout: 1) { error in
       if let error = error {
         XCTFail("waitForExpectationsWithTimeout errored: \(error)")
       }

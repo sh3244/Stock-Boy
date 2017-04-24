@@ -40,15 +40,13 @@ class DataManager: NSObject {
 
   // MARK: Account
 
-  func fetchRobinhoodAccountWith(completion:@escaping ((Account) -> Void)) {
-    let parameters: Parameters = ["username": "sh3244",
-                                  "password": "5ezypqj9omp"
-    ]
+  func fetchRobinhoodAccountWith(auth: Auth, completion:@escaping ((Account) -> Void)) {
+    let headers = ["authorization": "token " + auth.token]
 
-    Alamofire.request(baseURL + "accounts/", method: .post, parameters: parameters).responseJSON { response in
+    Alamofire.request(baseURL + "accounts/", method: .get, headers: headers).responseJSON { response in
       if let json = response.result.value {
-        let acc: Account = decode(json)!
-        completion(acc)
+        let acc: Accounts = decode(json)!
+        completion(acc.results.first!)
       }
     }
   }
