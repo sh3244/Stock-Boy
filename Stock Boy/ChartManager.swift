@@ -9,7 +9,7 @@
 import Foundation
 import Charts
 
-func lineChartDataSetFrom(historicals: Historicals) -> LineChartDataSet {
+func closeLineChartDataSetFrom(historicals: Historicals) -> LineChartDataSet {
   var entries: [ChartDataEntry] = []
   var index = 0.0
   for historical in historicals.historicals {
@@ -18,15 +18,51 @@ func lineChartDataSetFrom(historicals: Historicals) -> LineChartDataSet {
     }
     index += 1/78
   }
-  let set = LineChartDataSet(values: entries, label: historicals.symbol + " price")
-  set.setColor(.blue)
+  let set = LineChartDataSet(values: entries, label: historicals.symbol + " close price")
+  set.setColor(.gray)
+  set.drawCirclesEnabled = false
+  set.highlightColor = .gray
+  return set
+}
+
+func highLineChartDataSetFrom(historicals: Historicals) -> LineChartDataSet {
+  var entries: [ChartDataEntry] = []
+  var index = 0.0
+  for historical in historicals.historicals {
+    if let price = Double(historical.high_price) {
+      entries.append(ChartDataEntry(x: index, y: price))
+    }
+    index += 1/78
+  }
+  let set = LineChartDataSet(values: entries, label: historicals.symbol + " high price")
+  set.setColor(.green)
+  set.drawCirclesEnabled = false
+  set.highlightColor = .gray
+  return set
+}
+
+func lowLineChartDataSetFrom(historicals: Historicals) -> LineChartDataSet {
+  var entries: [ChartDataEntry] = []
+  var index = 0.0
+  for historical in historicals.historicals {
+    if let price = Double(historical.low_price) {
+      entries.append(ChartDataEntry(x: index, y: price))
+    }
+    index += 1/78
+  }
+  let set = LineChartDataSet(values: entries, label: historicals.symbol + " low price")
+  set.setColor(.red)
   set.drawCirclesEnabled = false
   set.highlightColor = .gray
   return set
 }
 
 func lineChartDataFrom(historicals: Historicals) -> LineChartData {
-  let data = LineChartData(dataSet: lineChartDataSetFrom(historicals: historicals))
+  let data = LineChartData(dataSets: [
+      closeLineChartDataSetFrom(historicals: historicals),
+      highLineChartDataSetFrom(historicals: historicals),
+      lowLineChartDataSetFrom(historicals: historicals)
+    ])
   data.setDrawValues(true)
   return data
 }

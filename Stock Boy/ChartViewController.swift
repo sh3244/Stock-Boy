@@ -30,14 +30,18 @@ class ChartViewController: ViewController, UISearchBarDelegate {
     chartView.chartDescription?.text = "Stock Boy"
 
     DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!) { (historicals) in
-      self.chartView.data = lineChartDataFrom(historicals: historicals)
+      if historicals != nil {
+        self.chartView.data = lineChartDataFrom(historicals: historicals)
+      }
     }
 
     let counter = myInterval(10.0)
     _ = counter
       .subscribe(onNext: { (value) in
         DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!) { (historicals) in
-          self.chartView.data = lineChartDataFrom(historicals: historicals)
+          if historicals != nil {
+            self.chartView.data = lineChartDataFrom(historicals: historicals)
+          }
         }
       })
   }
