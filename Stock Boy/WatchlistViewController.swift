@@ -21,10 +21,11 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
   var selected: [IndexPath] = []
 
   var sortAscending = true
+  var paused = true
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Robinhood Watchlist"
+    title = "Watchlist"
 
     searchBar.delegate = self
 
@@ -35,9 +36,11 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
     tableView.refreshControl = refreshControl
     refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
 
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))
+    navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))]
+    navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Paused", style: .plain, target: self, action: #selector(autoUpdate))]
 
     view.sv([searchBar, tableView])
+
     DataManager.shared.fetchRobinhoodAuthWith { (auth) in
       DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { watchlist in
         DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
@@ -46,7 +49,9 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
           let counter = myInterval(10.0)
           _ = counter
             .subscribe(onNext: { (value) in
-              self.refreshTable()
+              if !self.paused {
+                self.refreshTable()
+              }
             })
         })
       })
@@ -61,6 +66,16 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
       |tableView|,
       0
     )
+  }
+
+  func autoUpdate() {
+    paused = !paused
+    if paused {
+      navigationItem.leftBarButtonItem?.title = "Paused"
+    }
+    else {
+      navigationItem.leftBarButtonItem?.title = "Updating"
+    }
   }
 
   func changeSort() {
@@ -186,7 +201,6 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    self.title = "Watchlist Items:" + String(quotes.count)
     return quotes.count
   }
 

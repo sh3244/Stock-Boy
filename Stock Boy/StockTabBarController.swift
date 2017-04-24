@@ -16,12 +16,10 @@ class StockTabBarController: TabBarController {
     super.viewDidLoad()
 
     let chartNav = NavigationController(rootViewController: chart)
-    let chartImage = resizedIcon(image: #imageLiteral(resourceName: "imageChart"), targetSize: 40)
-    chartNav.tabBarItem = UITabBarItem(title: "Chart", image: chartImage, selectedImage: nil)
+    chartNav.tabBarItem = UITabBarItem(title: "Chart", image: #imageLiteral(resourceName: "iconChart"), selectedImage: nil)
 
     let watchlistNav = NavigationController(rootViewController: watchlist)
-    let watchlistImage = resizedIcon(image: #imageLiteral(resourceName: "imageCoffee"), targetSize: 50)
-    watchlistNav.tabBarItem = UITabBarItem(title: "Watchlist", image: watchlistImage, selectedImage: nil)
+    watchlistNav.tabBarItem = UITabBarItem(title: "Watchlist", image: #imageLiteral(resourceName: "iconList"), selectedImage: nil)
 
     setViewControllers([watchlistNav, chartNav], animated: false)
     selectedViewController = watchlistNav
