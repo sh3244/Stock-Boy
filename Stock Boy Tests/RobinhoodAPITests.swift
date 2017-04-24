@@ -117,5 +117,21 @@ class RobinhoodAPITests: XCTestCase {
       }
     }
   }
+
+  func testRobinhoodHistoricals() {
+    let expect = expectation(description: "Historicals call works")
+
+    DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: "URRE") { historicals in
+      print(historicals)
+      XCTAssertNotNil(historicals)
+      expect.fulfill()
+    }
+
+    waitForExpectations(timeout: 5) { error in
+      if let error = error {
+        XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+      }
+    }
+  }
   
 }

@@ -1,7 +1,12 @@
 PODS:
   - Alamofire (4.4.0)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
   - Argo (4.1.2):
     - Runes (>= 4.0.0)
+  - Charts (3.0.2):
+    - Charts/Core (= 3.0.2)
+  - Charts/Core (3.0.2)
   - Curry (3.0.0)
   - Device (3.0.1)
   - FLEX (2.4.0)
@@ -14,7 +19,9 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
+  - AlamofireImage (~> 3.1)
   - Argo (~> 4.1.2)
+  - Charts
   - Curry (~> 3.0.0)
   - Device (~> 3.0.1)
   - FLEX (~> 2.0)
@@ -25,7 +32,9 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
   Argo: 5db06502fc1222d83011f574243089dab25202ff
+  Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
   Curry: eb3d2c75aec678b3cc7fb2729d2ad6dd121531d1
   Device: c793851589633bc515b65e08a2b5a223bc87c45a
   FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
@@ -35,6 +44,6 @@ SPEC CHECKSUMS:
   SteviaLayout: 807c742a8e4bcb94f47f018b23873a40f1f1cc1d
   STRegex: c7decbba8601717274774a3f341c4807a327a6d0
 
-PODFILE CHECKSUM: 8202d312805541673eda2f115faf0bf924c39fa4
+PODFILE CHECKSUM: aaee1a8250d2eb8580c1b04765976867af2063a5
 
 COCOAPODS: 1.2.0

@@ -16,8 +16,11 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
   var refreshControl = UIRefreshControl()
 
   var quotes: [Quote] = []
+  var instruments: [Instrument] = []
 
   var selected: [IndexPath] = []
+
+  var sortAscending = true
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -32,13 +35,22 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
     tableView.refreshControl = refreshControl
     refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
 
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))
+
     view.sv([searchBar, tableView])
-    self.refreshTable()
-    let counter = myInterval(20.0)
-    _ = counter
-      .subscribe(onNext: { (value) in
-        self.refreshTable()
+    DataManager.shared.fetchRobinhoodAuthWith { (auth) in
+      DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { watchlist in
+        DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
+          self.instruments = instruments
+          self.refreshTable()
+          let counter = myInterval(10.0)
+          _ = counter
+            .subscribe(onNext: { (value) in
+              self.refreshTable()
+            })
+        })
       })
+    }
   }
 
   override func viewWillLayoutSubviews() {
@@ -51,23 +63,28 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
     )
   }
 
+  func changeSort() {
+    sortAscending = !sortAscending
+    sort()
+  }
+
+  func sort() {
+    self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
+      if quote1.symbol > quote2.symbol {
+        return sortAscending ? false : true
+      }
+      return sortAscending ? true : false
+    })
+    self.tableView.reloadData()
+  }
+
   func refreshTable() {
     self.refreshControl.endRefreshing()
-    DataManager.shared.fetchRobinhoodAuthWith { (auth) in
-      DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { watchlist in
-        DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
-          DataManager.shared.fetchRobinhoodQuotesWith(instruments: instruments, completion: { (quotes) in
-            self.quotes = quotes.sorted(by: { (quote1, quote2) -> Bool in
-              if quote1.symbol > quote2.symbol {
-                return true
-              }
-              return false
-            })
-            self.tableView.reloadData()
-          })
-        })
-      })
-    }
+    DataManager.shared.fetchRobinhoodQuotesWith(instruments: instruments, completion: { (quotes) in
+      self.quotes = quotes
+      self.sort()
+      self.tableView.reloadData()
+    })
   }
 
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -82,14 +99,6 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
 
   func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
     return true
-  }
-
-  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-
-  }
-
-  func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-    
   }
 }
 
@@ -157,19 +166,14 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
         quoteCell.low_52_weeks.text = "52 Week Low: " + fundamentals.low_52_weeks.toUSD()
         quoteCell.market_cap.text = "Market Cap: " + fundamentals.market_cap.toVolume()
       })
-    }
-    if selected.contains(indexPath) {
-      DispatchQueue.main.async {
+      if selected.contains(indexPath) {
+        if quoteCell.chart.image != nil {
+          return
+        }
         guard let url = chartURLFor(symbol: quote.symbol) else {
           return
         }
-
-        let data = try! Data(contentsOf: url)
-        if !data.isEmpty {
-          if let quoteCell = tableView.cellForRow(at: indexPath) as? QuoteCell {
-            quoteCell.chart.image = UIImage(data: data)
-          }
-        }
+        quoteCell.chart.af_setImage(withURL: url, imageTransition: .crossDissolve(0.2))
       }
     }
   }

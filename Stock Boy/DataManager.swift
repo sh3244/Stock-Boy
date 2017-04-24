@@ -141,4 +141,17 @@ class DataManager: NSObject {
     }
   }
 
+  // MARK: Historicals
+
+  func fetchRobinhoodHistoricalsWith(symbol: String, completion:@escaping ((Historicals) -> Void)) {
+    let subURL = "quotes/historicals/" + symbol + "/"
+
+    Alamofire.request(baseURL + subURL, method: .get, parameters: Historicals.defaultParameters()).responseJSON { response in
+      if let json = response.result.value {
+        let object: Historicals = decode(json)!
+        completion(object)
+      }
+    }
+  }
+
 }

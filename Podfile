@@ -18,7 +18,7 @@ target 'Stock Boy' do
   #  https://github.com/Flipboard/FLEX
 
   pod 'Device', '~> 3.0.1'
-  #https://github.com/Ekhoo/Device
+  #  https://github.com/Ekhoo/Device
 
   pod 'STRegex', '~> 0.4.0'
 
@@ -27,5 +27,10 @@ target 'Stock Boy' do
   pod 'RxSwift', '~> 3.0'
 
   pod 'RxCocoa', '~> 3.0'
-  
+
+  pod 'AlamofireImage', '~> 3.1'
+  #  https://github.com/Alamofire/AlamofireImage
+
+  pod 'Charts', '~> 3.0.2'
+  #  https://github.com/danielgindi/Charts
 end

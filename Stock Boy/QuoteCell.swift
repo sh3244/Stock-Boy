@@ -38,7 +38,6 @@ class QuoteCell: TableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     backgroundColor = .black
 
-    sv([symbol, name, price, change, open, high, low, volume, average_volume, high_52_weeks, low_52_weeks, market_cap, chart])
     price.textAlignment = .right
     change.textAlignment = .right
     name.textAlignment = .left
@@ -50,12 +49,16 @@ class QuoteCell: TableViewCell {
 
   override func layoutSubviews() {
     super.layoutSubviews()
+    contentView.subviews.forEach { (view) in
+      view.removeFromSuperview()
+    }
+    sv([symbol, name, price, change])
+
     change.width(70)
     symbol.width(55)
     price.width(70)
-    equalWidths([open, high, low])
-    equalWidths([volume, average_volume, high_52_weeks, low_52_weeks])
     if contentView.bounds.height > 40.0 {
+      sv([open, high, low, volume, average_volume, high_52_weeks, low_52_weeks, market_cap, chart])
       layout(
         0,
         |-symbol-name-price-change-| ~ 40,
@@ -70,9 +73,9 @@ class QuoteCell: TableViewCell {
         |chart| ~ 300,
         0
       )
-      contentView.subviews.forEach { (view) in
-        view.isHidden = false
-      }
+
+      equalWidths([open, high, low])
+      equalWidths([volume, average_volume, high_52_weeks, low_52_weeks])
     }
     else {
       layout(
@@ -80,16 +83,6 @@ class QuoteCell: TableViewCell {
         |-symbol-name-price-change-| ~ 40,
         0
       )
-      symbol.isHidden = false
-      name.isHidden = false
-      price.isHidden = false
-      change.isHidden = false
-    }
-  }
-
-  override func willMove(toSuperview newSuperview: UIView?) {
-    contentView.subviews.forEach { (view) in
-      view.isHidden = true
     }
   }
 

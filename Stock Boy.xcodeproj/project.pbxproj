@@ -10,6 +10,9 @@
 		2214AB361EAC4D9D00795C64 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2214AB351EAC4D9D00795C64 /* TableViewCell.swift */; };
 		22C078471EAC6503006A0AF4 /* rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C078461EAC6503006A0AF4 /* rx.swift */; };
 		22C078491EAC8A78006A0AF4 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C078481EAC8A78006A0AF4 /* ImageView.swift */; };
+		22C0784B1EADA6C6006A0AF4 /* Historicals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0784A1EADA6C6006A0AF4 /* Historicals.swift */; };
+		22C0784C1EADA8E7006A0AF4 /* Historicals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0784A1EADA6C6006A0AF4 /* Historicals.swift */; };
+		22C0784F1EADB174006A0AF4 /* ChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0784E1EADB174006A0AF4 /* ChartManager.swift */; };
 		A21460901EA69E0F00831F14 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214608F1EA69E0F00831F14 /* Auth.swift */; };
 		A21460921EA69F3200831F14 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460911EA69F3200831F14 /* TabBarController.swift */; };
 		A21460941EA6A62400831F14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460931EA6A62400831F14 /* ViewController.swift */; };
@@ -29,11 +32,11 @@
 		A24284BD1EABF48B0057D2EE /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24284BC1EABF48B0057D2EE /* Watchlist.swift */; };
 		A24284BE1EABF7490057D2EE /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24284BC1EABF48B0057D2EE /* Watchlist.swift */; };
 		A24284C01EAC27120057D2EE /* RobinhoodAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24284BF1EAC27120057D2EE /* RobinhoodAPITests.swift */; };
-		A2605D441EA9768000FBEF8A /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2605D431EA9768000FBEF8A /* Instrument.swift */; };
-		A2605D461EA976AC00FBEF8A /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2605D451EA976AC00FBEF8A /* Quote.swift */; };
+		A2605D441EA9768000FBEF8A /* Instruments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2605D431EA9768000FBEF8A /* Instruments.swift */; };
+		A2605D461EA976AC00FBEF8A /* Quotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2605D451EA976AC00FBEF8A /* Quotes.swift */; };
 		A2605D491EA976F500FBEF8A /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214608F1EA69E0F00831F14 /* Auth.swift */; };
-		A2605D4B1EA976F500FBEF8A /* Quote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2605D451EA976AC00FBEF8A /* Quote.swift */; };
-		A2605D4C1EA978E900FBEF8A /* Instrument.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2605D431EA9768000FBEF8A /* Instrument.swift */; };
+		A2605D4B1EA976F500FBEF8A /* Quotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2605D451EA976AC00FBEF8A /* Quotes.swift */; };
+		A2605D4C1EA978E900FBEF8A /* Instruments.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2605D431EA9768000FBEF8A /* Instruments.swift */; };
 		A2605D4E1EA97B1100FBEF8A /* Fundamentals.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2605D4D1EA97B1100FBEF8A /* Fundamentals.swift */; };
 		A2605D501EA97CB400FBEF8A /* Fundamentals.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2605D4D1EA97B1100FBEF8A /* Fundamentals.swift */; };
 		A28988BB1EA9403F00FC50AF /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28988BA1EA9403F00FC50AF /* Button.swift */; };
@@ -54,10 +57,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1B3C65592EAA2DB7DBFA29B9 /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 		2214AB351EAC4D9D00795C64 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		22C078461EAC6503006A0AF4 /* rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rx.swift; sourceTree = "<group>"; };
 		22C078481EAC8A78006A0AF4 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		22C0784A1EADA6C6006A0AF4 /* Historicals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Historicals.swift; sourceTree = "<group>"; };
+		22C0784E1EADB174006A0AF4 /* ChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartManager.swift; sourceTree = "<group>"; };
+		46A1BE620B6D68A9AB44A9D5 /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 		5AAC6870C3FC2C5F110DABCB /* Pods_Stock_Boy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Boy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.release.xcconfig"; sourceTree = "<group>"; };
 		A214608F1EA69E0F00831F14 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -80,8 +85,8 @@
 		A226E87E1EA69C9900354283 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A24284BC1EABF48B0057D2EE /* Watchlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Watchlist.swift; sourceTree = "<group>"; };
 		A24284BF1EAC27120057D2EE /* RobinhoodAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RobinhoodAPITests.swift; sourceTree = "<group>"; };
-		A2605D431EA9768000FBEF8A /* Instrument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instrument.swift; sourceTree = "<group>"; };
-		A2605D451EA976AC00FBEF8A /* Quote.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quote.swift; sourceTree = "<group>"; };
+		A2605D431EA9768000FBEF8A /* Instruments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Instruments.swift; sourceTree = "<group>"; };
+		A2605D451EA976AC00FBEF8A /* Quotes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quotes.swift; sourceTree = "<group>"; };
 		A2605D4D1EA97B1100FBEF8A /* Fundamentals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fundamentals.swift; sourceTree = "<group>"; };
 		A28988BA1EA9403F00FC50AF /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		A28988BC1EA9410D00FC50AF /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
@@ -112,7 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */,
-				1B3C65592EAA2DB7DBFA29B9 /* Pods-Stock Boy.debug.xcconfig */,
+				46A1BE620B6D68A9AB44A9D5 /* Pods-Stock Boy.debug.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 				A226E8741EA69C9900354283 /* WatchlistViewController.swift */,
 				A21460981EA6AF9400831F14 /* StockTabBarController.swift */,
 				A2F9F78C1EA9103300340A51 /* DataManager.swift */,
+				22C0784E1EADB174006A0AF4 /* ChartManager.swift */,
 				A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */,
 				A2605D4F1EA97B1700FBEF8A /* Model */,
 				A21460971EA6A8C800831F14 /* Subclass */,
@@ -186,9 +192,10 @@
 			isa = PBXGroup;
 			children = (
 				A214608F1EA69E0F00831F14 /* Auth.swift */,
-				A2605D431EA9768000FBEF8A /* Instrument.swift */,
 				A24284BC1EABF48B0057D2EE /* Watchlist.swift */,
-				A2605D451EA976AC00FBEF8A /* Quote.swift */,
+				A2605D431EA9768000FBEF8A /* Instruments.swift */,
+				A2605D451EA976AC00FBEF8A /* Quotes.swift */,
+				22C0784A1EADA6C6006A0AF4 /* Historicals.swift */,
 				A2605D4D1EA97B1100FBEF8A /* Fundamentals.swift */,
 				22C078461EAC6503006A0AF4 /* rx.swift */,
 			);
@@ -359,13 +366,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A2605D491EA976F500FBEF8A /* Auth.swift in Sources */,
-				A2605D4B1EA976F500FBEF8A /* Quote.swift in Sources */,
+				A2605D4B1EA976F500FBEF8A /* Quotes.swift in Sources */,
 				A21460AE1EA6D3C900831F14 /* StringManager.swift in Sources */,
 				A226831D1EA93BA3000B64C3 /* DataManager.swift in Sources */,
 				A24284C01EAC27120057D2EE /* RobinhoodAPITests.swift in Sources */,
+				22C0784C1EADA8E7006A0AF4 /* Historicals.swift in Sources */,
 				A2605D501EA97CB400FBEF8A /* Fundamentals.swift in Sources */,
 				A24284BE1EABF7490057D2EE /* Watchlist.swift in Sources */,
-				A2605D4C1EA978E900FBEF8A /* Instrument.swift in Sources */,
+				A2605D4C1EA978E900FBEF8A /* Instruments.swift in Sources */,
 				A226831C1EA93B85000B64C3 /* Stock_Boy_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,20 +384,22 @@
 			files = (
 				A2F9F78B1EA90E2400340A51 /* QuoteCell.swift in Sources */,
 				A21460941EA6A62400831F14 /* ViewController.swift in Sources */,
+				22C0784F1EADB174006A0AF4 /* ChartManager.swift in Sources */,
 				A226E8751EA69C9900354283 /* WatchlistViewController.swift in Sources */,
 				A24284BD1EABF48B0057D2EE /* Watchlist.swift in Sources */,
 				22C078491EAC8A78006A0AF4 /* ImageView.swift in Sources */,
 				A21460991EA6AF9400831F14 /* StockTabBarController.swift in Sources */,
 				2214AB361EAC4D9D00795C64 /* TableViewCell.swift in Sources */,
-				A2605D441EA9768000FBEF8A /* Instrument.swift in Sources */,
+				A2605D441EA9768000FBEF8A /* Instruments.swift in Sources */,
 				A226E8711EA69C9900354283 /* AppDelegate.swift in Sources */,
 				A214609F1EA6CEEF00831F14 /* StringManager.swift in Sources */,
 				A226E8731EA69C9900354283 /* ChartViewController.swift in Sources */,
 				A28988BB1EA9403F00FC50AF /* Button.swift in Sources */,
 				A28988BD1EA9410D00FC50AF /* Label.swift in Sources */,
 				A214609D1EA6C2B700831F14 /* Extensions.swift in Sources */,
+				22C0784B1EADA6C6006A0AF4 /* Historicals.swift in Sources */,
 				A2605D4E1EA97B1100FBEF8A /* Fundamentals.swift in Sources */,
-				A2605D461EA976AC00FBEF8A /* Quote.swift in Sources */,
+				A2605D461EA976AC00FBEF8A /* Quotes.swift in Sources */,
 				A214609B1EA6BC1200831F14 /* SearchBar.swift in Sources */,
 				A21460921EA69F3200831F14 /* TabBarController.swift in Sources */,
 				A21460961EA6A79000831F14 /* NavigationController.swift in Sources */,
@@ -423,7 +433,6 @@
 /* Begin XCBuildConfiguration section */
 		A21460AB1EA6D29900831F14 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B3C65592EAA2DB7DBFA29B9 /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 2GK5GPF253;
@@ -545,7 +554,7 @@
 		};
 		A226E8821EA69C9900354283 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1B3C65592EAA2DB7DBFA29B9 /* Pods-Stock Boy.debug.xcconfig */;
+			baseConfigurationReference = 46A1BE620B6D68A9AB44A9D5 /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

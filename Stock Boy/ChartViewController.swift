@@ -8,17 +8,29 @@
 
 import UIKit
 import Stevia
+import Charts
 
 class ChartViewController: ViewController, UISearchBarDelegate {
-  var imageView: UIImageView = UIImageView()
-  var searchBar: SearchBar = SearchBar()
+  var chartView = LineChartView()
+  var searchBar = SearchBar()
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Stockcharts.com Chart"
+    title = "Chart"
     searchBar.delegate = self
-    view.sv([searchBar, imageView])
-    loadChartFor(symbol: "URRE")
+    searchBar.text = "URRE"
+    view.sv([searchBar, chartView])
+
+    chartView.backgroundColor = .white
+    chartView.gridBackgroundColor = .lightGray
+    chartView.drawBordersEnabled = true
+    chartView.pinchZoomEnabled = true
+    chartView.setScaleEnabled(true)
+    chartView.chartDescription?.text = "Stock Boy"
+
+    DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: searchBar.text!) { (historicals) in
+      self.chartView.data = lineChartDataFrom(historicals: historicals)
+    }
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -30,15 +42,15 @@ class ChartViewController: ViewController, UISearchBarDelegate {
     view.layout(
       0,
       |searchBar|,
-      |imageView|
+      |chartView|,
+      0
     )
-    imageView.contentMode = .scaleAspectFit
   }
 
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     searchBar.resignFirstResponder()
-    if let text = searchBar.text {
-      loadChartFor(symbol: text)
+    DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: searchBar.text!) { (historicals) in
+      self.chartView.data = lineChartDataFrom(historicals: historicals)
     }
   }
 
@@ -52,19 +64,6 @@ class ChartViewController: ViewController, UISearchBarDelegate {
 
   func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
 
-  }
-
-  func loadChartFor(symbol: String) {
-    guard let url = chartURLFor(symbol: symbol) else {
-      return
-    }
-
-    let data = try! Data(contentsOf: url)
-    if !data.isEmpty {
-      DispatchQueue.main.async {
-        self.imageView.image = UIImage(data: data)
-      }
-    }
   }
 
 }
