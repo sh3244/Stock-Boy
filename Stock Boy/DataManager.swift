@@ -9,6 +9,7 @@
 import UIKit
 import Argo
 import Alamofire
+import RxSwift
 
 public let baseURL = "https://api.robinhood.com/"
 
@@ -19,6 +20,8 @@ class DataManager: NSObject {
 
     return instance
   }()
+
+  // MARK: Auth
 
   func fetchRobinhoodAuthWith(completion:@escaping ((Auth) -> Void)) {
     let parameters: Parameters = ["username": "sh3244",
@@ -32,6 +35,8 @@ class DataManager: NSObject {
       }
     }
   }
+
+  // MARK: Quote
 
   func fetchRobinhoodQuoteWith(symbol: String, completion:@escaping ((Quote) -> Void)) {
     let subURL = "quotes/" + symbol + "/"
@@ -56,13 +61,19 @@ class DataManager: NSObject {
   }
 
   func fetchRobinhoodQuotesWith(instruments: [Instrument], completion:@escaping (([Quote]) -> Void)) {
-    var quotes: [Quote] = []
+    var url = "https://api.robinhood.com/quotes/?symbols="
     for i in 0..<instruments.count {
-      DispatchQueue.global().sync {
-        self.fetchRobinhoodQuoteWith(url: instruments[i].quote) { quote in
-          quotes.append(quote)
-          if i == instruments.count - 1 {
-            completion(quotes)
+      if i > 0 {
+        url = url + ","
+      }
+      url = url + instruments[i].symbol
+    }
+    Alamofire.request(url, method: .get).responseJSON { response in
+      if response.result.value != nil {
+        if let json = response.result.value {
+          let objects: Quotes? = decode(json)
+          if let results = objects?.results {
+            completion(results)
           }
         }
       }
@@ -104,7 +115,6 @@ class DataManager: NSObject {
 
   // MARK: Fundamentals
 
-  //api.robinhood.com/fundamentals/{symbol}/
   func fetchRobinhoodFundamentalsWith(symbol: String, completion:@escaping ((Fundamentals) -> Void)) {
     let subURL = "fundamentals/" + symbol + "/"
 

@@ -103,6 +103,7 @@ class RobinhoodAPITests: XCTestCase {
       DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { (watchlist) in
         DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
           DataManager.shared.fetchRobinhoodQuotesWith(instruments: instruments, completion: { (quotes) in
+            print(quotes)
             XCTAssertNotNil(quotes)
             expect.fulfill()
           })

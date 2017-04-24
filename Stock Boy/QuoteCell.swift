@@ -27,9 +27,10 @@ class QuoteCell: TableViewCell {
 //  var pe_ratio = Label()
 //  var description = Label()
 //  var instrument = Label()
+  var chart = ImageView(frame: .zero)
 
   public static let heightValue: CGFloat = 40.0
-  public static let expandedHeightValue: CGFloat = 200.0
+  public static let expandedHeightValue: CGFloat = 500.0
   let regularHeight: CGFloat = QuoteCell.heightValue
   let expandedHeight: CGFloat = QuoteCell.expandedHeightValue
 
@@ -37,7 +38,7 @@ class QuoteCell: TableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     backgroundColor = .black
 
-    sv([symbol, name, price, change, open, high, low, volume, average_volume, high_52_weeks, low_52_weeks, market_cap])
+    sv([symbol, name, price, change, open, high, low, volume, average_volume, high_52_weeks, low_52_weeks, market_cap, chart])
     price.textAlignment = .right
     change.textAlignment = .right
     name.textAlignment = .left
@@ -54,9 +55,6 @@ class QuoteCell: TableViewCell {
     price.width(70)
     equalWidths([open, high, low])
     equalWidths([volume, average_volume, high_52_weeks, low_52_weeks])
-    contentView.subviews.forEach { (view) in
-      view.isHidden = true
-    }
     if contentView.bounds.height > 40.0 {
       layout(
         0,
@@ -69,6 +67,7 @@ class QuoteCell: TableViewCell {
         |-high_52_weeks-low_52_weeks-| ~ 40,
         0,
         |-market_cap-| ~ 40,
+        |chart| ~ 300,
         0
       )
       contentView.subviews.forEach { (view) in
@@ -85,6 +84,12 @@ class QuoteCell: TableViewCell {
       name.isHidden = false
       price.isHidden = false
       change.isHidden = false
+    }
+  }
+
+  override func willMove(toSuperview newSuperview: UIView?) {
+    contentView.subviews.forEach { (view) in
+      view.isHidden = true
     }
   }
 

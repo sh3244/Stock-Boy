@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2214AB361EAC4D9D00795C64 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2214AB351EAC4D9D00795C64 /* TableViewCell.swift */; };
+		22C078471EAC6503006A0AF4 /* rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C078461EAC6503006A0AF4 /* rx.swift */; };
+		22C078491EAC8A78006A0AF4 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C078481EAC8A78006A0AF4 /* ImageView.swift */; };
 		A21460901EA69E0F00831F14 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214608F1EA69E0F00831F14 /* Auth.swift */; };
 		A21460921EA69F3200831F14 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460911EA69F3200831F14 /* TabBarController.swift */; };
 		A21460941EA6A62400831F14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460931EA6A62400831F14 /* ViewController.swift */; };
@@ -54,6 +56,8 @@
 /* Begin PBXFileReference section */
 		1B3C65592EAA2DB7DBFA29B9 /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 		2214AB351EAC4D9D00795C64 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		22C078461EAC6503006A0AF4 /* rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rx.swift; sourceTree = "<group>"; };
+		22C078481EAC8A78006A0AF4 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		5AAC6870C3FC2C5F110DABCB /* Pods_Stock_Boy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Boy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.release.xcconfig"; sourceTree = "<group>"; };
 		A214608F1EA69E0F00831F14 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -116,6 +120,9 @@
 		A21460971EA6A8C800831F14 /* Subclass */ = {
 			isa = PBXGroup;
 			children = (
+				A28988BA1EA9403F00FC50AF /* Button.swift */,
+				22C078481EAC8A78006A0AF4 /* ImageView.swift */,
+				A28988BC1EA9410D00FC50AF /* Label.swift */,
 				A214609A1EA6BC1200831F14 /* SearchBar.swift */,
 				A21460931EA6A62400831F14 /* ViewController.swift */,
 				A21460911EA69F3200831F14 /* TabBarController.swift */,
@@ -162,17 +169,15 @@
 				A214609E1EA6CEEF00831F14 /* StringManager.swift */,
 				A226E8721EA69C9900354283 /* ChartViewController.swift */,
 				A226E8741EA69C9900354283 /* WatchlistViewController.swift */,
-				A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */,
 				A21460981EA6AF9400831F14 /* StockTabBarController.swift */,
 				A2F9F78C1EA9103300340A51 /* DataManager.swift */,
+				A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */,
 				A2605D4F1EA97B1700FBEF8A /* Model */,
-				A28988BA1EA9403F00FC50AF /* Button.swift */,
-				A28988BC1EA9410D00FC50AF /* Label.swift */,
+				A21460971EA6A8C800831F14 /* Subclass */,
 				A226E8791EA69C9900354283 /* Assets.xcassets */,
 				A226E87B1EA69C9900354283 /* LaunchScreen.storyboard */,
 				A226E87E1EA69C9900354283 /* Info.plist */,
 				A214609C1EA6C2B700831F14 /* Extensions.swift */,
-				A21460971EA6A8C800831F14 /* Subclass */,
 			);
 			path = "Stock Boy";
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 				A24284BC1EABF48B0057D2EE /* Watchlist.swift */,
 				A2605D451EA976AC00FBEF8A /* Quote.swift */,
 				A2605D4D1EA97B1100FBEF8A /* Fundamentals.swift */,
+				22C078461EAC6503006A0AF4 /* rx.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -372,6 +378,7 @@
 				A21460941EA6A62400831F14 /* ViewController.swift in Sources */,
 				A226E8751EA69C9900354283 /* WatchlistViewController.swift in Sources */,
 				A24284BD1EABF48B0057D2EE /* Watchlist.swift in Sources */,
+				22C078491EAC8A78006A0AF4 /* ImageView.swift in Sources */,
 				A21460991EA6AF9400831F14 /* StockTabBarController.swift in Sources */,
 				2214AB361EAC4D9D00795C64 /* TableViewCell.swift in Sources */,
 				A2605D441EA9768000FBEF8A /* Instrument.swift in Sources */,
@@ -387,6 +394,7 @@
 				A21460921EA69F3200831F14 /* TabBarController.swift in Sources */,
 				A21460961EA6A79000831F14 /* NavigationController.swift in Sources */,
 				A2F9F78D1EA9103300340A51 /* DataManager.swift in Sources */,
+				22C078471EAC6503006A0AF4 /* rx.swift in Sources */,
 				A21460901EA69E0F00831F14 /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +423,7 @@
 /* Begin XCBuildConfiguration section */
 		A21460AB1EA6D29900831F14 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B3C65592EAA2DB7DBFA29B9 /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 2GK5GPF253;

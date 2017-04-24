@@ -8,6 +8,7 @@
 
 import UIKit
 import Stevia
+import RxSwift
 
 class WatchlistViewController: ViewController, UISearchBarDelegate {
   var searchBar = SearchBar()
@@ -32,7 +33,12 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
     refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
 
     view.sv([searchBar, tableView])
-    refreshTable()
+    self.refreshTable()
+    let counter = myInterval(20.0)
+    _ = counter
+      .subscribe(onNext: { (value) in
+        self.refreshTable()
+      })
   }
 
   override func viewWillLayoutSubviews() {
@@ -46,13 +52,18 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
   }
 
   func refreshTable() {
+    self.refreshControl.endRefreshing()
     DataManager.shared.fetchRobinhoodAuthWith { (auth) in
       DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { watchlist in
         DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
           DataManager.shared.fetchRobinhoodQuotesWith(instruments: instruments, completion: { (quotes) in
-            self.quotes = quotes
+            self.quotes = quotes.sorted(by: { (quote1, quote2) -> Bool in
+              if quote1.symbol > quote2.symbol {
+                return true
+              }
+              return false
+            })
             self.tableView.reloadData()
-            self.refreshControl.endRefreshing()
           })
         })
       })
@@ -94,6 +105,20 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
     }
     else {
       selected.append(indexPath)
+
+      let quote = quotes[indexPath.row]
+      DispatchQueue.main.async {
+        guard let url = chartURLFor(symbol: quote.symbol) else {
+          return
+        }
+
+        let data = try! Data(contentsOf: url)
+        if !data.isEmpty {
+          if let quoteCell = tableView.cellForRow(at: indexPath) as? QuoteCell {
+            quoteCell.chart.image = UIImage(data: data)
+          }
+        }
+      }
     }
     tableView.beginUpdates()
     tableView.endUpdates()
@@ -106,8 +131,9 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    let quote = quotes[indexPath.row]
+
     if let quoteCell = cell as? QuoteCell {
-      let quote = quotes[indexPath.row]
       quoteCell.symbol.text = quote.symbol
       quoteCell.price.text = quote.last_trade_price.toUSD()
       quoteCell.change.text = String(Double(quote.last_trade_price)! / Double(quote.adjusted_previous_close)!).toPercentChange()
@@ -132,6 +158,20 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
         quoteCell.market_cap.text = "Market Cap: " + fundamentals.market_cap.toVolume()
       })
     }
+    if selected.contains(indexPath) {
+      DispatchQueue.main.async {
+        guard let url = chartURLFor(symbol: quote.symbol) else {
+          return
+        }
+
+        let data = try! Data(contentsOf: url)
+        if !data.isEmpty {
+          if let quoteCell = tableView.cellForRow(at: indexPath) as? QuoteCell {
+            quoteCell.chart.image = UIImage(data: data)
+          }
+        }
+      }
+    }
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -142,6 +182,7 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    self.title = "Watchlist Items:" + String(quotes.count)
     return quotes.count
   }
 

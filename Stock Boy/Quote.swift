@@ -11,6 +11,17 @@ import Argo
 import Curry
 import Runes
 
+struct Quotes {
+  var results: [Quote]
+}
+
+extension Quotes: Decodable {
+  static func decode(_ json: JSON) -> Decoded<Quotes> {
+    return curry(Quotes.init)
+      <^> json <|| "results"
+  }
+}
+
 struct Quote {
   var ask_price: String
   var ask_size: Int

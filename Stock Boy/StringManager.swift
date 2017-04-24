@@ -71,7 +71,7 @@ import Regex
 //// ["hello world", "FOOBAR"]
 
 func chartURLFor(symbol: String) -> URL? {
-  let template = "http://stockcharts.com/c-sc/sc?s=${symbol}&p=D&b=5&g=0&i=0&r=1492555502079"
+  let template = "http://stockcharts.com/c-sc/sc?s=${symbol}&p=C&b=5&g=5&i=0"
   var url: URL? = URL(string: "")
   url = URL(string: stringByReplacingParameter(string: template, parameter: symbol))
   return url ?? nil
