@@ -13,6 +13,8 @@ import RxSwift
 
 public let baseURL = "https://api.robinhood.com/"
 
+//https://github.com/sanko/Robinhood
+
 class DataManager: NSObject {
 
   static let shared: DataManager = {
@@ -32,6 +34,21 @@ class DataManager: NSObject {
       if let json = response.result.value {
         let auth: Auth = decode(json)!
         completion(auth)
+      }
+    }
+  }
+
+  // MARK: Account
+
+  func fetchRobinhoodAccountWith(completion:@escaping ((Account) -> Void)) {
+    let parameters: Parameters = ["username": "sh3244",
+                                  "password": "5ezypqj9omp"
+    ]
+
+    Alamofire.request(baseURL + "accounts/", method: .post, parameters: parameters).responseJSON { response in
+      if let json = response.result.value {
+        let acc: Account = decode(json)!
+        completion(acc)
       }
     }
   }
