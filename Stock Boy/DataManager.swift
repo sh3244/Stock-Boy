@@ -32,8 +32,10 @@ class DataManager: NSObject {
 
     Alamofire.request(baseURL + "api-token-auth/", method: .post, parameters: parameters).responseJSON { response in
       if let json = response.result.value {
-        let auth: Auth = decode(json)!
-        completion(auth)
+        let object: Auth? = decode(json)
+        if let obj = object {
+          completion(obj)
+        }
       }
     }
   }
@@ -45,8 +47,10 @@ class DataManager: NSObject {
 
     Alamofire.request(baseURL + "accounts/", method: .get, headers: headers).responseJSON { response in
       if let json = response.result.value {
-        let acc: Accounts = decode(json)!
-        completion(acc.results.first!)
+        let object: Accounts? = decode(json)
+        if let obj = object?.results.first {
+          completion(obj)
+        }
       }
     }
   }
@@ -58,8 +62,10 @@ class DataManager: NSObject {
 
     Alamofire.request(baseURL + subURL, method: .get).responseJSON { response in
       if let json = response.result.value {
-        let object: Quote = decode(json)!
-        completion(object)
+        let object: Quote? = decode(json)
+        if let obj = object {
+          completion(obj)
+        }
       }
     }
   }
@@ -68,8 +74,10 @@ class DataManager: NSObject {
     Alamofire.request(url, method: .get).responseJSON { response in
       if response.result.value != nil {
         if let json = response.result.value {
-          let object: Quote = decode(json)!
-          completion(object)
+          let object: Quote? = decode(json)
+          if let obj = object {
+            completion(obj)
+          }
         }
       }
     }
@@ -101,8 +109,10 @@ class DataManager: NSObject {
     let subURL = "instruments/"
     Alamofire.request(baseURL + subURL, method: .get).responseJSON { response in
       if let json = response.result.value {
-        let instruments: Instruments = decode(json)!
-        completion(instruments.results)
+        let object: Instruments? = decode(json)
+        if let obj = object {
+          completion(obj.results)
+        }
       }
     }
   }
@@ -110,8 +120,10 @@ class DataManager: NSObject {
   func fetchRobinhoodInstrumentWith(url: String, completion:@escaping ((Instrument) -> Void)) {
     Alamofire.request(url, method: .get).responseJSON { response in
       if let json = response.result.value {
-        let object: Instrument = decode(json)!
-        completion(object)
+        let object: Instrument? = decode(json)
+        if let obj = object {
+          completion(obj)
+        }
       }
     }
   }
@@ -135,8 +147,10 @@ class DataManager: NSObject {
 
     Alamofire.request(baseURL + subURL, method: .get).responseJSON { response in
       if let json = response.result.value {
-        let object: Fundamentals = decode(json)!
-        completion(object)
+        let object: Fundamentals? = decode(json)
+        if let obj = object {
+          completion(obj)
+        }
       }
     }
   }
@@ -150,8 +164,10 @@ class DataManager: NSObject {
 
     Alamofire.request(baseURL + subURL, method: .get, headers:headers).responseJSON { response in
       if let json = response.result.value {
-        let object: Watchlist = decode(json)!
-        completion(object)
+        let object: Watchlist? = decode(json)
+        if let obj = object {
+          completion(obj)
+        }
       }
     }
   }
@@ -159,12 +175,14 @@ class DataManager: NSObject {
   // MARK: Historicals
 
   func fetchRobinhoodHistoricalsWith(symbol: String, completion:@escaping ((Historicals) -> Void)) {
-    let subURL = "quotes/historicals/" + symbol + "/"
+    let subURL = "quotes/historicals/" + symbol.uppercased() + "/"
 
     Alamofire.request(baseURL + subURL, method: .get, parameters: Historicals.defaultParameters()).responseJSON { response in
       if let json = response.result.value {
-        let object: Historicals = decode(json)!
-        completion(object)
+        let object: Historicals? = decode(json)
+        if let obj = object {
+          completion(obj)
+        }
       }
     }
   }

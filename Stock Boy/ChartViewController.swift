@@ -9,6 +9,7 @@
 import UIKit
 import Stevia
 import Charts
+import RxSwift
 
 class ChartViewController: ViewController, UISearchBarDelegate {
   var chartView = LineChartView()
@@ -28,9 +29,17 @@ class ChartViewController: ViewController, UISearchBarDelegate {
     chartView.setScaleEnabled(true)
     chartView.chartDescription?.text = "Stock Boy"
 
-    DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: searchBar.text!) { (historicals) in
+    DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!) { (historicals) in
       self.chartView.data = lineChartDataFrom(historicals: historicals)
     }
+
+    let counter = myInterval(10.0)
+    _ = counter
+      .subscribe(onNext: { (value) in
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!) { (historicals) in
+          self.chartView.data = lineChartDataFrom(historicals: historicals)
+        }
+      })
   }
 
   override func viewDidAppear(_ animated: Bool) {
