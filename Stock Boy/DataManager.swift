@@ -187,4 +187,47 @@ class DataManager: NSObject {
     }
   }
 
+  // MARK: Orders
+
+  func submitRobinhoodOrderWith(auth: Auth, request: OrderRequest, completion:@escaping ((Order) -> Void)) {
+    let subURL = "orders/"
+    let headers = ["authorization": "token " + auth.token]
+
+    Alamofire.request(baseURL + subURL, method: .post, parameters: request.parameters(), headers: headers).responseJSON { response in
+      if let json = response.result.value {
+        let object: Order? = decode(json)
+        if let obj = object {
+          completion(obj)
+        }
+      }
+    }
+  }
+
+  func submitRobinhoodBuyWith(auth: Auth, quote: Quote, price: Float, completion:@escaping ((Order) -> Void)) {
+    DataManager.shared.fetchRobinhoodAccountWith(auth: auth) { (account) in
+      let request = OrderRequest(account: account.url, instrument: quote.instrument, symbol: quote.symbol, price: price, quantity: 1, type: .limit, time_in_force: .gtc, trigger: .immediate, side: .buy)
+      DataManager.shared.submitRobinhoodOrderWith(auth: auth, request: request, completion: { (order) in
+        completion(order)
+      })
+    }
+  }
+
+  func submitRobinhoodSellWith(auth: Auth, quote: Quote, price: Float, completion:@escaping ((Order) -> Void)) {
+    DataManager.shared.fetchRobinhoodAccountWith(auth: auth) { (account) in
+      let request = OrderRequest(account: account.url, instrument: quote.instrument, symbol: quote.symbol, price: price, quantity: 1, type: .limit, time_in_force: .gtc, trigger: .immediate, side: .sell)
+      DataManager.shared.submitRobinhoodOrderWith(auth: auth, request: request, completion: { (order) in
+        completion(order)
+      })
+    }
+  }
+
+  func cancelRobinhoodOrderWith(auth: Auth, order: Order) {
+    let headers = ["authorization": "token " + auth.token]
+    Alamofire.request(order.cancel, method: .post, headers: headers).responseJSON { response in
+      if let json = response.result.value {
+        print(json)
+      }
+    }
+  }
+
 }

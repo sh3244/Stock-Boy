@@ -151,5 +151,25 @@ class RobinhoodAPITests: XCTestCase {
       }
     }
   }
+
+  func testRobinhoodOrders() {
+    let expect = expectation(description: "Orders call works")
+    DataManager.shared.fetchRobinhoodQuoteWith(symbol: "EDIT") { (quote) in
+      DataManager.shared.fetchRobinhoodAuthWith { (auth) in
+        DataManager.shared.submitRobinhoodBuyWith(auth: auth, quote: quote, price: 0.1, completion: { (order) in
+          print(order)
+          DataManager.shared.cancelRobinhoodOrderWith(auth: auth, order: order)
+          XCTAssertNotNil(order)
+          expect.fulfill()
+        })
+      }
+    }
+
+    waitForExpectations(timeout: 1) { error in
+      if let error = error {
+        XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+      }
+    }
+  }
   
 }

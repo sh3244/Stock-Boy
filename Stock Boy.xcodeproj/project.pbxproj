@@ -10,6 +10,8 @@
 		2214AB361EAC4D9D00795C64 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2214AB351EAC4D9D00795C64 /* TableViewCell.swift */; };
 		22A239621EADC26000F16245 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A239611EADC26000F16245 /* Account.swift */; };
 		22A239631EADC4B200F16245 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A239611EADC26000F16245 /* Account.swift */; };
+		22A239651EAEB81E00F16245 /* Orders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A239641EAEB81E00F16245 /* Orders.swift */; };
+		22A239661EAEC58F00F16245 /* Orders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A239641EAEB81E00F16245 /* Orders.swift */; };
 		22C078471EAC6503006A0AF4 /* rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C078461EAC6503006A0AF4 /* rx.swift */; };
 		22C078491EAC8A78006A0AF4 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C078481EAC8A78006A0AF4 /* ImageView.swift */; };
 		22C0784B1EADA6C6006A0AF4 /* Historicals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0784A1EADA6C6006A0AF4 /* Historicals.swift */; };
@@ -61,6 +63,7 @@
 /* Begin PBXFileReference section */
 		2214AB351EAC4D9D00795C64 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		22A239611EADC26000F16245 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		22A239641EAEB81E00F16245 /* Orders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orders.swift; sourceTree = "<group>"; };
 		22C078461EAC6503006A0AF4 /* rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rx.swift; sourceTree = "<group>"; };
 		22C078481EAC8A78006A0AF4 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		22C0784A1EADA6C6006A0AF4 /* Historicals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Historicals.swift; sourceTree = "<group>"; };
@@ -199,6 +202,7 @@
 				A24284BC1EABF48B0057D2EE /* Watchlist.swift */,
 				A2605D431EA9768000FBEF8A /* Instruments.swift */,
 				A2605D451EA976AC00FBEF8A /* Quotes.swift */,
+				22A239641EAEB81E00F16245 /* Orders.swift */,
 				22C0784A1EADA6C6006A0AF4 /* Historicals.swift */,
 				A2605D4D1EA97B1100FBEF8A /* Fundamentals.swift */,
 				22C078461EAC6503006A0AF4 /* rx.swift */,
@@ -375,6 +379,7 @@
 				A21460AE1EA6D3C900831F14 /* StringManager.swift in Sources */,
 				A226831D1EA93BA3000B64C3 /* DataManager.swift in Sources */,
 				A24284C01EAC27120057D2EE /* RobinhoodAPITests.swift in Sources */,
+				22A239661EAEC58F00F16245 /* Orders.swift in Sources */,
 				22C0784C1EADA8E7006A0AF4 /* Historicals.swift in Sources */,
 				A2605D501EA97CB400FBEF8A /* Fundamentals.swift in Sources */,
 				A24284BE1EABF7490057D2EE /* Watchlist.swift in Sources */,
@@ -403,6 +408,7 @@
 				A28988BD1EA9410D00FC50AF /* Label.swift in Sources */,
 				A214609D1EA6C2B700831F14 /* Extensions.swift in Sources */,
 				22C0784B1EADA6C6006A0AF4 /* Historicals.swift in Sources */,
+				22A239651EAEB81E00F16245 /* Orders.swift in Sources */,
 				A2605D4E1EA97B1100FBEF8A /* Fundamentals.swift in Sources */,
 				A2605D461EA976AC00FBEF8A /* Quotes.swift in Sources */,
 				A214609B1EA6BC1200831F14 /* SearchBar.swift in Sources */,
