@@ -68,7 +68,6 @@
 		22C078481EAC8A78006A0AF4 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		22C0784A1EADA6C6006A0AF4 /* Historicals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Historicals.swift; sourceTree = "<group>"; };
 		22C0784E1EADB174006A0AF4 /* ChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartManager.swift; sourceTree = "<group>"; };
-		46A1BE620B6D68A9AB44A9D5 /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 		5AAC6870C3FC2C5F110DABCB /* Pods_Stock_Boy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Boy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.release.xcconfig"; sourceTree = "<group>"; };
 		A214608F1EA69E0F00831F14 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -98,6 +97,7 @@
 		A28988BC1EA9410D00FC50AF /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
 		A2F9F78C1EA9103300340A51 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		FB49A712EFD1AEC455D7ACD4 /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */,
-				46A1BE620B6D68A9AB44A9D5 /* Pods-Stock Boy.debug.xcconfig */,
+				FB49A712EFD1AEC455D7ACD4 /* Pods-Stock Boy.debug.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -363,7 +363,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -445,7 +445,7 @@
 /* Begin XCBuildConfiguration section */
 		A21460AB1EA6D29900831F14 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46A1BE620B6D68A9AB44A9D5 /* Pods-Stock Boy.debug.xcconfig */;
+			baseConfigurationReference = FB49A712EFD1AEC455D7ACD4 /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 2GK5GPF253;
@@ -567,7 +567,7 @@
 		};
 		A226E8821EA69C9900354283 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46A1BE620B6D68A9AB44A9D5 /* Pods-Stock Boy.debug.xcconfig */;
+			baseConfigurationReference = FB49A712EFD1AEC455D7ACD4 /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

@@ -11,6 +11,17 @@ import Argo
 import Curry
 import Runes
 
+struct Orders {
+  var results: [Order]
+}
+
+extension Orders: Decodable {
+  static func decode(_ json: JSON) -> Decoded<Orders> {
+    return curry(Orders.init)
+      <^> json <|| "results"
+  }
+}
+
 struct Order {
   var updated_at: String
   var time_in_force: String

@@ -171,5 +171,22 @@ class RobinhoodAPITests: XCTestCase {
       }
     }
   }
+
+  func testRobinhoodOrders() {
+    let expect = expectation(description: "Orders fetch call works")
+    DataManager.shared.fetchRobinhoodAuthWith { (auth) in
+      DataManager.shared.fetchRobinhoodOrdersWith(auth: auth, completion: { (orders) in
+        print(orders)
+        XCTAssertNotNil(orders)
+        expect.fulfill()
+      })
+    }
+
+    waitForExpectations(timeout: 1) { error in
+      if let error = error {
+        XCTFail("waitForExpectationsWithTimeout errored: \(error)")
+      }
+    }
+  }
   
 }

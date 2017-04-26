@@ -21,7 +21,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.4)
   - AlamofireImage (~> 3.1)
   - Argo (~> 4.1.2)
-  - Charts
+  - Charts (~> 3.0.2)
   - Curry (~> 3.0.0)
   - Device (~> 3.0.1)
   - FLEX (~> 2.0)
@@ -44,6 +44,6 @@ SPEC CHECKSUMS:
   SteviaLayout: 807c742a8e4bcb94f47f018b23873a40f1f1cc1d
   STRegex: c7decbba8601717274774a3f341c4807a327a6d0
 
-PODFILE CHECKSUM: aaee1a8250d2eb8580c1b04765976867af2063a5
+PODFILE CHECKSUM: 27d721c1ca9cea835081d123de6decc78a04afb7
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1

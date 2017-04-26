@@ -221,6 +221,20 @@ class DataManager: NSObject {
     }
   }
 
+  func fetchRobinhoodOrdersWith(auth: Auth, completion:@escaping (([Order]) -> Void)) {
+    let subURL = "orders/"
+    let headers = ["authorization": "token " + auth.token]
+
+    Alamofire.request(baseURL + subURL, method: .get, headers: headers).responseJSON { response in
+      if let json = response.result.value {
+        let object: Orders? = decode(json)
+        if let obj = object {
+          completion(obj.results)
+        }
+      }
+    }
+  }
+
   func cancelRobinhoodOrderWith(auth: Auth, order: Order) {
     let headers = ["authorization": "token " + auth.token]
     Alamofire.request(order.cancel, method: .post, headers: headers).responseJSON { response in
