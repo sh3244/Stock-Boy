@@ -35,6 +35,9 @@ class Stock_Boy_Tests: XCTestCase {
 
     string = "1234".toVolume()
     XCTAssertEqual(string, "1K")
+
+    string = "123.421421".trimDecimals()
+    XCTAssertEqual(string, "123")
   }
 
   func testURL() {

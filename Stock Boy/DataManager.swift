@@ -17,6 +17,8 @@ public let baseURL = "https://api.robinhood.com/"
 
 class DataManager: NSObject {
 
+  let orders: Variable<[Orders]> = Variable([])
+
   static let shared: DataManager = {
     let instance = DataManager()
 
@@ -237,7 +239,10 @@ class DataManager: NSObject {
 
   func cancelRobinhoodOrderWith(auth: Auth, order: Order) {
     let headers = ["authorization": "token " + auth.token]
-    Alamofire.request(order.cancel, method: .post, headers: headers).responseJSON { response in
+    guard let cancel = order.cancel else {
+      return
+    }
+    Alamofire.request(cancel, method: .post, headers: headers).responseJSON { response in
       if let json = response.result.value {
         print(json)
       }

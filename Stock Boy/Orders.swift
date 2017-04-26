@@ -25,7 +25,7 @@ extension Orders: Decodable {
 struct Order {
   var updated_at: String
   var time_in_force: String
-  var cancel: String
+  var cancel: String?
   var id: String
   var cumulative_quantity: String
   var stop_price: String?
@@ -33,7 +33,7 @@ struct Order {
   var state: String
   var trigger: String
   var type: String
-  var price: String
+  var price: String?
   var url: String
   var side: String
   var position: String
@@ -46,7 +46,7 @@ extension Order: Decodable {
     let f = curry(Order.init)
       <^> json <| "updated_at"
       <*> json <| "time_in_force"
-      <*> json <| "cancel"
+      <*> json <|? "cancel"
       <*> json <| "id"
       <*> json <| "cumulative_quantity"
     return f
@@ -55,7 +55,7 @@ extension Order: Decodable {
       <*> json <| "state"
       <*> json <| "trigger"
       <*> json <| "type"
-      <*> json <| "price"
+      <*> json <|? "price"
       <*> json <| "url"
       <*> json <| "side"
       <*> json <| "position"

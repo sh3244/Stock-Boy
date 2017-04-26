@@ -11,6 +11,7 @@ import UIKit
 class StockTabBarController: TabBarController {
   var chart = ChartViewController()
   var watchlist = WatchlistViewController()
+  var orders = OrdersViewController()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -21,8 +22,11 @@ class StockTabBarController: TabBarController {
     let watchlistNav = NavigationController(rootViewController: watchlist)
     watchlistNav.tabBarItem = UITabBarItem(title: "Watchlist", image: #imageLiteral(resourceName: "iconList"), selectedImage: nil)
 
-    setViewControllers([watchlistNav, chartNav], animated: false)
-    selectedViewController = watchlistNav
+    let ordersNav = NavigationController(rootViewController: orders)
+    orders.tabBarItem = UITabBarItem(title: "Orders", image: #imageLiteral(resourceName: "iconList"), selectedImage: nil)
+
+    setViewControllers([watchlistNav, chartNav, ordersNav], animated: false)
+    selectedViewController = ordersNav
   }
 
 }

@@ -172,7 +172,7 @@ class RobinhoodAPITests: XCTestCase {
     }
   }
 
-  func testRobinhoodOrders() {
+  func testRobinhoodOrdersFetch() {
     let expect = expectation(description: "Orders fetch call works")
     DataManager.shared.fetchRobinhoodAuthWith { (auth) in
       DataManager.shared.fetchRobinhoodOrdersWith(auth: auth, completion: { (orders) in

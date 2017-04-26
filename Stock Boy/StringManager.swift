@@ -100,10 +100,6 @@ extension String {
     return "0.00%"
   }
 
-  func trimZeros() -> String {
-    return self.replacingFirstMatching("^0{0,4}([0-9]\\.)", with: "$1")
-  }
-
   func toVolume() -> String {
     let trimmed = self.replacingFirstMatching("^([0-9]+)\\..*", with: "$1")
     if trimmed.characters.count > 9 {
@@ -114,5 +110,14 @@ extension String {
       return trimmed.replacingFirstMatching("[0-9]{3}$", with: "K")
     }
     return trimmed
+  }
+
+  func trimZeros() -> String {
+    return self.replacingFirstMatching("^0{0,4}([0-9]\\.)", with: "$1")
+  }
+
+  func trimDecimals() -> String {
+    return self.replacingFirstMatching("^([0-9]+)\\..*$", with: "$1")
+
   }
 }
