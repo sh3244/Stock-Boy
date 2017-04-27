@@ -14,12 +14,6 @@ target 'Stock Boy' do
   pod 'Curry', '~> 3.0.0'
   #  https://github.com/thoughtbot/Curry
 
-  pod 'FLEX', '~> 2.0', :configurations => ['Debug']
-  #  https://github.com/Flipboard/FLEX
-
-  pod 'Device', '~> 3.0.1'
-  #  https://github.com/Ekhoo/Device
-
   pod 'STRegex', '~> 0.4.0'
 
   pod 'Alamofire', '~> 4.4'
@@ -34,7 +28,13 @@ target 'Stock Boy' do
   pod 'Charts', '~> 3.0.2'
   #  https://github.com/danielgindi/Charts
 
+  #  pod 'FLEX', '~> 2.0', :configurations => ['Debug']
+  #  https://github.com/Flipboard/FLEX
+
+  #  pod 'Device', '~> 3.0.1'
+  #  https://github.com/Ekhoo/Device
+
   #  pod 'Whisper', '~> 4.0.0'
   #  https://github.com/hyperoslo/Whisper
-
+  
 end

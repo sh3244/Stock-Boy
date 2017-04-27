@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FLEX
+// import FLEX
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
