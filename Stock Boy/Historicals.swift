@@ -21,10 +21,28 @@ struct Historicals {
   var instrument: String
   var historicals: [Historical]
 
-  public static func defaultParameters() -> Parameters {
+  public static func oneWeekParameters() -> Parameters {
     let parameters: Parameters = [
       "interval": "5minute",
       "span": "week",
+      "bounds": "regular"
+    ]
+    return parameters
+  }
+
+  public static func oneYearParameters() -> Parameters {
+    let parameters: Parameters = [
+      "interval": "day",
+      "span": "year",
+      "bounds": "regular"
+    ]
+    return parameters
+  }
+
+  public static func fiveYearParameters() -> Parameters {
+    let parameters: Parameters = [
+      "interval": "week",
+      "span": "5year",
       "bounds": "regular"
     ]
     return parameters

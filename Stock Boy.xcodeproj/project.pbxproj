@@ -20,6 +20,7 @@
 		22F46CF71EB2433B00C9AC39 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F46CF61EB2433B00C9AC39 /* TextField.swift */; };
 		22F46CF91EB2488A00C9AC39 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F46CF81EB2488A00C9AC39 /* View.swift */; };
 		22F46CFB1EB248A400C9AC39 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F46CFA1EB248A400C9AC39 /* StatusView.swift */; };
+		22F46CFD1EB252B300C9AC39 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F46CFC1EB252B300C9AC39 /* SelectionView.swift */; };
 		A21460901EA69E0F00831F14 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214608F1EA69E0F00831F14 /* Auth.swift */; };
 		A21460921EA69F3200831F14 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460911EA69F3200831F14 /* TabBarController.swift */; };
 		A21460941EA6A62400831F14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460931EA6A62400831F14 /* ViewController.swift */; };
@@ -82,6 +83,7 @@
 		22F46CF61EB2433B00C9AC39 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		22F46CF81EB2488A00C9AC39 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		22F46CFA1EB248A400C9AC39 /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
+		22F46CFC1EB252B300C9AC39 /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		5AAC6870C3FC2C5F110DABCB /* Pods_Stock_Boy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Boy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.release.xcconfig"; sourceTree = "<group>"; };
 		A214608F1EA69E0F00831F14 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -235,8 +237,8 @@
 		A2BA3F981EB1257500F42CF6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A226E8721EA69C9900354283 /* ChartViewController.swift */,
 				A226E8741EA69C9900354283 /* WatchlistViewController.swift */,
+				A226E8721EA69C9900354283 /* ChartViewController.swift */,
 				A2BA3F901EB0F58E00F42CF6 /* OrdersViewController.swift */,
 				A2BA3F941EB1158C00F42CF6 /* PortfolioViewController.swift */,
 				A2BA3F9E1EB12E8700F42CF6 /* LoginViewController.swift */,
@@ -252,6 +254,7 @@
 				A2BA3F921EB0F5FC00F42CF6 /* OrderCell.swift */,
 				A2BA3F961EB115DB00F42CF6 /* PortfolioCell.swift */,
 				22F46CFA1EB248A400C9AC39 /* StatusView.swift */,
+				22F46CFC1EB252B300C9AC39 /* SelectionView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				A2BA3F9B1EB125B400F42CF6 /* Portfolio.swift in Sources */,
 				A2BA3F951EB1158C00F42CF6 /* PortfolioViewController.swift in Sources */,
 				A21460921EA69F3200831F14 /* TabBarController.swift in Sources */,
+				22F46CFD1EB252B300C9AC39 /* SelectionView.swift in Sources */,
 				22A239621EADC26000F16245 /* Account.swift in Sources */,
 				A2BA3F911EB0F58E00F42CF6 /* OrdersViewController.swift in Sources */,
 				A21460961EA6A79000831F14 /* NavigationController.swift in Sources */,

@@ -36,26 +36,18 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
     tableView.refreshControl = refreshControl
     refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
 
-    navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))]
-    navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Paused", style: .plain, target: self, action: #selector(autoUpdate))]
-
     view.sv([searchBar, tableView])
 
-    if let auth = LoginManager.shared.auth {
-      DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { watchlist in
-        DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
-          self.instruments = instruments
+    let counter = myInterval(10.0)
+    _ = counter
+      .subscribe(onNext: { (value) in
+        if !self.paused {
           self.refreshTable()
-          let counter = myInterval(10.0)
-          _ = counter
-            .subscribe(onNext: { (value) in
-              if !self.paused {
-                self.refreshTable()
-              }
-            })
-        })
-      })
-    }
+        }
+    })
+
+    navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))]
+    navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Paused", style: .plain, target: self, action: #selector(autoUpdate))]
   }
 
   override func viewWillLayoutSubviews() {
@@ -95,11 +87,19 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
 
   func refreshTable() {
     self.refreshControl.endRefreshing()
-    DataManager.shared.fetchRobinhoodQuotesWith(instruments: instruments, completion: { (quotes) in
-      self.quotes = quotes
-      self.sort()
-      self.tableView.reloadData()
-    })
+
+    if let auth = LoginManager.shared.auth {
+      DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { watchlist in
+        DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
+          self.instruments = instruments
+          DataManager.shared.fetchRobinhoodQuotesWith(instruments: instruments, completion: { (quotes) in
+            self.quotes = quotes
+            self.sort()
+            self.tableView.reloadData()
+          })
+        })
+      })
+    }
   }
 
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

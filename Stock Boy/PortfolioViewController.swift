@@ -15,10 +15,11 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
 
   var tableView = UITableView()
   var refreshControl = UIRefreshControl()
+  var statusView = StatusView()
 
   var selected: [IndexPath] = []
 
-  var items: [Order] = []
+  var items: [Portfolio] = []
 
   let disposeBag = DisposeBag()
 
@@ -38,15 +39,15 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
       }
       .addDisposableTo(disposeBag)
 
-    let orders = DataManager.shared.orders
-    orders.asObservable()
-      .subscribe({ (orders) in
-        if let ords = orders.element?.first?.results {
-          self.items = ords
-          self.tableView.reloadData()
-        }
-      })
-      .addDisposableTo(disposeBag)
+//    let orders = DataManager.shared.orders
+//    orders.asObservable()
+//      .subscribe({ (orders) in
+//        if let ords = orders.element?.first?.results {
+//          self.items = ords
+//          self.tableView.reloadData()
+//        }
+//      })
+//      .addDisposableTo(disposeBag)
 
     update()
   }
@@ -63,9 +64,7 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
 
   func update() {
     if let auth = LoginManager.shared.auth {
-      DataManager.shared.fetchRobinhoodOrdersWith(auth: auth, completion: { (orders) in
-        DataManager.shared.orders.value.append(Orders(results: orders))
-      })
+      DataManager.shared.fetchRobinhoodOrdersWith(auth: auth)
     }
   }
 
@@ -94,9 +93,9 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
     let order = items[indexPath.row]
 
     if let portfolioCell = cell as? PortfolioCell {
-      DataManager.shared.fetchRobinhoodInstrumentWith(url: order.instrument, completion: { (instrument) in
-        portfolioCell.symbol.text = instrument.symbol
-      })
+//      DataManager.shared.fetchRobinhoodInstrumentWith(url: order.instrument, completion: { (instrument) in
+//        portfolioCell.symbol.text = instrument.symbol
+//      })
     }
   }
 

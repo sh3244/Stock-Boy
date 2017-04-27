@@ -176,10 +176,10 @@ class DataManager: NSObject {
 
   // MARK: Historicals
 
-  func fetchRobinhoodHistoricalsWith(symbol: String, completion:@escaping ((Historicals) -> Void)) {
+  func fetchRobinhoodHistoricalsWith(symbol: String, parameters: Parameters, completion:@escaping ((Historicals) -> Void)) {
     let subURL = "quotes/historicals/" + symbol.uppercased() + "/"
 
-    Alamofire.request(baseURL + subURL, method: .get, parameters: Historicals.defaultParameters()).responseJSON { response in
+    Alamofire.request(baseURL + subURL, method: .get, parameters: parameters).responseJSON { response in
       if let json = response.result.value {
         let object: Historicals? = decode(json)
         if let obj = object {
@@ -223,6 +223,20 @@ class DataManager: NSObject {
     }
   }
 
+  func fetchRobinhoodOrdersWith(auth: Auth) {
+    let subURL = "orders/"
+    let headers = ["authorization": "token " + auth.token]
+
+    Alamofire.request(baseURL + subURL, method: .get, headers: headers).responseJSON { response in
+      if let json = response.result.value {
+        let object: Orders? = decode(json)
+        if let obj = object {
+          self.orders.value.append(obj)
+        }
+      }
+    }
+  }
+
   func fetchRobinhoodOrdersWith(auth: Auth, completion:@escaping (([Order]) -> Void)) {
     let subURL = "orders/"
     let headers = ["authorization": "token " + auth.token]
@@ -237,6 +251,14 @@ class DataManager: NSObject {
     }
   }
 
+  func cancelAllRobinhoodOrdersWith(auth: Auth) {
+    fetchRobinhoodOrdersWith(auth: auth) { orders in
+      for order in orders {
+        self.cancelRobinhoodOrderWith(auth: auth, order: order)
+      }
+    }
+  }
+
   func cancelRobinhoodOrderWith(auth: Auth, order: Order) {
     let headers = ["authorization": "token " + auth.token]
     guard let cancel = order.cancel else {
@@ -244,7 +266,7 @@ class DataManager: NSObject {
     }
     Alamofire.request(cancel, method: .post, headers: headers).responseJSON { response in
       if let json = response.result.value {
-        print(json)
+        
       }
     }
   }

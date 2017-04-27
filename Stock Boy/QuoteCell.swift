@@ -25,14 +25,15 @@ class QuoteCell: TableViewCell {
   var chart = ImageView(frame: .zero)
 
   public static let heightValue: CGFloat = 40.0
-  public static let expandedHeightValue: CGFloat = 500.0
+  public static let expandedHeightValue: CGFloat = 480.0
   let regularHeight: CGFloat = QuoteCell.heightValue
   let expandedHeight: CGFloat = QuoteCell.expandedHeightValue
 
   override func willMove(toSuperview newSuperview: UIView?) {
     price.textAlignment = .right
-    change.textAlignment = .right
+    change.textAlignment = .left
     name.textAlignment = .left
+    symbol.textAlignment = .right
   }
 
   override func layoutSubviews() {
@@ -42,9 +43,9 @@ class QuoteCell: TableViewCell {
     }
     sv([symbol, name, price, change])
 
-    change.width(40)
-    symbol.width(40)
-    price.width(70)
+    change.width(50)
+    symbol.width(50)
+    price.width(60)
     if contentView.bounds.height > 40.0 {
       sv([open, high, low, volume, average_volume, high_52_weeks, low_52_weeks, market_cap, chart])
       layout(
@@ -53,17 +54,16 @@ class QuoteCell: TableViewCell {
         0,
         |-open-high-low-| ~ 40,
         0,
-        |-volume-average_volume-| ~ 40,
+        |-volume-average_volume-market_cap-| ~ 40,
         0,
         |-high_52_weeks-low_52_weeks-| ~ 40,
         0,
-        |-market_cap-| ~ 40,
-        |chart| ~ 300,
+        |chart| ~ 320,
         0
       )
 
-      equalWidths([open, high, low])
-      equalWidths([volume, average_volume, high_52_weeks, low_52_weeks])
+      equalWidths([open, high, low, volume, average_volume, market_cap])
+      equalWidths([high_52_weeks, low_52_weeks])
     }
     else {
       layout(

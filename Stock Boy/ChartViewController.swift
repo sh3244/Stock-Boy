@@ -11,16 +11,19 @@ import Stevia
 import Charts
 import RxSwift
 
-class ChartViewController: ViewController, UISearchBarDelegate {
+class ChartViewController: ViewController, UISearchBarDelegate, SelectionViewDelegate {
   var chartView = LineChartView()
   var searchBar = SearchBar()
+  var selection = SelectionView(["1W", "1Y", "5Y", "1W Vol", "1Y Vol"])
+
+  var fetchBlock: (() -> Void) = {}
 
   override func viewDidLoad() {
     super.viewDidLoad()
     title = "Chart"
     searchBar.delegate = self
     searchBar.text = "URRE"
-    view.sv([searchBar, chartView])
+    view.sv([selection, searchBar, chartView])
 
     chartView.backgroundColor = .white
     chartView.gridBackgroundColor = .lightGray
@@ -29,17 +32,19 @@ class ChartViewController: ViewController, UISearchBarDelegate {
     chartView.setScaleEnabled(true)
     chartView.chartDescription?.text = "Stock Boy"
 
-    DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!) { (historicals) in
-      self.chartView.data = lineChartDataFrom(historicals: historicals)
-
+    fetchBlock = {
+      DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.oneWeekParameters()) { (historicals) in
+        self.chartView.data = lineChartDataFrom(historicals: historicals)
+      }
     }
+    self.fetchBlock()
+
+    selection.delegate = self
 
     let counter = myInterval(10.0)
     _ = counter
       .subscribe(onNext: { (value) in
-        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!) { (historicals) in
-          self.chartView.data = lineChartDataFrom(historicals: historicals)
-        }
+        self.fetchBlock()
       })
   }
 
@@ -51,6 +56,7 @@ class ChartViewController: ViewController, UISearchBarDelegate {
     super.viewWillLayoutSubviews()
     view.layout(
       0,
+      |selection|,
       |searchBar|,
       |chartView|,
       0
@@ -59,9 +65,7 @@ class ChartViewController: ViewController, UISearchBarDelegate {
 
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     searchBar.resignFirstResponder()
-    DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: searchBar.text!) { (historicals) in
-      self.chartView.data = lineChartDataFrom(historicals: historicals)
-    }
+    fetchBlock()
   }
 
   func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -74,6 +78,46 @@ class ChartViewController: ViewController, UISearchBarDelegate {
 
   func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
 
+  }
+
+  // MARK: SelectionViewDelegate
+
+  func selected(title: String) {
+    switch title {
+    case "1W":
+      fetchBlock = {
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.oneWeekParameters()) { (historicals) in
+          self.chartView.data = lineChartDataFrom(historicals: historicals)
+        }
+      }
+    case "1Y":
+      fetchBlock = {
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.oneYearParameters()) { (historicals) in
+          self.chartView.data = lineChartDataFrom(historicals: historicals)
+        }
+      }
+    case "5Y":
+      fetchBlock = {
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.fiveYearParameters()) { (historicals) in
+          self.chartView.data = lineChartDataFrom(historicals: historicals)
+        }
+      }
+    case "1W Vol":
+      fetchBlock = {
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.oneWeekParameters()) { (historicals) in
+          self.chartView.data = volumeLineChartDataFrom(historicals: historicals)
+        }
+      }
+    case "1Y Vol":
+      fetchBlock = {
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.oneYearParameters()) { (historicals) in
+          self.chartView.data = volumeLineChartDataFrom(historicals: historicals)
+        }
+      }
+    default:
+      return
+    }
+    self.fetchBlock()
   }
 
 }
