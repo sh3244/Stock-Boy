@@ -81,6 +81,28 @@ func stringByReplacingParameter(string: String, parameter: String) -> String {
   return string.replacingFirstMatching("\\$\\{[a-zA-Z]+\\}", with: parameter)
 }
 
+// MARK: Form Validation
+extension String {
+  func validateName() -> Bool {
+    if self.characters.count > 3 {
+      return true
+    }
+    return false
+  }
+
+  func validateEmail() -> Bool {
+    let regex = Regex("[0-9a-zA-Z]+\\@[0-9a-zA-Z]+\\.[0-9a-zA-Z]+")
+    return regex.matches(self)
+  }
+
+  func validatePassword() -> Bool {
+    if self.characters.count > 3 {
+      return true
+    }
+    return false
+  }
+}
+
 // MARK: Money
 extension String {
   func toUSD() -> String {

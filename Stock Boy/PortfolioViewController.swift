@@ -62,7 +62,7 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
   }
 
   func update() {
-    DataManager.shared.fetchRobinhoodAuthWith { (auth) in
+    if let auth = LoginManager.shared.auth {
       DataManager.shared.fetchRobinhoodOrdersWith(auth: auth, completion: { (orders) in
         DataManager.shared.orders.value.append(Orders(results: orders))
       })

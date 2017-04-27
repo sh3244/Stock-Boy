@@ -14,19 +14,14 @@ class QuoteCell: TableViewCell {
   var name = Label()
   var price = Label()
   var change = Label()
-
   var open = Label()
   var high = Label()
   var low = Label()
   var volume = Label()
   var average_volume = Label()
   var high_52_weeks = Label()
-//  var dividend_yield = Label()
   var low_52_weeks = Label()
   var market_cap = Label()
-//  var pe_ratio = Label()
-//  var description = Label()
-//  var instrument = Label()
   var chart = ImageView(frame: .zero)
 
   public static let heightValue: CGFloat = 40.0
@@ -34,17 +29,10 @@ class QuoteCell: TableViewCell {
   let regularHeight: CGFloat = QuoteCell.heightValue
   let expandedHeight: CGFloat = QuoteCell.expandedHeightValue
 
-  override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    backgroundColor = .black
-
+  override func willMove(toSuperview newSuperview: UIView?) {
     price.textAlignment = .right
     change.textAlignment = .right
     name.textAlignment = .left
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
   }
 
   override func layoutSubviews() {
@@ -54,8 +42,8 @@ class QuoteCell: TableViewCell {
     }
     sv([symbol, name, price, change])
 
-    change.width(70)
-    symbol.width(55)
+    change.width(40)
+    symbol.width(40)
     price.width(70)
     if contentView.bounds.height > 40.0 {
       sv([open, high, low, volume, average_volume, high_52_weeks, low_52_weeks, market_cap, chart])

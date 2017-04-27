@@ -17,6 +17,9 @@
 		22C0784B1EADA6C6006A0AF4 /* Historicals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0784A1EADA6C6006A0AF4 /* Historicals.swift */; };
 		22C0784C1EADA8E7006A0AF4 /* Historicals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0784A1EADA6C6006A0AF4 /* Historicals.swift */; };
 		22C0784F1EADB174006A0AF4 /* ChartManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C0784E1EADB174006A0AF4 /* ChartManager.swift */; };
+		22F46CF71EB2433B00C9AC39 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F46CF61EB2433B00C9AC39 /* TextField.swift */; };
+		22F46CF91EB2488A00C9AC39 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F46CF81EB2488A00C9AC39 /* View.swift */; };
+		22F46CFB1EB248A400C9AC39 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F46CFA1EB248A400C9AC39 /* StatusView.swift */; };
 		A21460901EA69E0F00831F14 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214608F1EA69E0F00831F14 /* Auth.swift */; };
 		A21460921EA69F3200831F14 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460911EA69F3200831F14 /* TabBarController.swift */; };
 		A21460941EA6A62400831F14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460931EA6A62400831F14 /* ViewController.swift */; };
@@ -68,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		029C6AE5B5DF91CC820A1F7C /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 		2214AB351EAC4D9D00795C64 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		22A239611EADC26000F16245 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		22A239641EAEB81E00F16245 /* Orders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orders.swift; sourceTree = "<group>"; };
@@ -75,6 +79,9 @@
 		22C078481EAC8A78006A0AF4 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		22C0784A1EADA6C6006A0AF4 /* Historicals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Historicals.swift; sourceTree = "<group>"; };
 		22C0784E1EADB174006A0AF4 /* ChartManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartManager.swift; sourceTree = "<group>"; };
+		22F46CF61EB2433B00C9AC39 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		22F46CF81EB2488A00C9AC39 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		22F46CFA1EB248A400C9AC39 /* StatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		5AAC6870C3FC2C5F110DABCB /* Pods_Stock_Boy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stock_Boy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.release.xcconfig"; sourceTree = "<group>"; };
 		A214608F1EA69E0F00831F14 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
@@ -111,7 +118,6 @@
 		A2BA3F9E1EB12E8700F42CF6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
 		A2F9F78C1EA9103300340A51 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		FB49A712EFD1AEC455D7ACD4 /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,7 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */,
-				FB49A712EFD1AEC455D7ACD4 /* Pods-Stock Boy.debug.xcconfig */,
+				029C6AE5B5DF91CC820A1F7C /* Pods-Stock Boy.debug.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -145,6 +151,7 @@
 		A21460971EA6A8C800831F14 /* Subclass */ = {
 			isa = PBXGroup;
 			children = (
+				22F46CF81EB2488A00C9AC39 /* View.swift */,
 				A28988BA1EA9403F00FC50AF /* Button.swift */,
 				22C078481EAC8A78006A0AF4 /* ImageView.swift */,
 				A28988BC1EA9410D00FC50AF /* Label.swift */,
@@ -153,6 +160,7 @@
 				A21460911EA69F3200831F14 /* TabBarController.swift */,
 				A21460951EA6A79000831F14 /* NavigationController.swift */,
 				2214AB351EAC4D9D00795C64 /* TableViewCell.swift */,
+				22F46CF61EB2433B00C9AC39 /* TextField.swift */,
 			);
 			name = Subclass;
 			sourceTree = "<group>";
@@ -243,6 +251,7 @@
 				A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */,
 				A2BA3F921EB0F5FC00F42CF6 /* OrderCell.swift */,
 				A2BA3F961EB115DB00F42CF6 /* PortfolioCell.swift */,
+				22F46CFA1EB248A400C9AC39 /* StatusView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -314,8 +323,8 @@
 					};
 					A226E86C1EA69C9900354283 = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = 2GK5GPF253;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 82QRSDA4CN;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -400,7 +409,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -431,6 +440,7 @@
 			files = (
 				A2F9F78B1EA90E2400340A51 /* QuoteCell.swift in Sources */,
 				A2BA3F9D1EB12DCC00F42CF6 /* LoginManager.swift in Sources */,
+				22F46CFB1EB248A400C9AC39 /* StatusView.swift in Sources */,
 				A21460941EA6A62400831F14 /* ViewController.swift in Sources */,
 				A2BA3F931EB0F5FC00F42CF6 /* OrderCell.swift in Sources */,
 				22C0784F1EADB174006A0AF4 /* ChartManager.swift in Sources */,
@@ -441,6 +451,7 @@
 				A21460991EA6AF9400831F14 /* StockTabBarController.swift in Sources */,
 				2214AB361EAC4D9D00795C64 /* TableViewCell.swift in Sources */,
 				A2605D441EA9768000FBEF8A /* Instruments.swift in Sources */,
+				22F46CF91EB2488A00C9AC39 /* View.swift in Sources */,
 				A226E8711EA69C9900354283 /* AppDelegate.swift in Sources */,
 				A214609F1EA6CEEF00831F14 /* StringManager.swift in Sources */,
 				A226E8731EA69C9900354283 /* ChartViewController.swift in Sources */,
@@ -452,6 +463,7 @@
 				A2605D4E1EA97B1100FBEF8A /* Fundamentals.swift in Sources */,
 				A2BA3F9F1EB12E8700F42CF6 /* LoginViewController.swift in Sources */,
 				A2605D461EA976AC00FBEF8A /* Quotes.swift in Sources */,
+				22F46CF71EB2433B00C9AC39 /* TextField.swift in Sources */,
 				A214609B1EA6BC1200831F14 /* SearchBar.swift in Sources */,
 				A2BA3F9B1EB125B400F42CF6 /* Portfolio.swift in Sources */,
 				A2BA3F951EB1158C00F42CF6 /* PortfolioViewController.swift in Sources */,
@@ -489,7 +501,6 @@
 /* Begin XCBuildConfiguration section */
 		A21460AB1EA6D29900831F14 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB49A712EFD1AEC455D7ACD4 /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 2GK5GPF253;
@@ -611,16 +622,17 @@
 		};
 		A226E8821EA69C9900354283 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB49A712EFD1AEC455D7ACD4 /* Pods-Stock Boy.debug.xcconfig */;
+			baseConfigurationReference = 029C6AE5B5DF91CC820A1F7C /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2GK5GPF253;
+				DEVELOPMENT_TEAM = 82QRSDA4CN;
 				INFOPLIST_FILE = "Stock Boy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "samhuang.Stock-Boy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ac61ee21-cdb5-4939-8690-1b36fc5ee098";
+				PROVISIONING_PROFILE_SPECIFIER = XC;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -631,12 +643,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2GK5GPF253;
+				DEVELOPMENT_TEAM = 82QRSDA4CN;
 				INFOPLIST_FILE = "Stock Boy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "samhuang.Stock-Boy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "ac61ee21-cdb5-4939-8690-1b36fc5ee098";
+				PROVISIONING_PROFILE_SPECIFIER = XC;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

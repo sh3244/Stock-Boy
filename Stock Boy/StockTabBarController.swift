@@ -13,6 +13,7 @@ class StockTabBarController: TabBarController {
   var watchlist = WatchlistViewController()
   var orders = OrdersViewController()
   var portfolio = PortfolioViewController()
+  var login = LoginViewController()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -29,18 +30,11 @@ class StockTabBarController: TabBarController {
     let portfolioNav = NavigationController(rootViewController: portfolio)
     portfolio.tabBarItem = UITabBarItem(title: "Portfolio", image: #imageLiteral(resourceName: "iconList"), selectedImage: nil)
 
-    setViewControllers([watchlistNav, chartNav, ordersNav, portfolioNav], animated: false)
-    selectedViewController = watchlistNav
+    let loginNav = NavigationController(rootViewController: login)
+    login.tabBarItem = UITabBarItem(title: "Login", image: #imageLiteral(resourceName: "iconList"), selectedImage: nil)
 
-    // Login override point
-
-    if !LoginManager.shared.loggedIn {
-      let login = LoginViewController()
-      let loginNav = NavigationController(rootViewController: login)
-      self.present(loginNav, animated: true, completion: { 
-        
-      })
-    }
+    setViewControllers([watchlistNav, chartNav, ordersNav, portfolioNav, loginNav], animated: false)
+    selectedViewController = loginNav
   }
 
 }

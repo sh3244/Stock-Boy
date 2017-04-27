@@ -1,21 +1,21 @@
 //
-//  Label.swift
+//  TextField.swift
 //  Stock Boy
 //
-//  Created by Huang, Samuel on 4/20/17.
+//  Created by Sam on 4/27/17.
 //  Copyright © 2017 Huang, Samuel. All rights reserved.
 //
 
 import UIKit
 
-class Label: UILabel {
+class TextField: UITextField {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
     textColor = .white
     textAlignment = .center
-    font = UIFont.systemFont(ofSize: 14)
-//    translatesAutoresizingMaskIntoConstraints = false
+    backgroundColor = .darkGray
+    //    translatesAutoresizingMaskIntoConstraints = false
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -25,10 +25,6 @@ class Label: UILabel {
   convenience init(_ title: String) {
     self.init(frame: .zero)
     text = title
-  }
-
-  func setTypeTitle() {
-    font = UIFont.systemFont(ofSize: 20)
   }
 
 }

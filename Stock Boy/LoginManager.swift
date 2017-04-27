@@ -15,6 +15,7 @@ import RxSwift
 
 class LoginManager: NSObject {
   var loggedIn = false
+  var auth: Auth?
 
   static let shared: LoginManager = {
     let instance = LoginManager()
@@ -22,8 +23,18 @@ class LoginManager: NSObject {
     return instance
   }()
 
-  func loginWith(username: String, password: String) {
-    DataManager.shared.fetchRobinhoodAuthWith(completion: )
+  func loginWith(username: String, password: String, completion:@escaping ((Auth) -> Void)) {
+    DataManager.shared.fetchRobinhoodAuthWith(username: username, password: password) { (auth) in
+      self.auth = auth
+      self.loggedIn = true
+      completion(auth)
+    }
+  }
+
+  func logout(completion:@escaping (() -> Void)) {
+    self.auth = nil
+    self.loggedIn = false
+    completion()
   }
 
 }

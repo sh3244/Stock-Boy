@@ -16,10 +16,16 @@ class Button: UIButton {
     titleLabel?.textColor = .white
     titleLabel?.highlightedTextColor = .red
     showsTouchWhenHighlighted = true
+    titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
 //    translatesAutoresizingMaskIntoConstraints = false
   }
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+  }
+
+  convenience init(_ title: String) {
+    self.init(frame: .zero)
+    setTitle(title, for: .normal)
   }
 }

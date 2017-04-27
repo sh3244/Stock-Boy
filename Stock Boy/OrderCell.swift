@@ -17,19 +17,9 @@ class OrderCell: TableViewCell {
   var cost = Label()
 
   public static let heightValue: CGFloat = 40.0
-  public static let expandedHeightValue: CGFloat = 500.0
+  public static let expandedHeightValue: CGFloat = 80.0
   let regularHeight: CGFloat = OrderCell.heightValue
   let expandedHeight: CGFloat = OrderCell.expandedHeightValue
-
-  override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    backgroundColor = .black
-    symbol.text = "ABCD"
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
 
   override func layoutSubviews() {
     super.layoutSubviews()

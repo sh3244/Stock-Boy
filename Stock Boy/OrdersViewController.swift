@@ -23,19 +23,19 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Portfolio"
+    title = "Orders"
 
-//    tableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
+    //    tableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
     tableView.backgroundColor = .black
     tableView.refreshControl = refreshControl
     tableView.dataSource = self
     tableView.delegate = self
     refreshControl.rx.controlEvent(.valueChanged)
-    .subscribe { _ in
-      self.update()
-      self.refreshControl.endRefreshing()
-    }
-    .addDisposableTo(disposeBag)
+      .subscribe { _ in
+        self.update()
+        self.refreshControl.endRefreshing()
+      }
+      .addDisposableTo(disposeBag)
 
     let orders = DataManager.shared.orders
     orders.asObservable()
@@ -59,9 +59,9 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
       0
     )
   }
-  
+
   func update() {
-    DataManager.shared.fetchRobinhoodAuthWith { (auth) in
+    if let auth = LoginManager.shared.auth {
       DataManager.shared.fetchRobinhoodOrdersWith(auth: auth, completion: { (orders) in
         DataManager.shared.orders.value.append(Orders(results: orders))
       })

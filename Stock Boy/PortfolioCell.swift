@@ -15,19 +15,9 @@ class PortfolioCell: TableViewCell {
   var change = Label()
 
   public static let heightValue: CGFloat = 40.0
-  public static let expandedHeightValue: CGFloat = 500.0
+  public static let expandedHeightValue: CGFloat = 80.0
   let regularHeight: CGFloat = PortfolioCell.heightValue
   let expandedHeight: CGFloat = PortfolioCell.expandedHeightValue
-
-  override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    backgroundColor = .black
-
-  }
-
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-  }
 
   override func layoutSubviews() {
     super.layoutSubviews()

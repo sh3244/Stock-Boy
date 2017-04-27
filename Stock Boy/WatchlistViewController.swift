@@ -41,7 +41,7 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
 
     view.sv([searchBar, tableView])
 
-    DataManager.shared.fetchRobinhoodAuthWith { (auth) in
+    if let auth = LoginManager.shared.auth {
       DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { watchlist in
         DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
           self.instruments = instruments
@@ -203,7 +203,7 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return quotes.count
   }
-
+  
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1
   }
