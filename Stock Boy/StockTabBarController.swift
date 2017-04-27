@@ -31,6 +31,16 @@ class StockTabBarController: TabBarController {
 
     setViewControllers([watchlistNav, chartNav, ordersNav, portfolioNav], animated: false)
     selectedViewController = watchlistNav
+
+    // Login override point
+
+    if !LoginManager.shared.loggedIn {
+      let login = LoginViewController()
+      let loginNav = NavigationController(rootViewController: login)
+      self.present(loginNav, animated: true, completion: { 
+        
+      })
+    }
   }
 
 }

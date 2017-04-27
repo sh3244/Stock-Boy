@@ -27,9 +27,9 @@ class DataManager: NSObject {
 
   // MARK: Auth
 
-  func fetchRobinhoodAuthWith(completion:@escaping ((Auth) -> Void)) {
-    let parameters: Parameters = ["username": "sh3244",
-                                  "password": "5ezypqj9omp"
+  func fetchRobinhoodAuthWith(username: String, password: String, completion:@escaping ((Auth) -> Void)) {
+    let parameters: Parameters = ["username": username,
+                                  "password": password
     ]
 
     Alamofire.request(baseURL + "api-token-auth/", method: .post, parameters: parameters).responseJSON { response in
