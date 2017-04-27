@@ -23,7 +23,7 @@ class StatusView: View {
     super.init(coder: aDecoder)
   }
 
-  convenience init(_ title: String, color: UIColor) {
+  convenience init(_ title: String, _ color: UIColor) {
     self.init(frame: .zero)
     self.title.text = title
     self.backgroundColor = color

@@ -10,6 +10,7 @@ import UIKit
 import Argo
 import Alamofire
 import RxSwift
+import Whisper
 
 public let baseURL = "https://api.robinhood.com/"
 
@@ -52,6 +53,44 @@ class DataManager: NSObject {
         let object: Accounts? = decode(json)
         if let obj = object?.results.first {
           completion(obj)
+        }
+      }
+    }
+  }
+
+  // MARK: Portfolio
+
+  func fetchRobinhoodPortfolioWith(auth: Auth, completion:@escaping ((Portfolio) -> Void)) {
+    let headers = ["authorization": "token " + auth.token]
+
+    Alamofire.request(baseURL + "portfolios/", method: .get, headers: headers).responseJSON { response in
+      if let json = response.result.value {
+        let object: Portfolios? = decode(json)
+        if let obj = object?.results.first {
+          completion(obj)
+        }
+      }
+    }
+  }
+
+  // MARK: Position
+
+  func fetchRobinhoodPositionsWith(auth: Auth, completion:@escaping (([Position]) -> Void)) {
+    let headers = ["authorization": "token " + auth.token]
+
+    Alamofire.request(baseURL + "positions/", method: .get, headers: headers).responseJSON { response in
+      if let json = response.result.value {
+        let object: Positions? = decode(json)
+        if let positions: [Position] = object?.results {
+          let filtered = positions.filter { position in
+            if let quantity = Double(position.quantity) {
+              if quantity > 0 {
+                return true
+              }
+            }
+            return false
+          }
+          completion(filtered)
         }
       }
     }
@@ -265,9 +304,7 @@ class DataManager: NSObject {
       return
     }
     Alamofire.request(cancel, method: .post, headers: headers).responseJSON { response in
-      if let json = response.result.value {
-        
-      }
+
     }
   }
 

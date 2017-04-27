@@ -14,6 +14,7 @@ import RxCocoa
 class OrdersViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
   var tableView = UITableView()
   var refreshControl = UIRefreshControl()
+  let headerView = HeaderView(["Symbol", "Type", "Shares", "Price", "Value"])
 
   var selected: [IndexPath] = []
 
@@ -25,7 +26,7 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
     super.viewDidLoad()
     title = "Orders"
 
-    //    tableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
+    tableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
     tableView.backgroundColor = .black
     tableView.refreshControl = refreshControl
     tableView.dataSource = self
@@ -52,9 +53,10 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([tableView])
+    view.sv([headerView, tableView])
     view.layout(
       0,
+      |headerView|,
       |tableView|,
       0
     )
@@ -84,9 +86,9 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = OrderCell()
+    let cell = tableView.dequeueReusableCell(withIdentifier: "orderCell") as? OrderCell
 
-    return cell
+    return cell ?? OrderCell()
   }
 
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

@@ -13,6 +13,8 @@ class PortfolioCell: TableViewCell {
   var symbol = Label()
   var value = Label()
   var change = Label()
+  var shares = Label()
+  var cost = Label()
 
   public static let heightValue: CGFloat = 40.0
   public static let expandedHeightValue: CGFloat = 80.0
@@ -24,13 +26,11 @@ class PortfolioCell: TableViewCell {
     contentView.subviews.forEach { (view) in
       view.removeFromSuperview()
     }
-    sv([symbol, value, change])
-
-    change.width(70)
-    symbol.width(55)
+    sv([symbol, shares, cost, value, change])
+    equalWidths([symbol, shares, cost, value, change])
     layout(
       0,
-      |-symbol-value-change-| ~ 40,
+      |-symbol-shares-cost-value-change-| ~ 40,
       0
     )
   }

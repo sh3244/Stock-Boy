@@ -19,6 +19,8 @@ class TabBarController: UITabBarController {
     view.backgroundColor = .darkGray
 
     tabBar.barStyle = .black
+    tabBar.tintColor = .white
+//    tabBar.barTintColor = .white
     tabBar.isTranslucent = false
   }
 }

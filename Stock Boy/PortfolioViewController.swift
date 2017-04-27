@@ -15,11 +15,11 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
 
   var tableView = UITableView()
   var refreshControl = UIRefreshControl()
-  var statusView = StatusView()
+  var statusView = StatusView("$10000.00", .gray)
 
   var selected: [IndexPath] = []
 
-  var items: [Portfolio] = []
+  var items: [Position] = []
 
   let disposeBag = DisposeBag()
 
@@ -27,7 +27,9 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
     super.viewDidLoad()
     title = "Portfolio"
 
-    //    tableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
+    statusView.title.font = UIFont.systemFont(ofSize: 28)
+
+    tableView.register(PortfolioCell.self, forCellReuseIdentifier: "portfolioCell")
     tableView.backgroundColor = .black
     tableView.refreshControl = refreshControl
     tableView.dataSource = self
@@ -39,24 +41,19 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
       }
       .addDisposableTo(disposeBag)
 
-//    let orders = DataManager.shared.orders
-//    orders.asObservable()
-//      .subscribe({ (orders) in
-//        if let ords = orders.element?.first?.results {
-//          self.items = ords
-//          self.tableView.reloadData()
-//        }
-//      })
-//      .addDisposableTo(disposeBag)
-
-    update()
+    let counter = myInterval(1.0)
+    _ = counter
+      .subscribe(onNext: { (value) in
+        self.update()
+      })
   }
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([tableView])
+    view.sv([tableView, statusView])
     view.layout(
       0,
+      |statusView| ~ 80,
       |tableView|,
       0
     )
@@ -64,7 +61,19 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
 
   func update() {
     if let auth = LoginManager.shared.auth {
-      DataManager.shared.fetchRobinhoodOrdersWith(auth: auth)
+      DataManager.shared.fetchRobinhoodPortfolioWith(auth: auth, completion: { (portfolio) in
+        if portfolio.equity_previous_close > portfolio.equity {
+          self.statusView.backgroundColor = .red
+        } else {
+          self.statusView.backgroundColor = .green
+        }
+        self.statusView.title.text = portfolio.equity.toUSD() + "   " + portfolio.equity.dividedBy(portfolio.equity_previous_close).toPercentChange()
+      })
+
+      DataManager.shared.fetchRobinhoodPositionsWith(auth: auth, completion: { (positions) in
+        self.items = positions
+        self.tableView.reloadData()
+      })
     }
   }
 
@@ -84,18 +93,24 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = PortfolioCell()
+    let cell = tableView.dequeueReusableCell(withIdentifier: "portfolioCell") as? PortfolioCell
 
-    return cell
+    return cell ?? PortfolioCell()
   }
 
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    let order = items[indexPath.row]
+    let item = items[indexPath.row]
 
     if let portfolioCell = cell as? PortfolioCell {
-//      DataManager.shared.fetchRobinhoodInstrumentWith(url: order.instrument, completion: { (instrument) in
-//        portfolioCell.symbol.text = instrument.symbol
-//      })
+      DataManager.shared.fetchRobinhoodInstrumentWith(url: item.instrument, completion: { (instrument) in
+        portfolioCell.symbol.text = instrument.symbol
+        DataManager.shared.fetchRobinhoodQuoteWith(symbol: instrument.symbol, completion: { (quote) in
+          portfolioCell.change.text = quote.last_trade_price.dividedBy(item.average_buy_price).toPercentChange()
+          portfolioCell.value.text = quote.last_trade_price.multipliedBy(item.quantity).toUSD()
+        })
+      })
+      portfolioCell.cost.text = item.average_buy_price.multipliedBy(item.quantity).toUSD()
+      portfolioCell.shares.text = item.quantity.toVolume()
     }
   }
 

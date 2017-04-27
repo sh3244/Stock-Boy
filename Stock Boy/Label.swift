@@ -31,4 +31,12 @@ class Label: UILabel {
     font = UIFont.systemFont(ofSize: 20)
   }
 
+  func changeTextTo(value: String) {
+    if text != value {
+      UIView.animate(withDuration: 1, animations: { 
+        self.text = value
+      })
+    }
+  }
+
 }

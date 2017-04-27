@@ -16,11 +16,11 @@ class LoginViewController: ViewController {
   let passwordLabel = Label("Password")
   let password = TextField("5ezypqj9omp")
   let login = Button("Login")
-  let logout = Button("Button")
+  let logout = Button("Logout")
 
   let cancel = Button("Cancel All Orders")
 
-  let loginStatus = StatusView("Not Logged In", color: .red)
+  let loginStatus = StatusView("Not Logged In", .red)
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -55,9 +55,9 @@ class LoginViewController: ViewController {
 
     view.layout(
       8,
-      |loginStatus| ~ 40,
-      8,
       |titleLabel| ~ 40,
+      8,
+      |loginStatus| ~ 40,
       20,
       |usernameLabel| ~ 40,
       |username| ~ 40,

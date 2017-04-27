@@ -105,8 +105,12 @@ extension String {
 
 // MARK: Money
 extension String {
+
+  func tackZeros() -> String {
+    return self + "00"
+  }
   func toUSD() -> String {
-    return self.replacingFirstMatching("([0-9]+.[0-9]{2}).*", with: "\\$$1")
+    return self.tackZeros().replacingFirstMatching("([0-9]+).([0-9])?([0-9])?.*", with: "\\$$1.$2$3")
   }
 
   func toPercentChange() -> String {
@@ -125,11 +129,11 @@ extension String {
   func toVolume() -> String {
     let trimmed = self.replacingFirstMatching("^([0-9]+)\\..*", with: "$1")
     if trimmed.characters.count > 9 {
-      return trimmed.replacingFirstMatching("[0-9]{9}$", with: "B")
+      return trimmed.replacingFirstMatching("([0-9]{3})[0-9]{6}$", with: ".$1").trimTrailingZeros() + "B"
     } else if trimmed.characters.count > 6 {
-      return trimmed.replacingFirstMatching("[0-9]{6}$", with: "M")
+      return trimmed.replacingFirstMatching("([0-9]{3})[0-9]{3}$", with: ".$1").trimTrailingZeros() + "M"
     } else if trimmed.characters.count > 3 {
-      return trimmed.replacingFirstMatching("[0-9]{3}$", with: "K")
+      return trimmed.replacingFirstMatching("([0-9]{3})$", with: ".$1").trimTrailingZeros() + "K"
     }
     return trimmed
   }
@@ -138,8 +142,26 @@ extension String {
     return self.replacingFirstMatching("^0{0,4}([0-9]\\.)", with: "$1")
   }
 
+  func trimTrailingZeros() -> String {
+    return self.replacingFirstMatching("(^.*[^0]+)0+$", with: "$1")
+  }
+
   func trimDecimals() -> String {
     return self.replacingFirstMatching("^([0-9]+)\\..*$", with: "$1")
 
+  }
+
+  func dividedBy(_ string: String) -> String {
+    if let first = Double(self), let second = Double(string) {
+      return String(first / second)
+    }
+    return ""
+  }
+
+  func multipliedBy(_ string: String) -> String {
+    if let first = Double(self), let second = Double(string) {
+      return String(first * second)
+    }
+    return ""
   }
 }

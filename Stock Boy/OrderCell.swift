@@ -27,25 +27,12 @@ class OrderCell: TableViewCell {
       view.removeFromSuperview()
     }
     sv([symbol, type, quantity, price, cost])
+    equalWidths([symbol, type, quantity, price, cost])
 
-    symbol.width(55)
-    type.width(50)
-    quantity.width(100)
-    price.width(70)
-
-    if contentView.bounds.height > 40.0 {
-      layout(
-        0,
-        |-symbol-type-quantity-price-cost-| ~ 40,
-        0
-      )
-    }
-    else {
-      layout(
-        0,
-        |-symbol-type-quantity-price-cost-| ~ 40,
-        0
-      )
-    }
+    layout(
+      0,
+      |-symbol-type-quantity-price-cost-| ~ 40,
+      0
+    )
   }
 }

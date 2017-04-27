@@ -41,7 +41,7 @@ class ChartViewController: ViewController, UISearchBarDelegate, SelectionViewDel
 
     selection.delegate = self
 
-    let counter = myInterval(10.0)
+    let counter = myInterval(10)
     _ = counter
       .subscribe(onNext: { (value) in
         self.fetchBlock()

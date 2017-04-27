@@ -75,6 +75,6 @@ class QuoteCell: TableViewCell {
   }
 
   func apply(color: UIColor) {
-    change.textColor = color
+    self.change.textColor = color
   }
 }

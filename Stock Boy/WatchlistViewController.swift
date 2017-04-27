@@ -21,7 +21,7 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
   var selected: [IndexPath] = []
 
   var sortAscending = true
-  var paused = true
+  var paused = false
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -38,7 +38,7 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
 
     view.sv([searchBar, tableView])
 
-    let counter = myInterval(10.0)
+    let counter = myInterval(3)
     _ = counter
       .subscribe(onNext: { (value) in
         if !self.paused {
@@ -149,9 +149,9 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = QuoteCell()
+    let cell = tableView.dequeueReusableCell(withIdentifier: "quoteCell") as? QuoteCell
 
-    return cell
+    return cell ?? QuoteCell()
   }
 
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -160,7 +160,7 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
     if let quoteCell = cell as? QuoteCell {
       quoteCell.symbol.text = quote.symbol
       quoteCell.price.text = quote.last_trade_price.toUSD()
-      quoteCell.change.text = String(Double(quote.last_trade_price)! / Double(quote.adjusted_previous_close)!).toPercentChange()
+      quoteCell.change.changeTextTo(value: String(Double(quote.last_trade_price)! / Double(quote.adjusted_previous_close)!).toPercentChange())
       if quote.last_trade_price > quote.adjusted_previous_close {
         quoteCell.apply(color: .green)
       } else if quote.last_trade_price < quote.adjusted_previous_close {
@@ -176,10 +176,10 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
         quoteCell.high.text = "High: " + fundamentals.high.toUSD()
         quoteCell.low.text = "Low: " + fundamentals.low.toUSD()
         quoteCell.volume.text = "Vol: " + fundamentals.volume.toVolume()
-        quoteCell.average_volume.text = "Average Vol: " + fundamentals.average_volume.toVolume()
+        quoteCell.average_volume.text = "Avg Vol: " + fundamentals.average_volume.toVolume()
         quoteCell.high_52_weeks.text = "52 Week High: " + fundamentals.high_52_weeks.toUSD()
         quoteCell.low_52_weeks.text = "52 Week Low: " + fundamentals.low_52_weeks.toUSD()
-        quoteCell.market_cap.text = "Market Cap: " + fundamentals.market_cap.toVolume()
+        quoteCell.market_cap.text = "Cap: " + fundamentals.market_cap.toVolume()
       })
       if selected.contains(indexPath) {
         if quoteCell.chart.image != nil {
