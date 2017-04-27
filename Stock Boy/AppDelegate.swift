@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.rootViewController = tabBarController
     window?.makeKeyAndVisible()
 
-    FLEXManager.shared().showExplorer()
+//    FLEXManager.shared().showExplorer()
 
     return true
   }

@@ -18,11 +18,15 @@ class ChartViewController: ViewController, UISearchBarDelegate, SelectionViewDel
 
   var fetchBlock: (() -> Void) = {}
 
+  convenience init(symbol: String) {
+    self.init()
+    searchBar.text = symbol
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     title = "Chart"
     searchBar.delegate = self
-    searchBar.text = "URRE"
     view.sv([selection, searchBar, chartView])
 
     chartView.backgroundColor = .white

@@ -10,7 +10,6 @@ import UIKit
 import Argo
 import Alamofire
 import RxSwift
-import Whisper
 
 public let baseURL = "https://api.robinhood.com/"
 

@@ -12,15 +12,15 @@ import Stevia
 class LoginViewController: ViewController {
   let titleLabel = Label("Robinhood")
   let usernameLabel = Label("Username")
-  let username = TextField("sh3244")
+  let username = TextField("")
   let passwordLabel = Label("Password")
-  let password = TextField("5ezypqj9omp")
+  let password = TextField("")
   let login = Button("Login")
   let logout = Button("Logout")
 
   let cancel = Button("Cancel All Orders")
 
-  let loginStatus = StatusView("Not Logged In", .red)
+  let loginStatus = StatusView("Not logged in", .red)
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -38,7 +38,7 @@ class LoginViewController: ViewController {
     let defaults = UserDefaults.standard
     if let username = defaults.string(forKey: "username"), let password = defaults.string(forKey: "password") {
       LoginManager.shared.loginWith(username: username, password: password) { (auth) in
-        self.loginStatus.title.text = "Logged In"
+        self.loginStatus.title.text = "Logged in as " + username
         self.loginStatus.backgroundColor = .green
         if let controller = self.tabBarController {
           controller.selectedViewController = controller.viewControllers?.first
@@ -83,7 +83,7 @@ class LoginViewController: ViewController {
   func performLogin() {
     if username.text?.validateName() ?? false && password.text?.validatePassword() ?? false {
       LoginManager.shared.loginWith(username: username.text!, password: password.text!) { (auth) in
-        self.loginStatus.title.text = "Logged In"
+        self.loginStatus.title.text = "Logged in as " + self.username.text!
         self.loginStatus.backgroundColor = .green
         let defaults = UserDefaults.standard
         defaults.setValue(self.username.text!, forKey: "username")

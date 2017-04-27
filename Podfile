@@ -34,7 +34,7 @@ target 'Stock Boy' do
   pod 'Charts', '~> 3.0.2'
   #  https://github.com/danielgindi/Charts
 
-  pod 'Whisper', '~> 4.0.0'
+  #  pod 'Whisper', '~> 4.0.0'
   #  https://github.com/hyperoslo/Whisper
 
 end

@@ -9,7 +9,7 @@
 import UIKit
 
 class StockTabBarController: TabBarController {
-  var chart = ChartViewController()
+  var chart = ChartViewController(symbol: "URRE")
   var watchlist = WatchlistViewController()
   var orders = OrdersViewController()
   var portfolio = PortfolioViewController()

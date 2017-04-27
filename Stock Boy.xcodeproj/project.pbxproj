@@ -611,7 +611,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -637,11 +637,10 @@
 			baseConfigurationReference = 029C6AE5B5DF91CC820A1F7C /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 82QRSDA4CN;
 				INFOPLIST_FILE = "Stock Boy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "samhuang.Stock-Boy";
+				PRODUCT_BUNDLE_IDENTIFIER = robincap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ac61ee21-cdb5-4939-8690-1b36fc5ee098";
 				PROVISIONING_PROFILE_SPECIFIER = XC;
@@ -654,14 +653,13 @@
 			baseConfigurationReference = 81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 82QRSDA4CN;
 				INFOPLIST_FILE = "Stock Boy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "samhuang.Stock-Boy";
+				PRODUCT_BUNDLE_IDENTIFIER = robincap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ac61ee21-cdb5-4939-8690-1b36fc5ee098";
-				PROVISIONING_PROFILE_SPECIFIER = XC;
+				PROVISIONING_PROFILE = "eed73b57-649d-42a6-a57e-dad3dc9f37d2";
+				PROVISIONING_PROFILE_SPECIFIER = temp;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

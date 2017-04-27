@@ -124,7 +124,9 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
     if selected.contains(indexPath) {
       if let index = selected.index(of: indexPath) {
         selected.remove(at: index)
-
+        let item = quotes[indexPath.row]
+        let chart = ChartViewController(symbol: item.symbol)
+        self.navigationController?.pushViewController(chart, animated: true)
       }
     }
     else {
