@@ -13,14 +13,15 @@ class SearchBar: UISearchBar {
   override init(frame: CGRect) {
     super.init(frame: frame)
     searchBarStyle = .minimal
-    tintColor = .white
-    backgroundColor = .black
+    tintColor = UISettings.foregroundColor
+    backgroundColor = UISettings.backgroundColor
+    returnKeyType = .search
 
     let textFieldInsideSearchBar = value(forKey: "searchField") as? UITextField
-    textFieldInsideSearchBar?.textColor = UIColor.white
+    textFieldInsideSearchBar?.textColor = UISettings.foregroundColor
 
     let textFieldInsideSearchBarLabel = textFieldInsideSearchBar?.value(forKey: "placeholderLabel") as? UILabel
-    textFieldInsideSearchBarLabel?.textColor = UIColor.white
+    textFieldInsideSearchBarLabel?.textColor = UISettings.foregroundColor
   }
   
   required init?(coder aDecoder: NSCoder) {

@@ -12,7 +12,8 @@ class TableViewCell: UITableViewCell {
 
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    backgroundColor = .black
+    backgroundColor = UISettings.backgroundColor
+    selectionStyle = .none
   }
 
   required init?(coder aDecoder: NSCoder) {

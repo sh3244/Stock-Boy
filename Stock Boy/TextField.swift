@@ -12,10 +12,9 @@ class TextField: UITextField {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    textColor = .white
+    textColor = UISettings.foregroundColor
     textAlignment = .center
-    backgroundColor = .darkGray
-    //    translatesAutoresizingMaskIntoConstraints = false
+    backgroundColor = UISettings.neutralColor
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -24,7 +23,7 @@ class TextField: UITextField {
 
   convenience init(_ title: String) {
     self.init(frame: .zero)
-    text = title
+    self.text = title
   }
 
 }

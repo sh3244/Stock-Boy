@@ -16,11 +16,12 @@ class TabBarController: UITabBarController {
   }
 
   func setupAppearance() {
-    view.backgroundColor = .darkGray
+    view.backgroundColor = UISettings.backgroundColor
 
-    tabBar.barStyle = .black
-    tabBar.tintColor = .white
-//    tabBar.barTintColor = .white
+    if UISettings.backgroundColor == .black {
+      tabBar.barStyle = .black
+    }
+    tabBar.tintColor = UISettings.foregroundColor
     tabBar.isTranslucent = false
   }
 }

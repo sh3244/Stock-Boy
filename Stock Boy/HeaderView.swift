@@ -12,7 +12,7 @@ import Stevia
 
 class HeaderView: View {
   var labels: [Label] = []
-  let lining = View(color: .white)
+  let lining = View(color: UISettings.foregroundColor)
 
   convenience init(_ choices: [String]) {
     self.init(frame: .zero)

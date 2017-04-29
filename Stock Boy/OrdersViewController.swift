@@ -12,11 +12,9 @@ import RxSwift
 import RxCocoa
 
 class OrdersViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
-  var tableView = UITableView()
+  var tableView = TableView()
   var refreshControl = UIRefreshControl()
   let headerView = HeaderView(["Symbol", "Type", "Shares", "Price", "Value"])
-
-  var selected: [IndexPath] = []
 
   var items: [Order] = []
 
@@ -27,7 +25,6 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
     title = "Orders"
 
     tableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
-    tableView.backgroundColor = .black
     tableView.refreshControl = refreshControl
     tableView.dataSource = self
     tableView.delegate = self
@@ -44,6 +41,7 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
         if let ords = orders.element?.first?.results {
           self.items = ords
           self.tableView.reloadData()
+          self.revealView(self.tableView)
         }
       })
       .addDisposableTo(disposeBag)
@@ -99,8 +97,8 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
         orderCell.symbol.text = instrument.symbol
       })
       orderCell.type.text = order.side
-      orderCell.quantity.text = order.quantity.trimDecimals()
-      orderCell.price.text = order.price?.toUSD()
+      orderCell.quantity.text = order.quantity
+      orderCell.price.text = order.price ?? ""
 
       if let quantity = Double(order.quantity), let price = Double(order.price ?? "") {
         orderCell.cost.text = String(quantity * price)

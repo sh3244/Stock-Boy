@@ -10,18 +10,18 @@ import UIKit
 import Stevia
 
 class QuoteCell: TableViewCell {
-  var symbol = Label()
+  var symbol = Label(type: .symbol)
   var name = Label()
-  var price = Label()
-  var change = Label()
-  var open = Label()
-  var high = Label()
-  var low = Label()
-  var volume = Label()
-  var average_volume = Label()
-  var high_52_weeks = Label()
-  var low_52_weeks = Label()
-  var market_cap = Label()
+  var price = Label(type: .usd)
+  var change = Label(type: .percent)
+  var open = Label(type: .usd, prefix: "Open: ")
+  var high = Label(type: .usd, prefix: "High: ")
+  var low = Label(type: .usd, prefix: "Low: ")
+  var volume = Label(type: .volume, prefix: "Vol: ")
+  var average_volume = Label(type: .volume, prefix: "Avg Vol: ")
+  var high_52_weeks = Label(type: .usd, prefix: "52 Week High: ")
+  var low_52_weeks = Label(type: .usd, prefix: "52 Week Low: ")
+  var market_cap = Label(type: .volume, prefix: "Cap: ")
   var chart = ImageView(frame: .zero)
 
   public static let heightValue: CGFloat = 40.0
@@ -31,9 +31,9 @@ class QuoteCell: TableViewCell {
 
   override func willMove(toSuperview newSuperview: UIView?) {
     price.textAlignment = .right
-    change.textAlignment = .left
+    change.textAlignment = .right
     name.textAlignment = .left
-    symbol.textAlignment = .right
+    symbol.textAlignment = .left
   }
 
   override func layoutSubviews() {

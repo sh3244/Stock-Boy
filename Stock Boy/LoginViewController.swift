@@ -10,7 +10,7 @@ import UIKit
 import Stevia
 
 class LoginViewController: ViewController {
-  let titleLabel = Label("Robinhood")
+  let titleLabel = Label("Robinhood", type: .title)
   let usernameLabel = Label("Username")
   let username = TextField("")
   let passwordLabel = Label("Password")
@@ -27,7 +27,9 @@ class LoginViewController: ViewController {
 
     title = "Login"
 
-    titleLabel.setTypeTitle()
+    password.isSecureTextEntry = true
+    username.delegate = self
+    password.delegate = self
 
     cancel.setTitleColor(.red, for: .normal)
 
@@ -54,7 +56,7 @@ class LoginViewController: ViewController {
     equalWidths(login, logout)
 
     view.layout(
-      8,
+      40,
       |titleLabel| ~ 40,
       8,
       |loginStatus| ~ 40,
@@ -66,7 +68,7 @@ class LoginViewController: ViewController {
       |password| ~ 40,
       8,
       |login-logout| ~ 40,
-      40,
+      160,
       |cancel| ~ 40
     )
   }
@@ -96,6 +98,18 @@ class LoginViewController: ViewController {
     if let auth = LoginManager.shared.auth {
       DataManager.shared.cancelAllRobinhoodOrdersWith(auth: auth)
     }
+  }
+
+  override func textFieldDidBeginEditing(_ textField: UITextField) {
+    super.textFieldDidBeginEditing(textField)
+    textField.returnKeyType = .done
+  }
+
+  override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    if super.textFieldShouldReturn(textField) {
+      performLogin()
+    }
+    return false
   }
 
 }

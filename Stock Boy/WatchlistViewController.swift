@@ -10,15 +10,13 @@ import UIKit
 import Stevia
 import RxSwift
 
-class WatchlistViewController: ViewController, UISearchBarDelegate {
+class WatchlistViewController: ViewController {
   var searchBar = SearchBar()
-  var tableView = UITableView()
+  var tableView = TableView()
   var refreshControl = UIRefreshControl()
 
   var quotes: [Quote] = []
   var instruments: [Instrument] = []
-
-  var selected: [IndexPath] = []
 
   var sortAscending = true
   var paused = false
@@ -32,26 +30,38 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
     tableView.register(QuoteCell.self, forCellReuseIdentifier: "quoteCell")
     tableView.delegate = self
     tableView.dataSource = self
-    tableView.backgroundColor = .black
     tableView.refreshControl = refreshControl
     refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
 
-    view.sv([searchBar, tableView])
+    let leftSpace = View(color: .clear)
+    let rightSpace = View(color: .clear)
+    leftSpace.width(16)
+    rightSpace.width(16)
 
-    let counter = myInterval(3)
+    navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: leftSpace), UIBarButtonItem(title: "Updating", style: .plain, target: self, action: #selector(autoUpdate))]
+    navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: rightSpace), UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))]
+
+    searchBlock = { string in
+      DataManager.shared.fetchRobinhoodQuoteWith(symbol: string, completion: { (quote) in
+        self.quotes.append(quote)
+        self.tableView.reloadData()
+      })
+    }
+
+    self.refreshTable()
+
+    let counter = myInterval(2)
     _ = counter
       .subscribe(onNext: { (value) in
         if !self.paused {
           self.refreshTable()
         }
-    })
-
-    navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))]
-    navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Paused", style: .plain, target: self, action: #selector(autoUpdate))]
+      })
   }
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
+    view.sv([tableView, searchBar])
     view.layout(
       0,
       |searchBar|,
@@ -63,10 +73,10 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
   func autoUpdate() {
     paused = !paused
     if paused {
-      navigationItem.leftBarButtonItem?.title = "Paused"
+      navigationItem.leftBarButtonItems?[1].title = "Paused"
     }
     else {
-      navigationItem.leftBarButtonItem?.title = "Updating"
+      navigationItem.leftBarButtonItems?[1].title = "Updating"
     }
   }
 
@@ -82,7 +92,6 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
       }
       return sortAscending ? true : false
     })
-    self.tableView.reloadData()
   }
 
   func refreshTable() {
@@ -96,24 +105,11 @@ class WatchlistViewController: ViewController, UISearchBarDelegate {
             self.quotes = quotes
             self.sort()
             self.tableView.reloadData()
+            self.revealView(self.tableView)
           })
         })
       })
     }
-  }
-
-  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    searchBar.resignFirstResponder()
-    if let text = searchBar.text?.uppercased() {
-      DataManager.shared.fetchRobinhoodQuoteWith(symbol: text, completion: { (quote) in
-        self.quotes.append(quote)
-        self.tableView.reloadData()
-      })
-    }
-  }
-
-  func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-    return true
   }
 }
 
@@ -131,20 +127,6 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
     }
     else {
       selected.append(indexPath)
-
-      let quote = quotes[indexPath.row]
-      DispatchQueue.main.async {
-        guard let url = chartURLFor(symbol: quote.symbol) else {
-          return
-        }
-
-        let data = try! Data(contentsOf: url)
-        if !data.isEmpty {
-          if let quoteCell = tableView.cellForRow(at: indexPath) as? QuoteCell {
-            quoteCell.chart.image = UIImage(data: data)
-          }
-        }
-      }
     }
     tableView.beginUpdates()
     tableView.endUpdates()
@@ -161,27 +143,20 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
 
     if let quoteCell = cell as? QuoteCell {
       quoteCell.symbol.text = quote.symbol
-      quoteCell.price.text = quote.last_trade_price.toUSD()
-      quoteCell.change.changeTextTo(value: String(Double(quote.last_trade_price)! / Double(quote.adjusted_previous_close)!).toPercentChange())
-      if quote.last_trade_price > quote.adjusted_previous_close {
-        quoteCell.apply(color: .green)
-      } else if quote.last_trade_price < quote.adjusted_previous_close {
-        quoteCell.apply(color: .red)
-      } else {
-        quoteCell.apply(color: .gray)
-      }
+      quoteCell.price.text = quote.last_trade_price
+      quoteCell.change.text = String((Double(quote.last_trade_price) ?? 1) / (Double(quote.adjusted_previous_close) ?? 1))
       DataManager.shared.fetchRobinhoodInstrumentWith(url: quote.instrument, completion: { (instrument) in
         quoteCell.name.text = instrument.name
       })
       DataManager.shared.fetchRobinhoodFundamentalsWith(symbol: quote.symbol, completion: { (fundamentals) in
-        quoteCell.open.text = "Open: " + fundamentals.open.toUSD()
-        quoteCell.high.text = "High: " + fundamentals.high.toUSD()
-        quoteCell.low.text = "Low: " + fundamentals.low.toUSD()
-        quoteCell.volume.text = "Vol: " + fundamentals.volume.toVolume()
-        quoteCell.average_volume.text = "Avg Vol: " + fundamentals.average_volume.toVolume()
-        quoteCell.high_52_weeks.text = "52 Week High: " + fundamentals.high_52_weeks.toUSD()
-        quoteCell.low_52_weeks.text = "52 Week Low: " + fundamentals.low_52_weeks.toUSD()
-        quoteCell.market_cap.text = "Cap: " + fundamentals.market_cap.toVolume()
+        quoteCell.open.text = fundamentals.open
+        quoteCell.high.text = fundamentals.high
+        quoteCell.low.text = fundamentals.low
+        quoteCell.volume.text = fundamentals.volume
+        quoteCell.average_volume.text = fundamentals.average_volume
+        quoteCell.high_52_weeks.text = fundamentals.high_52_weeks
+        quoteCell.low_52_weeks.text = fundamentals.low_52_weeks
+        quoteCell.market_cap.text = fundamentals.market_cap
       })
       if selected.contains(indexPath) {
         if quoteCell.chart.image != nil {

@@ -98,7 +98,7 @@ class DataManager: NSObject {
   // MARK: Quote
 
   func fetchRobinhoodQuoteWith(symbol: String, completion:@escaping ((Quote) -> Void)) {
-    let subURL = "quotes/" + symbol + "/"
+    let subURL = "quotes/" + symbol.uppercased() + "/"
 
     Alamofire.request(baseURL + subURL, method: .get).responseJSON { response in
       if let json = response.result.value {

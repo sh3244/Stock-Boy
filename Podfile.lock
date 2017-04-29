@@ -8,6 +8,7 @@ PODS:
     - Charts/Core (= 3.0.2)
   - Charts/Core (3.0.2)
   - Curry (3.0.0)
+  - FLEX (2.4.0)
   - Runes (4.0.1)
   - RxCocoa (3.4.0):
     - RxSwift (~> 3.4)
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - Argo (~> 4.1.2)
   - Charts (~> 3.0.2)
   - Curry (~> 3.0.0)
+  - FLEX (~> 2.0)
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
   - SteviaLayout (~> 3.1.2)
@@ -32,12 +34,13 @@ SPEC CHECKSUMS:
   Argo: 5db06502fc1222d83011f574243089dab25202ff
   Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
   Curry: eb3d2c75aec678b3cc7fb2729d2ad6dd121531d1
+  FLEX: bd1a39e55b56bb413b6f1b34b3c10a0dc44ef079
   Runes: ff20f163b478ac2c0e18158d6086fd5b1997f983
   RxCocoa: d14ef6b6029e1ddc6e966508c09289090de68ff9
   RxSwift: 3789a1af753002a14edecdb698a2424624296a9c
   SteviaLayout: 807c742a8e4bcb94f47f018b23873a40f1f1cc1d
   STRegex: c7decbba8601717274774a3f341c4807a327a6d0
 
-PODFILE CHECKSUM: 9fc321f1fec4b0809f838cf8ecef10a00dbb61f0
+PODFILE CHECKSUM: e20dc22b20c4fe3b56717bda62c1d7dfb68c09c9
 
 COCOAPODS: 1.2.0

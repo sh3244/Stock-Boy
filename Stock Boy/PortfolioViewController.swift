@@ -12,12 +12,9 @@ import RxCocoa
 import Stevia
 
 class PortfolioViewController: ViewController, UITableViewDataSource, UITableViewDelegate {
-
-  var tableView = UITableView()
+  var tableView = TableView()
   var refreshControl = UIRefreshControl()
   var statusView = StatusView("$10000.00", .gray)
-
-  var selected: [IndexPath] = []
 
   var items: [Position] = []
 
@@ -27,10 +24,10 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
     super.viewDidLoad()
     title = "Portfolio"
 
-    statusView.title.font = UIFont.systemFont(ofSize: 28)
+    statusView.alpha = 0
+    statusView.title.font = UIFont.boldSystemFont(ofSize: 36)
 
     tableView.register(PortfolioCell.self, forCellReuseIdentifier: "portfolioCell")
-    tableView.backgroundColor = .black
     tableView.refreshControl = refreshControl
     tableView.dataSource = self
     tableView.delegate = self
@@ -41,7 +38,7 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
       }
       .addDisposableTo(disposeBag)
 
-    let counter = myInterval(1.0)
+    let counter = myInterval(2.0)
     _ = counter
       .subscribe(onNext: { (value) in
         self.update()
@@ -68,11 +65,13 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
           self.statusView.backgroundColor = .green
         }
         self.statusView.title.text = portfolio.equity.toUSD() + "   " + portfolio.equity.dividedBy(portfolio.equity_previous_close).toPercentChange()
+        self.revealView(self.statusView)
       })
 
       DataManager.shared.fetchRobinhoodPositionsWith(auth: auth, completion: { (positions) in
         self.items = positions
         self.tableView.reloadData()
+        self.revealView(self.tableView)
       })
     }
   }

@@ -165,4 +165,18 @@ extension String {
     }
     return ""
   }
+
+  func isGreaterThan(_ string: String) -> Bool {
+    if let first = Double(self), let second = Double(string) {
+      return first > second
+    }
+    return false
+  }
+
+  func isLessThan(_ string: String) -> Bool {
+    if let first = Double(self), let second = Double(string) {
+      return first < second
+    }
+    return false
+  }
 }

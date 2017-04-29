@@ -10,13 +10,12 @@ import UIKit
 import Stevia
 import Charts
 import RxSwift
+import Alamofire
 
-class ChartViewController: ViewController, UISearchBarDelegate, SelectionViewDelegate {
+class ChartViewController: ViewController, SelectionViewDelegate {
   var chartView = LineChartView()
   var searchBar = SearchBar()
-  var selection = SelectionView(["1W", "1Y", "5Y", "1W Vol", "1Y Vol"])
-
-  var fetchBlock: (() -> Void) = {}
+  var selectionView = SelectionView(["1W", "1Y", "5Y", "1W Vol", "1Y Vol"])
 
   convenience init(symbol: String) {
     self.init()
@@ -27,29 +26,23 @@ class ChartViewController: ViewController, UISearchBarDelegate, SelectionViewDel
     super.viewDidLoad()
     title = "Chart"
     searchBar.delegate = self
-    view.sv([selection, searchBar, chartView])
+    selectionView.delegate = self
 
     chartView.backgroundColor = .white
     chartView.gridBackgroundColor = .lightGray
     chartView.drawBordersEnabled = true
     chartView.pinchZoomEnabled = true
     chartView.setScaleEnabled(true)
-    chartView.chartDescription?.text = "Stock Boy"
 
-    fetchBlock = {
-      DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.oneWeekParameters()) { (historicals) in
+    searchBlock = { string in
+      DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: string, parameters: Historicals.oneWeekParameters()) { (historicals) in
         self.chartView.data = lineChartDataFrom(historicals: historicals)
+        DataManager.shared.fetchRobinhoodInstrumentWith(url: historicals.instrument, completion: { (instrument) in
+          self.chartView.chartDescription?.text = instrument.name
+        })
       }
     }
-    self.fetchBlock()
-
-    selection.delegate = self
-
-    let counter = myInterval(10)
-    _ = counter
-      .subscribe(onNext: { (value) in
-        self.fetchBlock()
-      })
+    searchBlock(searchBar.text ?? "")
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -58,30 +51,18 @@ class ChartViewController: ViewController, UISearchBarDelegate, SelectionViewDel
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
+    view.sv([selectionView, searchBar, chartView])
     view.layout(
       0,
-      |selection|,
+      |selectionView|,
       |searchBar|,
       |chartView|,
       0
     )
   }
 
-  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    searchBar.resignFirstResponder()
-    fetchBlock()
-  }
-
-  func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
-    return true
-  }
-
-  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-
-  }
-
-  func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-
+  override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    searchBar.text = searchText.uppercased()
   }
 
   // MARK: SelectionViewDelegate
@@ -89,39 +70,40 @@ class ChartViewController: ViewController, UISearchBarDelegate, SelectionViewDel
   func selected(title: String) {
     switch title {
     case "1W":
-      fetchBlock = {
-        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.oneWeekParameters()) { (historicals) in
+      searchBlock = { string in
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: string, parameters: Historicals.oneWeekParameters()) { (historicals) in
           self.chartView.data = lineChartDataFrom(historicals: historicals)
         }
       }
     case "1Y":
-      fetchBlock = {
-        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.oneYearParameters()) { (historicals) in
+      searchBlock = { string in
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: string, parameters: Historicals.oneYearParameters()) { (historicals) in
           self.chartView.data = lineChartDataFrom(historicals: historicals)
         }
       }
     case "5Y":
-      fetchBlock = {
-        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.fiveYearParameters()) { (historicals) in
+      searchBlock = { string in
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: string, parameters: Historicals.fiveYearParameters()) { (historicals) in
           self.chartView.data = lineChartDataFrom(historicals: historicals)
         }
       }
     case "1W Vol":
-      fetchBlock = {
-        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.oneWeekParameters()) { (historicals) in
+      searchBlock = { string in
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: string, parameters: Historicals.oneWeekParameters()) { (historicals) in
           self.chartView.data = volumeLineChartDataFrom(historicals: historicals)
         }
       }
     case "1Y Vol":
-      fetchBlock = {
-        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: self.searchBar.text!, parameters: Historicals.oneYearParameters()) { (historicals) in
+      searchBlock = { string in
+        DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: string, parameters: Historicals.oneYearParameters()) { (historicals) in
           self.chartView.data = volumeLineChartDataFrom(historicals: historicals)
         }
       }
     default:
-      return
+      break
     }
-    self.fetchBlock()
+
+    searchBlock(searchBar.text ?? "")
   }
 
 }

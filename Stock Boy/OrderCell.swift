@@ -10,11 +10,11 @@ import UIKit
 import Stevia
 
 class OrderCell: TableViewCell {
-  var symbol = Label()
-  var type = Label()
-  var quantity = Label()
-  var price = Label()
-  var cost = Label()
+  var symbol = Label(type: .symbol)
+  var type = Label(type: .symbol)
+  var quantity = Label(type: .volume)
+  var price = Label(type: .usd)
+  var cost = Label(type: .usd)
 
   public static let heightValue: CGFloat = 40.0
   public static let expandedHeightValue: CGFloat = 80.0
