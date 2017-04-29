@@ -28,7 +28,7 @@ target 'Stock Boy' do
   pod 'Charts', '~> 3.0.2'
   #  https://github.com/danielgindi/Charts
 
-  pod 'FLEX', '~> 2.0', :configurations => ['Debug']
+  #  pod 'FLEX', '~> 2.0', :configurations => ['Debug']
   #  https://github.com/Flipboard/FLEX
 
   #  pod 'Device', '~> 3.0.1'
