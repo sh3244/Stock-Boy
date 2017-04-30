@@ -9,31 +9,29 @@
 import UIKit
 
 class StockTabBarController: TabBarController {
-  var chart = ChartViewController(symbol: "URRE")
-  var watchlist = WatchlistViewController()
-  var orders = OrdersViewController()
-  var portfolio = PortfolioViewController()
-  var login = LoginViewController()
+  let chart = ChartViewController("Chart", #imageLiteral(resourceName: "iconChart"))
+  let watchlist = WatchlistViewController("Watchlist", #imageLiteral(resourceName: "iconList"))
+  let orders = OrdersViewController("Orders", #imageLiteral(resourceName: "iconOrders"))
+  let portfolio = PortfolioViewController("Portfolio", #imageLiteral(resourceName: "iconPortfolio"))
+  let login = LoginViewController("Login", #imageLiteral(resourceName: "iconTouch"))
+  let trade = TradeViewController("Trade", #imageLiteral(resourceName: "iconOrders"))
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     let chartNav = NavigationController(rootViewController: chart)
-    chartNav.tabBarItem = UITabBarItem(title: "Chart", image: #imageLiteral(resourceName: "iconChart"), selectedImage: nil)
 
     let watchlistNav = NavigationController(rootViewController: watchlist)
-    watchlistNav.tabBarItem = UITabBarItem(title: "Watchlist", image: #imageLiteral(resourceName: "iconList"), selectedImage: nil)
 
     let ordersNav = NavigationController(rootViewController: orders)
-    orders.tabBarItem = UITabBarItem(title: "Orders", image: #imageLiteral(resourceName: "iconOrders"), selectedImage: nil)
 
     let portfolioNav = NavigationController(rootViewController: portfolio)
-    portfolio.tabBarItem = UITabBarItem(title: "Portfolio", image: #imageLiteral(resourceName: "iconPortfolio"), selectedImage: nil)
 
     let loginNav = NavigationController(rootViewController: login)
-    login.tabBarItem = UITabBarItem(title: "Login", image: #imageLiteral(resourceName: "iconTouch"), selectedImage: nil)
 
-    setViewControllers([watchlistNav, chartNav, ordersNav, portfolioNav, loginNav], animated: false)
+    let tradeNav = NavigationController(rootViewController: trade)
+
+    setViewControllers([watchlistNav, chartNav, ordersNav, portfolioNav, loginNav, tradeNav], animated: false)
     selectedViewController = loginNav
   }
 

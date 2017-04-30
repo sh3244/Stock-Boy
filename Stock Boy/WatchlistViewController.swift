@@ -11,9 +11,9 @@ import Stevia
 import RxSwift
 
 class WatchlistViewController: ViewController {
-  var searchBar = SearchBar()
-  var tableView = TableView()
-  var refreshControl = UIRefreshControl()
+  let searchBar = SearchBar()
+  let tableView = TableView()
+  let refreshControl = UIRefreshControl()
 
   var quotes: [Quote] = []
   var instruments: [Instrument] = []
@@ -23,7 +23,6 @@ class WatchlistViewController: ViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Watchlist"
 
     searchBar.delegate = self
 
@@ -33,13 +32,8 @@ class WatchlistViewController: ViewController {
     tableView.refreshControl = refreshControl
     refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
 
-    let leftSpace = View(color: .clear)
-    let rightSpace = View(color: .clear)
-    leftSpace.width(16)
-    rightSpace.width(16)
-
-    navigationItem.leftBarButtonItems = [UIBarButtonItem(customView: leftSpace), UIBarButtonItem(title: "Updating", style: .plain, target: self, action: #selector(autoUpdate))]
-    navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: rightSpace), UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))]
+    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Updating", style: .plain, target: self, action: #selector(autoUpdate))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))
 
     searchBlock = { string in
       DataManager.shared.fetchRobinhoodQuoteWith(symbol: string, completion: { (quote) in
@@ -120,8 +114,8 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
     if selected.contains(indexPath) {
       if let index = selected.index(of: indexPath) {
         selected.remove(at: index)
-        let item = quotes[indexPath.row]
-        let chart = ChartViewController(symbol: item.symbol)
+        let quote = quotes[indexPath.row]
+        let chart = ChartViewController(quote.symbol, symbol: quote.symbol)
         self.navigationController?.pushViewController(chart, animated: true)
       }
     }

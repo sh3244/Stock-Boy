@@ -22,7 +22,6 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Orders"
 
     tableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
     tableView.refreshControl = refreshControl

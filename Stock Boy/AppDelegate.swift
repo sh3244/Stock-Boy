@@ -7,25 +7,23 @@
 //
 
 import UIKit
-//import FLEX
+import FLEX
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
   var tabBarController: StockTabBarController!
-  var navigationController: NavigationController!
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
     let tabBarController = StockTabBarController()
-    navigationController = NavigationController(rootViewController: tabBarController)
 
     window = UIWindow(frame: UIScreen.main.bounds)
     window?.rootViewController = tabBarController
     window?.makeKeyAndVisible()
 
-//    FLEXManager.shared().showExplorer()
+    FLEXManager.shared().showExplorer()
 
     return true
   }

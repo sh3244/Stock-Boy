@@ -13,8 +13,7 @@ class NavigationController: UINavigationController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    navigationBar.barStyle = .blackOpaque
-    navigationBar.isTranslucent = false
+    navigationBar.barStyle = .black
     navigationBar.tintColor = UISettings.foregroundColor
   }
 }

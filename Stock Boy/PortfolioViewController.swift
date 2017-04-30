@@ -12,9 +12,10 @@ import RxCocoa
 import Stevia
 
 class PortfolioViewController: ViewController, UITableViewDataSource, UITableViewDelegate {
-  var tableView = TableView()
-  var refreshControl = UIRefreshControl()
-  var statusView = StatusView("$10000.00", .gray)
+  let tableView = TableView()
+  let refreshControl = UIRefreshControl()
+  let statusView = StatusView("$0.00", .gray)
+  let headerView = HeaderView(["Symbol", "Shares", "Cost", "Value", "Performance"])
 
   var items: [Position] = []
 
@@ -22,9 +23,7 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Portfolio"
 
-    statusView.alpha = 0
     statusView.title.font = UIFont.boldSystemFont(ofSize: 36)
 
     tableView.register(PortfolioCell.self, forCellReuseIdentifier: "portfolioCell")
@@ -47,10 +46,11 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([tableView, statusView])
+    view.sv([tableView, statusView, headerView])
     view.layout(
       0,
       |statusView| ~ 80,
+      |headerView|,
       |tableView|,
       0
     )

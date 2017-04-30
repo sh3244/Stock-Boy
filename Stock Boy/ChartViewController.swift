@@ -17,14 +17,13 @@ class ChartViewController: ViewController, SelectionViewDelegate {
   var searchBar = SearchBar()
   var selectionView = SelectionView(["1W", "1Y", "5Y", "1W Vol", "1Y Vol"])
 
-  convenience init(symbol: String) {
-    self.init()
+  convenience init(_ title: String, symbol: String) {
+    self.init(title)
     searchBar.text = symbol
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Chart"
     searchBar.delegate = self
     selectionView.delegate = self
 

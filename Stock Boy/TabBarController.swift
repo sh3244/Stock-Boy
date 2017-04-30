@@ -16,6 +16,12 @@ class TabBarController: UITabBarController {
   }
 
   func setupAppearance() {
+    moreNavigationController.navigationBar.tintColor = UISettings.foregroundColor
+    moreNavigationController.navigationBar.barStyle = .black
+    for controller in moreNavigationController.viewControllers {
+      controller.edgesForExtendedLayout = []
+    }
+
     view.backgroundColor = UISettings.backgroundColor
 
     if UISettings.backgroundColor == .black {

@@ -25,8 +25,6 @@ class LoginViewController: ViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    title = "Login"
-
     password.isSecureTextEntry = true
     username.delegate = self
     password.delegate = self
@@ -56,7 +54,7 @@ class LoginViewController: ViewController {
     equalWidths(login, logout)
 
     view.layout(
-      40,
+      20,
       |titleLabel| ~ 40,
       8,
       |loginStatus| ~ 40,
@@ -68,7 +66,7 @@ class LoginViewController: ViewController {
       |password| ~ 40,
       8,
       |login-logout| ~ 40,
-      160,
+      120,
       |cancel| ~ 40
     )
   }

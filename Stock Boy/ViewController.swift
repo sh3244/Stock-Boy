@@ -15,9 +15,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate
 
   var tap: UITapGestureRecognizer = UITapGestureRecognizer()
 
+  convenience init(_ title: String, _ image: UIImage? = nil) {
+    self.init()
+    self.title = title
+    self.tabBarItem = UITabBarItem(title: title, image: image, tag: 0)
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    edgesForExtendedLayout = []
     view.backgroundColor = UISettings.backgroundColor
     tap = UITapGestureRecognizer(target: self, action: #selector(resign))
   }
