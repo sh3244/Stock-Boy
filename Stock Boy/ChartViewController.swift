@@ -12,10 +12,12 @@ import Charts
 import RxSwift
 import Alamofire
 
-class ChartViewController: ViewController, SelectionViewDelegate {
-  var chartView = LineChartView()
-  var searchBar = SearchBar()
-  var selectionView = SelectionView(["1W", "1Y", "5Y", "1W Vol", "1Y Vol"])
+class ChartViewController: ViewController, SelectionViewDelegate, ChartViewDelegate {
+  let chartView = LineChartView()
+  let searchBar = SearchBar()
+  let selectionView = SelectionView(["1W", "1Y", "5Y", "1W Vol", "1Y Vol"])
+
+  let priceIndicator = Label("price", type: .usd, prefix: "Price: ")
 
   convenience init(_ title: String, symbol: String) {
     self.init(title)
@@ -27,11 +29,14 @@ class ChartViewController: ViewController, SelectionViewDelegate {
     searchBar.delegate = self
     selectionView.delegate = self
 
+    priceIndicator.textColor = .blue
+
     chartView.backgroundColor = .white
     chartView.gridBackgroundColor = .lightGray
     chartView.drawBordersEnabled = true
     chartView.pinchZoomEnabled = true
     chartView.setScaleEnabled(true)
+    chartView.delegate = self
 
     searchBlock = { string in
       DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: string, parameters: Historicals.oneWeekParameters()) { (historicals) in
@@ -52,7 +57,7 @@ class ChartViewController: ViewController, SelectionViewDelegate {
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([selectionView, searchBar, chartView])
+    view.sv([selectionView, searchBar, chartView, priceIndicator])
     view.layout(
       0,
       |selectionView|,
@@ -60,6 +65,12 @@ class ChartViewController: ViewController, SelectionViewDelegate {
       |chartView|,
       0
     )
+    priceIndicator.Top == chartView.Top + 20
+    priceIndicator.Right == chartView.Right - 35
+  }
+
+  func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    priceIndicator.text = String(entry.y)
   }
 
   func launchTrade() {

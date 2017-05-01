@@ -8,6 +8,7 @@
 
 import UIKit
 import Stevia
+import RxSwift
 
 class TradeViewController: ViewController, SelectionViewDelegate {
   let selectionView = SelectionView(["Scalp 2%", "Scalp 5%", "Custom", "Cancel All"])
@@ -20,6 +21,8 @@ class TradeViewController: ViewController, SelectionViewDelegate {
   let price = Label("", type: .title)
 
   var quote: Quote?
+
+  let disposeBag = DisposeBag()
 
   convenience init(_ title: String, symbol: String) {
     self.init(title)
@@ -55,6 +58,7 @@ class TradeViewController: ViewController, SelectionViewDelegate {
           })
         }
       })
+    .addDisposableTo(disposeBag)
   }
 
   func update() {
