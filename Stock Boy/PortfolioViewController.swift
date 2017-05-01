@@ -78,17 +78,11 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: false)
-    if selected.contains(indexPath) {
-      if let index = selected.index(of: indexPath) {
-        selected.remove(at: index)
-
-      }
-    }
-    else {
-      selected.append(indexPath)
-    }
-    tableView.beginUpdates()
-    tableView.endUpdates()
+    let position = items[indexPath.row]
+    DataManager.shared.fetchRobinhoodInstrumentWith(url: position.instrument, completion: { (instrument) in
+      let controller = TradeViewController(instrument.symbol, symbol: instrument.symbol)
+      self.navigationController?.pushViewController(controller, animated: true)
+    })
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

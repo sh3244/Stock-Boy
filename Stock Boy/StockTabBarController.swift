@@ -20,6 +20,7 @@ class StockTabBarController: TabBarController {
     super.viewDidLoad()
 
     let chartNav = NavigationController(rootViewController: chart)
+    chart.searchBar.text = "SPY"
 
     let watchlistNav = NavigationController(rootViewController: watchlist)
 

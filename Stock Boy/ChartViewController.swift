@@ -42,6 +42,8 @@ class ChartViewController: ViewController, SelectionViewDelegate {
       }
     }
     searchBlock(searchBar.text ?? "")
+
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Trade", style: .done, target: self, action: #selector(launchTrade))
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -58,6 +60,15 @@ class ChartViewController: ViewController, SelectionViewDelegate {
       |chartView|,
       0
     )
+  }
+
+  func launchTrade() {
+    if let symbol = searchBar.text {
+      DataManager.shared.fetchRobinhoodQuoteWith(symbol: symbol, completion: { (quote) in
+        let controller = TradeViewController(symbol, symbol: symbol)
+        self.navigationController?.pushViewController(controller, animated: true)
+      })
+    }
   }
 
   override func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

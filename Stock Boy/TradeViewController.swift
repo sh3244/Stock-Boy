@@ -17,14 +17,15 @@ class TradeViewController: ViewController, SelectionViewDelegate {
   let percent = TextField("1.06")
   let shares = TextField("1")
 
+  let price = Label("", type: .title)
+
   var quote: Quote?
 
   convenience init(_ title: String, symbol: String) {
     self.init(title)
     DataManager.shared.fetchRobinhoodQuoteWith(symbol: symbol) { (quote) in
       self.quote = quote
-      self.statusView.title.text = quote.symbol
-      self.searchBar.text = quote.symbol
+      self.update()
     }
   }
 
@@ -38,28 +39,49 @@ class TradeViewController: ViewController, SelectionViewDelegate {
     searchBlock = { string in
       DataManager.shared.fetchRobinhoodQuoteWith(symbol: string) { (quote) in
         self.quote = quote
-        self.statusView.title.text = quote.symbol
-        self.searchBar.text = quote.symbol
+        self.update()
       }
     }
 
     selectionView.delegate = self
+
+    let counter = myInterval(2)
+    _ = counter
+      .subscribe(onNext: { (value) in
+        if let quo = self.quote {
+          DataManager.shared.fetchRobinhoodQuoteWith(symbol: quo.symbol, completion: { (quote) in
+            self.quote = quote
+            self.update()
+          })
+        }
+      })
+  }
+
+  func update() {
+    if let quo = quote {
+      self.statusView.title.text = quo.symbol
+      self.price.text = quo.last_trade_price
+      self.searchBar.text = quo.symbol
+    }
   }
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([selectionView, statusView, custom, percent, shares])
+    view.sv([selectionView, statusView, custom, percent, shares, price])
     view.layout(
       0,
-      |statusView|,
+      |searchBar|,
+      |statusView| ~ 40,
+      8,
+      |price| ~ 40,
       8,
       |selectionView|,
       8,
-      |custom|,
+      |custom| ~ 40,
       8,
-      |percent|,
+      |percent| ~ 40,
       8,
-      |shares|
+      |shares| ~ 40
     )
   }
 

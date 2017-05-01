@@ -41,6 +41,7 @@ class LoginViewController: ViewController {
         self.loginStatus.title.text = "Logged in as " + username
         self.loginStatus.backgroundColor = .green
         if let controller = self.tabBarController {
+          self.navigationController?.popViewController(animated: true)
           controller.selectedViewController = controller.viewControllers?.first
         }
       }
