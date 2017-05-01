@@ -66,7 +66,7 @@ class ChartViewController: ViewController, SelectionViewDelegate, ChartViewDeleg
       0
     )
     priceIndicator.Top == chartView.Top + 20
-    priceIndicator.Right == chartView.Right - 35
+    priceIndicator.Left == chartView.Left + 35
   }
 
   func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
