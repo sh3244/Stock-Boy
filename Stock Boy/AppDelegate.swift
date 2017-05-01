@@ -7,7 +7,10 @@
 //
 
 import UIKit
+
+#if DEBUG
 import FLEX
+#endif
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,7 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.rootViewController = tabBarController
     window?.makeKeyAndVisible()
 
+    #if DEBUG
     FLEXManager.shared().showExplorer()
+    #endif
 
     return true
   }

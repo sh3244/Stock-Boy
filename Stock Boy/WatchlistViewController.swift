@@ -67,10 +67,10 @@ class WatchlistViewController: ViewController {
   func autoUpdate() {
     paused = !paused
     if paused {
-      navigationItem.leftBarButtonItems?[1].title = "Paused"
+      navigationItem.leftBarButtonItem?.title = "Paused"
     }
     else {
-      navigationItem.leftBarButtonItems?[1].title = "Updating"
+      navigationItem.leftBarButtonItem?.title = "Updating"
     }
   }
 

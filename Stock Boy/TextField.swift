@@ -26,4 +26,9 @@ class TextField: UITextField {
     self.text = title
   }
 
+  convenience init(placeholder: String) {
+    self.init(frame: .zero)
+    self.placeholder = placeholder
+  }
+
 }

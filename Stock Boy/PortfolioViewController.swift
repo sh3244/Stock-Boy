@@ -80,7 +80,7 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
     tableView.deselectRow(at: indexPath, animated: false)
     let position = items[indexPath.row]
     DataManager.shared.fetchRobinhoodInstrumentWith(url: position.instrument, completion: { (instrument) in
-      let controller = TradeViewController(instrument.symbol, symbol: instrument.symbol)
+      let controller = TradeViewController("Trade", symbol: instrument.symbol)
       self.navigationController?.pushViewController(controller, animated: true)
     })
   }

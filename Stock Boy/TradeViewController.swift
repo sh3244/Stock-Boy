@@ -11,14 +11,15 @@ import Stevia
 import RxSwift
 
 class TradeViewController: ViewController, SelectionViewDelegate {
-  let selectionView = SelectionView(["Scalp 2%", "Scalp 5%", "Custom", "Cancel All"])
+  let selectionView = SelectionView(["Scalp 2%", "Scalp 5%", "Scalp Custom"])
+  let otherSelectionView = SelectionView(["Buy", "Sell", "Cancel All"])
   let statusView = StatusView("", .gray)
   let searchBar = SearchBar()
   let custom = Label("Custom Parameters", type: .title)
-  let percent = TextField("1.06")
-  let shares = TextField("1")
-
-  let price = Label("", type: .title)
+  let percent = TextField(placeholder: "Target Percentage (1.06)")
+  let shares = TextField(placeholder: "Shares (100)")
+  let targetPrice = TextField(placeholder: "Price (1.01)")
+  let price = Label("", type: .title, prefix: "Current Price: ")
 
   var quote: Quote?
 
@@ -37,6 +38,7 @@ class TradeViewController: ViewController, SelectionViewDelegate {
 
     percent.delegate = self
     shares.delegate = self
+    targetPrice.delegate = self
 
     searchBar.delegate = self
     searchBlock = { string in
@@ -47,6 +49,7 @@ class TradeViewController: ViewController, SelectionViewDelegate {
     }
 
     selectionView.delegate = self
+    otherSelectionView.delegate = self
 
     let counter = myInterval(2)
     _ = counter
@@ -65,13 +68,15 @@ class TradeViewController: ViewController, SelectionViewDelegate {
     if let quo = quote {
       self.statusView.title.text = quo.symbol
       self.price.text = quo.last_trade_price
-      self.searchBar.text = quo.symbol
+      self.targetPrice.text = quo.last_trade_price
+      self.shares.text = "1"
+      self.percent.text = "1.04"
     }
   }
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([selectionView, statusView, custom, percent, shares, price])
+    view.sv([searchBar, selectionView, statusView, custom, percent, shares, price, targetPrice, otherSelectionView])
     view.layout(
       0,
       |searchBar|,
@@ -85,7 +90,11 @@ class TradeViewController: ViewController, SelectionViewDelegate {
       8,
       |percent| ~ 40,
       8,
-      |shares| ~ 40
+      |shares| ~ 40,
+      8,
+      |targetPrice| ~ 40,
+      8,
+      |otherSelectionView|
     )
   }
 
@@ -99,9 +108,21 @@ class TradeViewController: ViewController, SelectionViewDelegate {
       if let quo = quote {
         TradeManager.shared.scalpStockWithInstrument(url: quo.instrument, percentage: "1.05", shares: 1)
       }
-    case "Custom":
+    case "Scalp Custom":
       if let quo = quote, let percentage = percent.text, let quantity = shares.text?.intValue() {
         TradeManager.shared.scalpStockWithInstrument(url: quo.instrument, percentage: percentage, shares: quantity)
+      }
+    case "Buy":
+      if let auth = LoginManager.shared.auth, let quo = quote, let aPrice = targetPrice.text?.floatValueLow(), let quantity = shares.text?.intValue() {
+        DataManager.shared.submitRobinhoodBuyWith(auth: auth, quote: quo, price: aPrice, shares: quantity, completion: { (order) in
+
+        })
+      }
+    case "Sell":
+      if let auth = LoginManager.shared.auth, let quo = quote, let aPrice = targetPrice.text?.floatValueHigh(), let quantity = shares.text?.intValue() {
+        DataManager.shared.submitRobinhoodSellWith(auth: auth, quote: quo, price: aPrice, shares: quantity, completion: { (order) in
+
+        })
       }
     case "Cancel All":
       if let auth = LoginManager.shared.auth {
