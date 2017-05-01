@@ -106,6 +106,27 @@ extension String {
 // MARK: Money
 extension String {
 
+  func floatValueLow() -> Float {
+    if let value = Float(self) {
+      return value
+    }
+    return 0.0
+  }
+
+  func floatValueHigh() -> Float {
+    if let value = Float(self) {
+      return value
+    }
+    return 10000.0
+  }
+
+  func intValue() -> Int {
+    if let value = Int(self) {
+      return value
+    }
+    return 1
+  }
+
   func tackZeros() -> String {
     return self + "00"
   }

@@ -9,10 +9,11 @@
 import UIKit
 
 class UISettings {
+
   static let foregroundColor: UIColor = .white
 
   static let backgroundColor: UIColor = .black
 
-  static let neutralColor: UIColor = UIColor.gray
+  static let neutralColor: UIColor = .gray
 
 }

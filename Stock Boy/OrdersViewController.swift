@@ -34,17 +34,6 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
       }
       .addDisposableTo(disposeBag)
 
-    let orders = DataManager.shared.orders
-    orders.asObservable()
-      .subscribe({ (orders) in
-        if let ords = orders.element?.first?.results {
-          self.items = ords
-          self.tableView.reloadData()
-          self.revealView(self.tableView)
-        }
-      })
-      .addDisposableTo(disposeBag)
-
     update()
   }
 
@@ -62,7 +51,9 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
   func update() {
     if let auth = LoginManager.shared.auth {
       DataManager.shared.fetchRobinhoodOrdersWith(auth: auth, completion: { (orders) in
-        DataManager.shared.orders.value.append(Orders(results: orders))
+        self.items = orders
+        self.tableView.reloadData()
+        self.revealView(self.tableView)
       })
     }
   }
@@ -72,7 +63,11 @@ class OrdersViewController: ViewController, UITableViewDelegate, UITableViewData
     if selected.contains(indexPath) {
       if let index = selected.index(of: indexPath) {
         selected.remove(at: index)
-
+        let order = items[indexPath.row]
+        DataManager.shared.fetchRobinhoodInstrumentWith(url: order.instrument, completion: { (instrument) in
+          let controller = TradeViewController(instrument.symbol, symbol: instrument.symbol)
+          self.navigationController?.pushViewController(controller, animated: true)
+        })
       }
     }
     else {
