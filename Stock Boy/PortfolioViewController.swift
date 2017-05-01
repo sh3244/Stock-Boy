@@ -15,7 +15,7 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
   let tableView = TableView()
   let refreshControl = UIRefreshControl()
   let statusView = StatusView("$0.00", .gray)
-  let headerView = HeaderView(["Symbol", "Shares", "Cost", "Value", "Performance"])
+  let headerView = HeaderView(["Symbol", "Shares", "Cost", "Value", "Perf."])
 
   var items: [Position] = []
 

@@ -9,9 +9,10 @@
 import UIKit
 import Stevia
 
-class TradeViewController: ViewController {
+class TradeViewController: ViewController, SelectionViewDelegate {
   let selectionView = SelectionView(["Scalp 2%", "Scalp 5%"])
   let statusView = StatusView("", .gray)
+  let searchBar = SearchBar()
 
   var quote: Quote?
 
@@ -20,13 +21,23 @@ class TradeViewController: ViewController {
     DataManager.shared.fetchRobinhoodQuoteWith(symbol: symbol) { (quote) in
       self.quote = quote
       self.statusView.title.text = quote.symbol
+      self.searchBar.text = quote.symbol
     }
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    // Do any additional setup after loading the view.
+    searchBar.delegate = self
+    searchBlock = { string in
+      DataManager.shared.fetchRobinhoodQuoteWith(symbol: string) { (quote) in
+        self.quote = quote
+        self.statusView.title.text = quote.symbol
+        self.searchBar.text = quote.symbol
+      }
+    }
+
+    selectionView.delegate = self
   }
 
   override func viewWillLayoutSubviews() {
@@ -38,6 +49,15 @@ class TradeViewController: ViewController {
       8,
       |selectionView|
     )
+  }
+
+  func selected(title: String) {
+    switch title {
+    case "Scalp 2%":
+      break
+    default:
+      break
+    }
   }
 
 }

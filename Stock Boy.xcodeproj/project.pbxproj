@@ -62,6 +62,7 @@
 		A2BA3F9D1EB12DCC00F42CF6 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BA3F9C1EB12DCC00F42CF6 /* LoginManager.swift */; };
 		A2BA3F9F1EB12E8700F42CF6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BA3F9E1EB12E8700F42CF6 /* LoginViewController.swift */; };
 		A2D615C01EB6970A00870533 /* TradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D615BF1EB6970A00870533 /* TradeViewController.swift */; };
+		A2D615C21EB6AD3D00870533 /* TradeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2D615C11EB6AD3D00870533 /* TradeManager.swift */; };
 		A2F9F78B1EA90E2400340A51 /* QuoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */; };
 		A2F9F78D1EA9103300340A51 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9F78C1EA9103300340A51 /* DataManager.swift */; };
 		E38F51EEF98293DCC537241E /* Pods_Stock_Boy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAC6870C3FC2C5F110DABCB /* Pods_Stock_Boy.framework */; };
@@ -130,6 +131,7 @@
 		A2BA3F9C1EB12DCC00F42CF6 /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		A2BA3F9E1EB12E8700F42CF6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A2D615BF1EB6970A00870533 /* TradeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeViewController.swift; sourceTree = "<group>"; };
+		A2D615C11EB6AD3D00870533 /* TradeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeManager.swift; sourceTree = "<group>"; };
 		A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
 		A2F9F78C1EA9103300340A51 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -220,6 +222,7 @@
 				A2F9F78C1EA9103300340A51 /* DataManager.swift */,
 				22C0784E1EADB174006A0AF4 /* ChartManager.swift */,
 				224550551EB3DD090099CDBA /* TransitionManager.swift */,
+				A2D615C11EB6AD3D00870533 /* TradeManager.swift */,
 				A2BA3F981EB1257500F42CF6 /* Controller */,
 				A2BA3F991EB1258000F42CF6 /* View */,
 				A2605D4F1EA97B1700FBEF8A /* Model */,
@@ -471,6 +474,7 @@
 				22C078491EAC8A78006A0AF4 /* ImageView.swift in Sources */,
 				A21460991EA6AF9400831F14 /* StockTabBarController.swift in Sources */,
 				2214AB361EAC4D9D00795C64 /* TableViewCell.swift in Sources */,
+				A2D615C21EB6AD3D00870533 /* TradeManager.swift in Sources */,
 				A2605D441EA9768000FBEF8A /* Instruments.swift in Sources */,
 				22F46CF91EB2488A00C9AC39 /* View.swift in Sources */,
 				224550581EB3EAB60099CDBA /* UISettings.swift in Sources */,
