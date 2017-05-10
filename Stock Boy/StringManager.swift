@@ -132,17 +132,17 @@ extension String {
   }
 
   func toUSD() -> String {
-    return self.tackZeros().replacingFirstMatching("([0-9]+).([0-9])?([0-9])?.*", with: "\\$$1.$2$3")
+    return self.tackZeros().replacingFirstMatching("([0-9]+)(.)?([0-9])?([0-9])?.*", with: "\\$$1$2$3$4").trimTrailingZeros()
   }
 
   func toPercentChange() -> String {
     if let value = Double(self) {
       if value > 1 && value < 2 {
-        return self.replacingFirstMatching("^[1]\\.([0-9]{2})([0-9]{2}).*", with: "$1.$2%").trimZeros()
+        return "+" + self.replacingFirstMatching("^[1]\\.([0-9]{2})([0-9]{1}).*", with: "$1.$2%").trimLeadingZeros()
       }
       else if value > 0 && value < 1 {
         let adjusted = String(1 - value)
-        return "-" + adjusted.replacingFirstMatching("^.{0,4}\\.([0-9]{2})([0-9]{2}).*", with: "$1.$2%").trimZeros()
+        return "-" + adjusted.replacingFirstMatching("^.{0,4}\\.([0-9]{2})([0-9]{1}).*", with: "$1.$2%").trimLeadingZeros()
       }
     }
     return "0.00%"
@@ -160,17 +160,19 @@ extension String {
     return trimmed
   }
 
-  func trimZeros() -> String {
+  func trimLeadingZeros() -> String {
     return self.replacingFirstMatching("^0{0,4}([0-9]\\.)", with: "$1")
   }
 
   func trimTrailingZeros() -> String {
-    return self.replacingFirstMatching("(^.*[^0]+)0+$", with: "$1")
+    if self.replacingFirstMatching("^([^0\\.]+)\\.?0+$", with: "$1") == "$" {
+      return "$0"
+    }
+    return self.replacingFirstMatching("^([^0\\.]+)\\.?0+$", with: "$1")
   }
 
   func trimDecimals() -> String {
     return self.replacingFirstMatching("^([0-9]+)\\..*$", with: "$1")
-
   }
 
   func dividedBy(_ string: String) -> String {

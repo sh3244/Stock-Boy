@@ -16,4 +16,8 @@ class UISettings {
 
   static let neutralColor: UIColor = .gray
 
+  static let goodColor: UIColor = .green
+
+  static let badColor: UIColor = .red
+
 }

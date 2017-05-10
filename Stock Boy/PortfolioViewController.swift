@@ -11,11 +11,11 @@ import RxSwift
 import RxCocoa
 import Stevia
 
-class PortfolioViewController: ViewController, UITableViewDataSource, UITableViewDelegate {
+class PortfolioViewController: ViewController, UITableViewDataSource {
   let tableView = TableView()
   let refreshControl = UIRefreshControl()
   let statusView = StatusView("$0.00", .gray)
-  let headerView = HeaderView(["Symbol", "Shares", "Cost", "Value", "Perf."])
+  let headerView = HeaderView(["Symbol", "Shares", "Price", "Value", "Perf."])
 
   var items: [Position] = []
 
@@ -37,7 +37,7 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
       }
       .addDisposableTo(disposeBag)
 
-    let counter = myInterval(2.0)
+    let counter = myInterval(1)
     _ = counter
       .subscribe(onNext: { (value) in
         self.update()
@@ -59,12 +59,12 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
   func update() {
     if let auth = LoginManager.shared.auth {
       DataManager.shared.fetchRobinhoodPortfolioWith(auth: auth, completion: { (portfolio) in
-        if portfolio.equity_previous_close > portfolio.equity {
+        if portfolio.equity < portfolio.adjusted_equity_previous_close {
           self.statusView.backgroundColor = .red
         } else {
           self.statusView.backgroundColor = .green
         }
-        self.statusView.title.text = portfolio.equity.toUSD() + "   " + portfolio.equity.dividedBy(portfolio.equity_previous_close).toPercentChange()
+        self.statusView.title.text = portfolio.equity.toUSD() + "   " + portfolio.equity.dividedBy(portfolio.adjusted_equity_previous_close).toPercentChange()
         self.revealView(self.statusView)
       })
 
@@ -100,9 +100,9 @@ class PortfolioViewController: ViewController, UITableViewDataSource, UITableVie
         DataManager.shared.fetchRobinhoodQuoteWith(symbol: instrument.symbol, completion: { (quote) in
           portfolioCell.change.text = quote.last_trade_price.dividedBy(item.average_buy_price).toPercentChange()
           portfolioCell.value.text = quote.last_trade_price.multipliedBy(item.quantity).toUSD()
+          portfolioCell.price.text = quote.last_trade_price.toUSD()
         })
       })
-      portfolioCell.cost.text = item.average_buy_price.multipliedBy(item.quantity).toUSD()
       portfolioCell.shares.text = item.quantity.toVolume()
     }
   }

@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.makeKeyAndVisible()
 
     #if DEBUG
-    FLEXManager.shared().showExplorer()
+//    FLEXManager.shared().showExplorer()
     #endif
 
     return true

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate, UIScrollViewDelegate, UITableViewDelegate {
   var selected: [IndexPath] = []
 
   var searchBlock: ((String) -> Void) = {string in }
@@ -97,11 +97,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate
   // MARK: Scroll View + Transitions
 
   func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    TransitionManager.shared.shouldAnimate = false
+    TransitionManager.shared.begin()
   }
 
-  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-    TransitionManager.shared.shouldAnimate = true
+  func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+    TransitionManager.shared.end()
   }
 
   // MARK: Controller Features
@@ -113,4 +113,13 @@ class ViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate
       }
     }
   }
+
+  // MARK: TableView Features
+
+//  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//    if let tableCell = cell as? TableViewCell {
+//      tableCell.resetSubviews()
+//    }
+//  }
+
 }

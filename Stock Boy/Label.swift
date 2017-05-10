@@ -11,6 +11,8 @@ import Stevia
 
 enum LabelType {
   case title
+  case percentChange
+  case usdChange
   case percent
   case usd
   case volume
@@ -61,16 +63,28 @@ class Label: UILabel {
     }
     set {
       switch type {
-      case .percent:
-        if newValue?.isGreaterThan("1.00") ?? false {
-          textColor = .green
-        } else if newValue?.isLessThan("1.00") ?? false {
-          textColor = .red
+      case .usdChange:
+        if newValue?.isGreaterThan("0") ?? false {
+          textColor = UISettings.goodColor
+        } else if newValue?.isLessThan("0") ?? false {
+          textColor = UISettings.badColor
+        } else {
+          textColor = UISettings.neutralColor
+        }
+        if ctext != newValue?.toUSD() ?? "" {
+          ctext = newValue?.toUSD() ?? ""
         }
 
+      case .percentChange:
+        if newValue?.isGreaterThan("1.00") ?? false {
+          textColor = UISettings.goodColor
+        } else if newValue?.isLessThan("1.00") ?? false {
+          textColor = UISettings.badColor
+        } else {
+          textColor = UISettings.neutralColor
+        }
         if ctext != newValue?.toPercentChange() ?? "" {
           ctext = newValue?.toPercentChange() ?? ""
-          blink()
         }
 
       case .usd:

@@ -19,4 +19,15 @@ class TableViewCell: UITableViewCell {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
+
+  func resetSubviews() {
+    for view in contentView.subviews {
+      if let label = view as? Label {
+        label.text = ""
+      }
+      if let image = view as? ImageView {
+        image.image = nil
+      }
+    }
+  }
 }

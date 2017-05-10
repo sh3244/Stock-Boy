@@ -11,7 +11,7 @@ import Stevia
 import RxSwift
 import RxCocoa
 
-class OrdersViewController: ViewController, UITableViewDelegate, UITableViewDataSource {
+class OrdersViewController: ViewController, UITableViewDataSource {
   var tableView = TableView()
   var refreshControl = UIRefreshControl()
   let headerView = HeaderView(["Symbol", "Type", "Shares", "Price", "Value"])

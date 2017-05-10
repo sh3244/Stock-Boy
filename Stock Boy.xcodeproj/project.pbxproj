@@ -35,6 +35,7 @@
 		A214609D1EA6C2B700831F14 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214609C1EA6C2B700831F14 /* Extensions.swift */; };
 		A214609F1EA6CEEF00831F14 /* StringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214609E1EA6CEEF00831F14 /* StringManager.swift */; };
 		A21460AE1EA6D3C900831F14 /* StringManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A214609E1EA6CEEF00831F14 /* StringManager.swift */; };
+		A21AA1631EC1311800E9FE9B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21AA1621EC1311800E9FE9B /* Utilities.swift */; };
 		A226831C1EA93B85000B64C3 /* Stock_Boy_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21460A61EA6D29900831F14 /* Stock_Boy_Tests.swift */; };
 		A226831D1EA93BA3000B64C3 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F9F78C1EA9103300340A51 /* DataManager.swift */; };
 		A226E8711EA69C9900354283 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A226E8701EA69C9900354283 /* AppDelegate.swift */; };
@@ -109,6 +110,7 @@
 		A21460A41EA6D29900831F14 /* Stock Boy Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Stock Boy Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A21460A61EA6D29900831F14 /* Stock_Boy_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock_Boy_Tests.swift; sourceTree = "<group>"; };
 		A21460A81EA6D29900831F14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A21AA1621EC1311800E9FE9B /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		A226E86D1EA69C9900354283 /* Stock Boy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stock Boy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A226E8701EA69C9900354283 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A226E8721EA69C9900354283 /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				22C0784E1EADB174006A0AF4 /* ChartManager.swift */,
 				224550551EB3DD090099CDBA /* TransitionManager.swift */,
 				A2D615C11EB6AD3D00870533 /* TradeManager.swift */,
+				A21AA1621EC1311800E9FE9B /* Utilities.swift */,
 				A2BA3F981EB1257500F42CF6 /* Controller */,
 				A2BA3F991EB1258000F42CF6 /* View */,
 				A2605D4F1EA97B1700FBEF8A /* Model */,
@@ -433,7 +436,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -495,6 +498,7 @@
 				22F46D011EB2832A00C9AC39 /* HeaderView.swift in Sources */,
 				22F46CF71EB2433B00C9AC39 /* TextField.swift in Sources */,
 				A214609B1EA6BC1200831F14 /* SearchBar.swift in Sources */,
+				A21AA1631EC1311800E9FE9B /* Utilities.swift in Sources */,
 				A2BA3F9B1EB125B400F42CF6 /* Portfolio.swift in Sources */,
 				A2BA3F951EB1158C00F42CF6 /* PortfolioViewController.swift in Sources */,
 				A21460921EA69F3200831F14 /* TabBarController.swift in Sources */,
@@ -660,7 +664,7 @@
 				DEVELOPMENT_TEAM = 82QRSDA4CN;
 				INFOPLIST_FILE = "Stock Boy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = robincap;
+				PRODUCT_BUNDLE_IDENTIFIER = samhuang.Robincap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "ac61ee21-cdb5-4939-8690-1b36fc5ee098";
 				PROVISIONING_PROFILE_SPECIFIER = XC;
@@ -673,13 +677,14 @@
 			baseConfigurationReference = 81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 82QRSDA4CN;
 				INFOPLIST_FILE = "Stock Boy/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = robincap;
+				PRODUCT_BUNDLE_IDENTIFIER = samhuang.Robincap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "eed73b57-649d-42a6-a57e-dad3dc9f37d2";
-				PROVISIONING_PROFILE_SPECIFIER = temp;
+				PROVISIONING_PROFILE = "c8c43d9f-77cc-458c-9290-5e78386b2ecd";
+				PROVISIONING_PROFILE_SPECIFIER = XC;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

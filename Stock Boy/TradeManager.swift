@@ -27,8 +27,9 @@ class TradeManager: NSObject {
 
     DataManager.shared.fetchRobinhoodInstrumentWith(url: url) { (instrument) in
       DataManager.shared.fetchRobinhoodQuoteWith(symbol: instrument.symbol, completion: { (quote) in
-        DataManager.shared.submitRobinhoodBuyWith(auth: auth, quote: quote, price: quote.last_trade_price.floatValueLow(), shares: shares, completion: { (order) in
+        DataManager.shared.submitRobinhoodBuyWith(auth: auth, quote: quote, price: String(format: "%.2f", quote.last_trade_price.floatValueLow()).floatValueLow(), shares: shares, completion: { (order) in
           self.lastOrder = order
+          print("Scalp Buy Sent")
           self.submitSellWhenOrderComplete(order: order, quote: quote, shares: shares, percentage: percentage)
         })
       })
@@ -41,23 +42,24 @@ class TradeManager: NSObject {
     }
 
     DispatchQueue.global().async {
-      let counter = Observable<Int>.interval(5.0, scheduler: MainScheduler())
-        .subscribe {
-          DataManager.shared.fetchRobinhoodOrderWith(auth: auth, url: order.url, completion: { (order) in
-            if (order.average_price?.floatValueLow() ?? 0.0) > 0.0 {
-              DataManager.shared.submitRobinhoodSellWith(auth: auth, quote: quote, price: quote.last_trade_price.floatValueHigh() * percentage.floatValueHigh(), shares: shares, completion: { (order) in
-                self.lastOrder = order
-                return
-              })
-            }
-          })
-      }
+      print("Scalping...")
 
-      Thread.sleep(forTimeInterval: 60.0)
-      counter.dispose()
+      let counter = Observable<Int>.interval(3.0, scheduler: SerialDispatchQueueScheduler(qos: .utility))
+      let _ = counter.subscribe({ (event) in
+        DataManager.shared.fetchRobinhoodOrderWith(auth: auth, url: order.url, completion: { (order) in
+          print("Checking Scalp Buy...", (order.average_price?.floatValueLow() ?? 0.0), quote.last_trade_price.floatValueHigh() * percentage.floatValueHigh())
+          DataManager.shared.submitRobinhoodSellWith(auth: auth, quote: quote, price: String(format: "%.2f", quote.last_trade_price.floatValueHigh() * percentage.floatValueHigh()).floatValueHigh(), shares: shares, completion: { (order) in
+            self.lastOrder = order
+            print("Scalp Submitted", quote.last_trade_price.floatValueHigh() * percentage.floatValueHigh())
+          })
+        })
+      })
+
+      Thread.sleep(forTimeInterval: 30)
 
       DataManager.shared.fetchRobinhoodOrderWith(auth: auth, url: order.url, completion: { (order) in
         DataManager.shared.cancelRobinhoodOrderWith(auth: auth, order: order)
+        print("Scalp Canceled")
       })
     }
   }

@@ -30,7 +30,7 @@ class WatchlistViewController: ViewController {
     tableView.delegate = self
     tableView.dataSource = self
     tableView.refreshControl = refreshControl
-    refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+    refreshControl.addTarget(self, action: #selector(pullRefresh), for: .valueChanged)
 
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Updating", style: .plain, target: self, action: #selector(autoUpdate))
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))
@@ -44,7 +44,7 @@ class WatchlistViewController: ViewController {
 
     self.refreshTable()
 
-    let counter = myInterval(2)
+    let counter = myInterval(3)
     _ = counter
       .subscribe(onNext: { (value) in
         if !self.paused {
@@ -64,6 +64,11 @@ class WatchlistViewController: ViewController {
     )
   }
 
+  func pullRefresh() {
+    selected.removeAll()
+    refreshTable()
+  }
+
   func autoUpdate() {
     paused = !paused
     if paused {
@@ -81,7 +86,9 @@ class WatchlistViewController: ViewController {
 
   func sort() {
     self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
-      if quote1.symbol > quote2.symbol {
+      let first = String((Double(quote1.last_trade_price) ?? 1) / (Double(quote1.adjusted_previous_close) ?? 1))
+      let second = String((Double(quote2.last_trade_price) ?? 1) / (Double(quote2.adjusted_previous_close) ?? 1))
+      if first < second {
         return sortAscending ? false : true
       }
       return sortAscending ? true : false
@@ -89,7 +96,7 @@ class WatchlistViewController: ViewController {
   }
 
   func refreshTable() {
-    self.refreshControl.endRefreshing()
+    refreshControl.endRefreshing()
 
     if let auth = LoginManager.shared.auth {
       DataManager.shared.fetchRobinhoodDefaultWatchlistWith(auth: auth, completion: { watchlist in
@@ -107,16 +114,18 @@ class WatchlistViewController: ViewController {
   }
 }
 
-extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
+extension WatchlistViewController : UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: false)
     if selected.contains(indexPath) {
       if let index = selected.index(of: indexPath) {
         selected.remove(at: index)
-        let quote = quotes[indexPath.row]
-        let chart = ChartViewController(quote.symbol, symbol: quote.symbol)
-        self.navigationController?.pushViewController(chart, animated: true)
+
+        // TODO
+//        let quote = quotes[indexPath.row]
+//        let chart = ChartViewController(quote.symbol, symbol: quote.symbol)
+//        self.navigationController?.pushViewController(chart, animated: true)
       }
     }
     else {
@@ -138,7 +147,8 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
     if let quoteCell = cell as? QuoteCell {
       quoteCell.symbol.text = quote.symbol
       quoteCell.price.text = quote.last_trade_price
-      quoteCell.change.text = String((Double(quote.last_trade_price) ?? 1) / (Double(quote.adjusted_previous_close) ?? 1))
+      quoteCell.change.text = String((Double(quote.last_trade_price) ?? 1) - (Double(quote.adjusted_previous_close) ?? 1))
+      quoteCell.changePercent.text = String((Double(quote.last_trade_price) ?? 1) / (Double(quote.adjusted_previous_close) ?? 1))
       DataManager.shared.fetchRobinhoodInstrumentWith(url: quote.instrument, completion: { (instrument) in
         quoteCell.name.text = instrument.name
       })
@@ -153,9 +163,6 @@ extension WatchlistViewController : UITableViewDelegate, UITableViewDataSource {
         quoteCell.market_cap.text = fundamentals.market_cap
       })
       if selected.contains(indexPath) {
-        if quoteCell.chart.image != nil {
-          return
-        }
         guard let url = chartURLFor(symbol: quote.symbol) else {
           return
         }

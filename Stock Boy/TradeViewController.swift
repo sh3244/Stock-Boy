@@ -39,6 +39,8 @@ class TradeViewController: ViewController, SelectionViewDelegate {
     percent.delegate = self
     shares.delegate = self
     targetPrice.delegate = self
+    percent.text = "1.04"
+    shares.text = "1"
 
     searchBar.delegate = self
     searchBlock = { string in
@@ -69,8 +71,6 @@ class TradeViewController: ViewController, SelectionViewDelegate {
       self.statusView.title.text = quo.symbol
       self.price.text = quo.last_trade_price
       self.targetPrice.text = quo.last_trade_price
-      self.shares.text = "1"
-      self.percent.text = "1.04"
     }
   }
 

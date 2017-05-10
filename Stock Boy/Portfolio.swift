@@ -30,6 +30,7 @@ struct Portfolio {
   var withdrawable_amount: String
   var excess_margin: String
   var equity: String
+  var adjusted_equity_previous_close: String
   var equity_previous_close: String
   var start_date: String
 }
@@ -44,6 +45,7 @@ extension Portfolio: Decodable {
       <*> json <| "withdrawable_amount"
       <*> json <| "excess_margin"
       <*> json <| "equity"
+      <*> json <| "adjusted_equity_previous_close"
       <*> json <| "equity_previous_close"
       <*> json <| "start_date"
   }

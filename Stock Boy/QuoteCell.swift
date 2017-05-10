@@ -13,7 +13,8 @@ class QuoteCell: TableViewCell {
   var symbol = Label(type: .symbol)
   var name = Label()
   var price = Label(type: .usd)
-  var change = Label(type: .percent)
+  var change = Label(type: .usdChange)
+  var changePercent = Label(type: .percentChange)
   var open = Label(type: .usd, prefix: "Open: ")
   var high = Label(type: .usd, prefix: "High: ")
   var low = Label(type: .usd, prefix: "Low: ")
@@ -32,6 +33,7 @@ class QuoteCell: TableViewCell {
   override func willMove(toSuperview newSuperview: UIView?) {
     price.textAlignment = .right
     change.textAlignment = .right
+    changePercent.textAlignment = .right
     name.textAlignment = .left
     symbol.textAlignment = .left
   }
@@ -41,16 +43,18 @@ class QuoteCell: TableViewCell {
     contentView.subviews.forEach { (view) in
       view.removeFromSuperview()
     }
-    sv([symbol, name, price, change])
+    sv([symbol, name, price, change, changePercent])
+    equalWidths([price, change, changePercent])
 
     change.width(50)
     symbol.width(50)
     price.width(60)
+    changePercent.width(50)
     if contentView.bounds.height > 40.0 {
       sv([open, high, low, volume, average_volume, high_52_weeks, low_52_weeks, market_cap, chart])
       layout(
         0,
-        |-symbol-name-price-change-| ~ 40,
+        |-symbol-name-price-change-changePercent-| ~ 40,
         0,
         |-open-high-low-| ~ 40,
         0,
@@ -68,13 +72,9 @@ class QuoteCell: TableViewCell {
     else {
       layout(
         0,
-        |-symbol-name-price-change-| ~ 40,
+        |-symbol-name-price-change-changePercent-| ~ 40,
         0
       )
     }
-  }
-
-  func apply(color: UIColor) {
-    self.change.textColor = color
   }
 }
