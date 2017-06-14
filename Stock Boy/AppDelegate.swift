@@ -30,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    FLEXManager.shared().showExplorer()
     #endif
 
+    UINavigationBar.appearance().shadowImage = UIImage()
+    UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+
     return true
   }
 }

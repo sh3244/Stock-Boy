@@ -11,20 +11,20 @@ import Stevia
 import RxSwift
 
 class WatchlistViewController: ViewController {
-  let searchBar = SearchBar()
   let tableView = TableView()
   let refreshControl = UIRefreshControl()
+  let selectionView = SelectionView(["% ↑", "% ↓", "Symbol ↑", "Symbol ↓"])
+  let headerView = HeaderView(["Symbol", "Name", "Price", "Change", "%"], [50, -100, 50, 50, 50])
 
   var quotes: [Quote] = []
   var instruments: [Instrument] = []
 
-  var sortAscending = true
   var paused = false
+
+  var sortBlock: ((Void) -> Void) = {}
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    searchBar.delegate = self
 
     tableView.register(QuoteCell.self, forCellReuseIdentifier: "quoteCell")
     tableView.delegate = self
@@ -33,18 +33,20 @@ class WatchlistViewController: ViewController {
     refreshControl.addTarget(self, action: #selector(pullRefresh), for: .valueChanged)
 
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Updating", style: .plain, target: self, action: #selector(autoUpdate))
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(changeSort))
 
-    searchBlock = { string in
-      DataManager.shared.fetchRobinhoodQuoteWith(symbol: string, completion: { (quote) in
-        self.quotes.append(quote)
-        self.tableView.reloadData()
+    sortBlock = {
+      self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
+        let first = String((Double(quote1.last_trade_price) ?? 1) / (Double(quote1.adjusted_previous_close) ?? 1))
+        let second = String((Double(quote2.last_trade_price) ?? 1) / (Double(quote2.adjusted_previous_close) ?? 1))
+
+        return first < second
       })
     }
+    selectionView.delegate = self
 
     self.refreshTable()
 
-    let counter = myInterval(3)
+    let counter = myInterval(1)
     _ = counter
       .subscribe(onNext: { (value) in
         if !self.paused {
@@ -55,10 +57,11 @@ class WatchlistViewController: ViewController {
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([tableView, searchBar])
+    view.sv([tableView, selectionView, headerView])
     view.layout(
-      0,
-      |searchBar|,
+      8,
+      |selectionView|,
+      |headerView|,
       |tableView|,
       0
     )
@@ -79,22 +82,6 @@ class WatchlistViewController: ViewController {
     }
   }
 
-  func changeSort() {
-    sortAscending = !sortAscending
-    sort()
-  }
-
-  func sort() {
-    self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
-      let first = String((Double(quote1.last_trade_price) ?? 1) / (Double(quote1.adjusted_previous_close) ?? 1))
-      let second = String((Double(quote2.last_trade_price) ?? 1) / (Double(quote2.adjusted_previous_close) ?? 1))
-      if first < second {
-        return sortAscending ? false : true
-      }
-      return sortAscending ? true : false
-    })
-  }
-
   func refreshTable() {
     refreshControl.endRefreshing()
 
@@ -103,10 +90,12 @@ class WatchlistViewController: ViewController {
         DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
           self.instruments = instruments
           DataManager.shared.fetchRobinhoodQuotesWith(instruments: instruments, completion: { (quotes) in
-            self.quotes = quotes
-            self.sort()
-            self.tableView.reloadData()
-            self.revealView(self.tableView)
+            DispatchQueue.main.async {
+              self.quotes = quotes
+              self.sortBlock()
+              self.tableView.reloadData()
+              self.revealView(self.tableView)
+            }
           })
         })
       })
@@ -184,6 +173,47 @@ extension WatchlistViewController : UITableViewDataSource {
   
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1
+  }
+}
+
+extension WatchlistViewController: SelectionViewDelegate {
+
+  func selected(title: String) {
+    switch title {
+    case "% ↑":
+      sortBlock = {
+        self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
+          let first = String((Double(quote1.last_trade_price) ?? 1) / (Double(quote1.adjusted_previous_close) ?? 1))
+          let second = String((Double(quote2.last_trade_price) ?? 1) / (Double(quote2.adjusted_previous_close) ?? 1))
+
+          return first < second
+        })
+      }
+    case "% ↓":
+      sortBlock = {
+        self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
+          let first = String((Double(quote1.last_trade_price) ?? 1) / (Double(quote1.adjusted_previous_close) ?? 1))
+          let second = String((Double(quote2.last_trade_price) ?? 1) / (Double(quote2.adjusted_previous_close) ?? 1))
+
+          return first > second
+        })
+      }
+    case "Symbol ↑":
+      sortBlock = {
+        self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
+          return quote1.symbol < quote2.symbol
+        })
+      }
+    case "Symbol ↓":
+      sortBlock = {
+        self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
+          return quote1.symbol > quote2.symbol
+        })
+      }
+    default:
+      break
+    }
+    self.sortBlock()
   }
 }
 

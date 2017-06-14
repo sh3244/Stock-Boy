@@ -15,7 +15,7 @@ class PortfolioViewController: ViewController, UITableViewDataSource {
   let tableView = TableView()
   let refreshControl = UIRefreshControl()
   let statusView = StatusView("$0.00", .gray)
-  let headerView = HeaderView(["Symbol", "Shares", "Price", "Value", "Perf."])
+  let headerView = HeaderView(["Symbol", "Shares", "Price", "Value", "Cost", "Perf."], [60, 60, 60, 60, 60, -50])
 
   var items: [Position] = []
 
@@ -98,9 +98,10 @@ class PortfolioViewController: ViewController, UITableViewDataSource {
       DataManager.shared.fetchRobinhoodInstrumentWith(url: item.instrument, completion: { (instrument) in
         portfolioCell.symbol.text = instrument.symbol
         DataManager.shared.fetchRobinhoodQuoteWith(symbol: instrument.symbol, completion: { (quote) in
-          portfolioCell.change.text = quote.last_trade_price.dividedBy(item.average_buy_price).toPercentChange()
+          portfolioCell.performance.text = quote.last_trade_price.dividedBy(item.average_buy_price).toPercentChange()
           portfolioCell.value.text = quote.last_trade_price.multipliedBy(item.quantity).toUSD()
           portfolioCell.price.text = quote.last_trade_price.toUSD()
+          portfolioCell.cost.text = item.average_buy_price.multipliedBy(item.quantity).toUSD()
         })
       })
       portfolioCell.shares.text = item.quantity.toVolume()

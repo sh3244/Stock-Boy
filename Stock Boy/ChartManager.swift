@@ -36,7 +36,7 @@ func highLineChartDataSetFrom(historicals: Historicals) -> LineChartDataSet {
     index += 1/78
   }
   let set = LineChartDataSet(values: entries, label: historicals.symbol + " high price")
-  set.setColor(.green)
+  set.setColor(UISettings.goodColor)
   set.mode = .stepped
   set.drawCirclesEnabled = false
   set.highlightColor = .gray
@@ -53,7 +53,7 @@ func lowLineChartDataSetFrom(historicals: Historicals) -> LineChartDataSet {
     index += 1/78
   }
   let set = LineChartDataSet(values: entries, label: historicals.symbol + " low price")
-  set.setColor(.red)
+  set.setColor(UISettings.badColor)
   set.mode = .stepped
   set.drawCirclesEnabled = false
   set.highlightColor = .gray
@@ -68,7 +68,7 @@ func volumeLineChartDataSetFrom(historicals: Historicals) -> LineChartDataSet {
     index += 1/78
   }
   let set = LineChartDataSet(values: entries, label: historicals.symbol + " volume")
-  set.setColor(.blue)
+  set.setColor(UISettings.neutralColor)
   set.mode = .stepped
   set.drawCirclesEnabled = false
   set.highlightColor = .gray
@@ -92,3 +92,4 @@ func volumeLineChartDataFrom(historicals: Historicals) -> LineChartData {
   data.setDrawValues(true)
   return data
 }
+

@@ -26,12 +26,13 @@ class Label: UILabel {
   var prefix = ""
 
   var didChange = false
+  var shouldBlink = true
 
   override init(frame: CGRect) {
     super.init(frame: frame)
     textColor = UISettings.foregroundColor
     textAlignment = .center
-    font = UIFont.systemFont(ofSize: 14)
+    font = UIFont.systemFont(ofSize: UISettings.textSize)
     backgroundColor = .clear
   }
 
@@ -73,6 +74,7 @@ class Label: UILabel {
         }
         if ctext != newValue?.toUSD() ?? "" {
           ctext = newValue?.toUSD() ?? ""
+          blink()
         }
 
       case .percentChange:
@@ -85,18 +87,24 @@ class Label: UILabel {
         }
         if ctext != newValue?.toPercentChange() ?? "" {
           ctext = newValue?.toPercentChange() ?? ""
+          blink()
         }
 
       case .usd:
         if ctext != newValue?.toUSD() ?? "" {
           ctext = newValue?.toUSD() ?? ""
+          blink()
         }
       case .volume:
         if ctext != newValue?.toVolume() ?? "" {
           ctext = newValue?.toVolume() ?? ""
+          blink()
         }
       case.symbol:
-        ctext = newValue?.uppercased() ?? ""
+        if ctext != newValue?.uppercased() ?? "" {
+          ctext = newValue?.uppercased() ?? ""
+          blink()
+        }
       default:
         ctext = newValue ?? ""
       }
@@ -105,13 +113,16 @@ class Label: UILabel {
   }
 
   func blink() {
-    if superview != nil && TransitionManager.shared.shouldAnimate {
+    if superview != nil && TransitionManager.shared.shouldAnimate && self.shouldBlink {
       let blink = View(color: UISettings.foregroundColor)
       sv(blink)
+      blink.alpha = 0.5
       blink.fillContainer()
+      blink.layer.cornerRadius = 5
+      blink.clipsToBounds = true
       bringSubview(toFront: blink)
 
-      UIView.animate(withDuration: 0.6, delay: 0, options: .curveEaseOut, animations: {
+      UIView.animate(withDuration: 0.75, delay: 0, options: .curveEaseOut, animations: {
         blink.alpha = 0
       }, completion: { success in
         blink.removeFromSuperview()

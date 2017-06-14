@@ -28,13 +28,13 @@ class Stock_Boy_Tests: XCTestCase {
     XCTAssertEqual(string, "$123.32")
 
     string = "1.037294".toPercentChange()
-    XCTAssertEqual(string, "3.72%")
+    XCTAssertEqual(string, "+3.7%")
 
     string = "0.88231".toPercentChange()
-    XCTAssertEqual(string, "-11.76%")
+    XCTAssertEqual(string, "-11.7%")
 
     string = "1234".toVolume()
-    XCTAssertEqual(string, "1K")
+    XCTAssertEqual(string, "1.234K")
 
     string = "123.421421".trimDecimals()
     XCTAssertEqual(string, "123")

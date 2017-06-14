@@ -13,7 +13,7 @@ class TableView: UITableView {
   override init(frame: CGRect, style: UITableViewStyle) {
     super.init(frame: frame, style: style)
     backgroundColor = UISettings.backgroundColor
-    separatorInset = UIEdgeInsetsMake(0, 15, 0, 15)
+    separatorInset = UIEdgeInsetsMake(0, 8, 0, 8)
     tintColor = UISettings.foregroundColor
     separatorColor = UISettings.neutralColor
     alpha = 0

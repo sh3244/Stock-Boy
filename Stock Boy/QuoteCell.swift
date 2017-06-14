@@ -10,32 +10,32 @@ import UIKit
 import Stevia
 
 class QuoteCell: TableViewCell {
-  var symbol = Label(type: .symbol)
-  var name = Label()
-  var price = Label(type: .usd)
-  var change = Label(type: .usdChange)
-  var changePercent = Label(type: .percentChange)
-  var open = Label(type: .usd, prefix: "Open: ")
-  var high = Label(type: .usd, prefix: "High: ")
-  var low = Label(type: .usd, prefix: "Low: ")
-  var volume = Label(type: .volume, prefix: "Vol: ")
-  var average_volume = Label(type: .volume, prefix: "Avg Vol: ")
-  var high_52_weeks = Label(type: .usd, prefix: "52 Week High: ")
-  var low_52_weeks = Label(type: .usd, prefix: "52 Week Low: ")
-  var market_cap = Label(type: .volume, prefix: "Cap: ")
-  var chart = ImageView(frame: .zero)
+  let symbol = Label(type: .symbol)
+  let name = Label()
+  let price = Label(type: .usd)
+  let change = Label(type: .usdChange)
+  let changePercent = Label(type: .percentChange)
+  let open = Label(type: .usd, prefix: "Open: ")
+  let high = Label(type: .usd, prefix: "High: ")
+  let low = Label(type: .usd, prefix: "Low: ")
+  let volume = Label(type: .volume, prefix: "Vol: ")
+  let average_volume = Label(type: .volume, prefix: "Avg Vol: ")
+  let high_52_weeks = Label(type: .usd, prefix: "52 Week High: ")
+  let low_52_weeks = Label(type: .usd, prefix: "52 Week Low: ")
+  let market_cap = Label(type: .volume, prefix: "Cap: ")
+  let chart = ImageView(frame: .zero)
 
-  public static let heightValue: CGFloat = 40.0
-  public static let expandedHeightValue: CGFloat = 480.0
+  public static let heightValue: CGFloat = UISettings.rowHeight
+  public static let expandedHeightValue: CGFloat = 440.0
   let regularHeight: CGFloat = QuoteCell.heightValue
   let expandedHeight: CGFloat = QuoteCell.expandedHeightValue
 
   override func willMove(toSuperview newSuperview: UIView?) {
-    price.textAlignment = .right
-    change.textAlignment = .right
-    changePercent.textAlignment = .right
-    name.textAlignment = .left
-    symbol.textAlignment = .left
+//    price.textAlignment = .right
+//    change.textAlignment = .right
+//    changePercent.textAlignment = .right
+//    name.textAlignment = .left
+//    symbol.textAlignment = .left
   }
 
   override func layoutSubviews() {
@@ -44,23 +44,22 @@ class QuoteCell: TableViewCell {
       view.removeFromSuperview()
     }
     sv([symbol, name, price, change, changePercent])
+
+    symbol.width(50)
+    price.width(50)
     equalWidths([price, change, changePercent])
 
-    change.width(50)
-    symbol.width(50)
-    price.width(60)
-    changePercent.width(50)
-    if contentView.bounds.height > 40.0 {
+    if contentView.bounds.height > UISettings.rowHeight {
       sv([open, high, low, volume, average_volume, high_52_weeks, low_52_weeks, market_cap, chart])
       layout(
         0,
-        |-symbol-name-price-change-changePercent-| ~ 40,
+        |-symbol-name-price-change-changePercent-| ~ 30,
         0,
-        |-open-high-low-| ~ 40,
+        |-open-high-low-| ~ 30,
         0,
-        |-volume-average_volume-market_cap-| ~ 40,
+        |-volume-average_volume-market_cap-| ~ 30,
         0,
-        |-high_52_weeks-low_52_weeks-| ~ 40,
+        |-high_52_weeks-low_52_weeks-| ~ 30,
         0,
         |chart| ~ 320,
         0
@@ -72,7 +71,7 @@ class QuoteCell: TableViewCell {
     else {
       layout(
         0,
-        |-symbol-name-price-change-changePercent-| ~ 40,
+        |-symbol-name-price-change-changePercent-| ~ 30,
         0
       )
     }

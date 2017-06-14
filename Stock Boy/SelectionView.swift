@@ -44,7 +44,7 @@ class SelectionView: View {
         else {
           layout(
           0,
-          prev-button-| ~ 40,
+          prev-button-| ~ 30,
           0
           )
         }

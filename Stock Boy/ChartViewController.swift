@@ -16,6 +16,7 @@ class ChartViewController: ViewController, SelectionViewDelegate, ChartViewDeleg
   let chartView = LineChartView()
   let searchBar = SearchBar()
   let selectionView = SelectionView(["1W", "1Y", "5Y", "1W Vol", "1Y Vol"])
+  let chart = ImageView(frame: .zero)
 
   let priceIndicator = Label("price", type: .usd, prefix: "Price: ")
 
@@ -30,6 +31,7 @@ class ChartViewController: ViewController, SelectionViewDelegate, ChartViewDeleg
     selectionView.delegate = self
 
     priceIndicator.textColor = .blue
+    priceIndicator.shouldBlink = false
 
     chartView.backgroundColor = .white
     chartView.gridBackgroundColor = .lightGray
@@ -44,6 +46,11 @@ class ChartViewController: ViewController, SelectionViewDelegate, ChartViewDeleg
         DataManager.shared.fetchRobinhoodInstrumentWith(url: historicals.instrument, completion: { (instrument) in
           self.chartView.chartDescription?.text = instrument.name
         })
+
+        guard let url = chartURLFor(symbol: string) else {
+          return
+        }
+        self.chart.af_setImage(withURL: url, imageTransition: .crossDissolve(0.2))
       }
     }
     searchBlock(searchBar.text ?? "")
@@ -57,16 +64,19 @@ class ChartViewController: ViewController, SelectionViewDelegate, ChartViewDeleg
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([selectionView, searchBar, chartView, priceIndicator])
+    view.sv([selectionView, searchBar, chartView, priceIndicator, chart])
     view.layout(
       0,
-      |selectionView|,
       |searchBar|,
+      |selectionView|,
+      8,
       |chartView|,
+      8,
+      |chart| ~ 320,
       0
     )
     priceIndicator.Top == chartView.Top + 20
-    priceIndicator.Left == chartView.Left + 35
+    priceIndicator.Left == chartView.Left + 45
   }
 
   func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {

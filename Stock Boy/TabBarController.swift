@@ -24,9 +24,7 @@ class TabBarController: UITabBarController {
 
     view.backgroundColor = UISettings.backgroundColor
 
-    if UISettings.backgroundColor == .black {
-      tabBar.barStyle = .black
-    }
+    tabBar.barStyle = .black
     tabBar.tintColor = UISettings.foregroundColor
     tabBar.isTranslucent = false
   }

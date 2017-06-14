@@ -15,6 +15,7 @@ PODS:
   - RxSwift (3.4.0)
   - SteviaLayout (3.1.3)
   - STRegex (0.4.3)
+  - Whisper (4.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
@@ -27,6 +28,7 @@ DEPENDENCIES:
   - RxSwift (~> 3.0)
   - SteviaLayout (~> 3.1.2)
   - STRegex (~> 0.4.0)
+  - Whisper (~> 4.0.0)
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
@@ -40,7 +42,8 @@ SPEC CHECKSUMS:
   RxSwift: 3789a1af753002a14edecdb698a2424624296a9c
   SteviaLayout: 807c742a8e4bcb94f47f018b23873a40f1f1cc1d
   STRegex: c7decbba8601717274774a3f341c4807a327a6d0
+  Whisper: 08be92623311f8e53201e62e17f6d7b9599a4714
 
-PODFILE CHECKSUM: e20dc22b20c4fe3b56717bda62c1d7dfb68c09c9
+PODFILE CHECKSUM: 0314a79bc50e82517afeca120285a6cca07ec334
 
 COCOAPODS: 1.2.1

@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		2211F8251EB3ABB90064F02C /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2211F8241EB3ABB90064F02C /* TableView.swift */; };
 		2214AB361EAC4D9D00795C64 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2214AB351EAC4D9D00795C64 /* TableViewCell.swift */; };
+		222F6A611EDF306900ED0144 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2BA3F9A1EB125B400F42CF6 /* Portfolio.swift */; };
+		222F6A621EDF307C00ED0144 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F46CFE1EB271E300C9AC39 /* Position.swift */; };
 		224550561EB3DD090099CDBA /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224550551EB3DD090099CDBA /* TransitionManager.swift */; };
 		224550581EB3EAB60099CDBA /* UISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224550571EB3EAB60099CDBA /* UISettings.swift */; };
+		2296C9181ECB5BA30035FA43 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2296C9171ECB5BA30035FA43 /* NotificationManager.swift */; };
 		22A239621EADC26000F16245 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A239611EADC26000F16245 /* Account.swift */; };
 		22A239631EADC4B200F16245 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A239611EADC26000F16245 /* Account.swift */; };
 		22A239651EAEB81E00F16245 /* Orders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A239641EAEB81E00F16245 /* Orders.swift */; };
@@ -85,6 +88,7 @@
 		2214AB351EAC4D9D00795C64 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		224550551EB3DD090099CDBA /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
 		224550571EB3EAB60099CDBA /* UISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISettings.swift; sourceTree = "<group>"; };
+		2296C9171ECB5BA30035FA43 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		22A239611EADC26000F16245 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		22A239641EAEB81E00F16245 /* Orders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orders.swift; sourceTree = "<group>"; };
 		22C078461EAC6503006A0AF4 /* rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rx.swift; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 				A2BA3F9C1EB12DCC00F42CF6 /* LoginManager.swift */,
 				A214609E1EA6CEEF00831F14 /* StringManager.swift */,
 				A2F9F78C1EA9103300340A51 /* DataManager.swift */,
+				2296C9171ECB5BA30035FA43 /* NotificationManager.swift */,
 				22C0784E1EADB174006A0AF4 /* ChartManager.swift */,
 				224550551EB3DD090099CDBA /* TransitionManager.swift */,
 				A2D615C11EB6AD3D00870533 /* TradeManager.swift */,
@@ -446,6 +451,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				222F6A621EDF307C00ED0144 /* Position.swift in Sources */,
+				222F6A611EDF306900ED0144 /* Portfolio.swift in Sources */,
 				A2605D491EA976F500FBEF8A /* Auth.swift in Sources */,
 				22A239631EADC4B200F16245 /* Account.swift in Sources */,
 				A2605D4B1EA976F500FBEF8A /* Quotes.swift in Sources */,
@@ -487,6 +494,7 @@
 				A28988BB1EA9403F00FC50AF /* Button.swift in Sources */,
 				A28988BD1EA9410D00FC50AF /* Label.swift in Sources */,
 				A214609D1EA6C2B700831F14 /* Extensions.swift in Sources */,
+				2296C9181ECB5BA30035FA43 /* NotificationManager.swift in Sources */,
 				224550561EB3DD090099CDBA /* TransitionManager.swift in Sources */,
 				22C0784B1EADA6C6006A0AF4 /* Historicals.swift in Sources */,
 				2211F8251EB3ABB90064F02C /* TableView.swift in Sources */,
@@ -537,6 +545,7 @@
 /* Begin XCBuildConfiguration section */
 		A21460AB1EA6D29900831F14 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 029C6AE5B5DF91CC820A1F7C /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 2GK5GPF253;

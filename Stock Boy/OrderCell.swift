@@ -10,13 +10,14 @@ import UIKit
 import Stevia
 
 class OrderCell: TableViewCell {
-  var symbol = Label(type: .symbol)
-  var type = Label(type: .symbol)
-  var quantity = Label(type: .volume)
-  var price = Label(type: .usd)
-  var cost = Label(type: .usd)
+  let symbol = Label(type: .symbol)
+  let type = Label(type: .symbol)
+  let quantity = Label(type: .volume)
+  let price = Label(type: .usd)
+  let cost = Label(type: .usd)
+  let status = Label(type: .symbol)
 
-  public static let heightValue: CGFloat = 40.0
+  public static let heightValue: CGFloat = UISettings.rowHeight
   public static let expandedHeightValue: CGFloat = 80.0
   let regularHeight: CGFloat = OrderCell.heightValue
   let expandedHeight: CGFloat = OrderCell.expandedHeightValue
@@ -26,12 +27,13 @@ class OrderCell: TableViewCell {
     contentView.subviews.forEach { (view) in
       view.removeFromSuperview()
     }
-    sv([symbol, type, quantity, price, cost])
+    sv([symbol, type, quantity, price, cost, status])
+    symbol.width(50)
     equalWidths([symbol, type, quantity, price, cost])
 
     layout(
       0,
-      |-symbol-type-quantity-price-cost-| ~ 40,
+      |-symbol-type-quantity-price-cost-status| ~ 30,
       0
     )
   }

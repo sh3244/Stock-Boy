@@ -101,12 +101,12 @@ class TradeViewController: ViewController, SelectionViewDelegate {
   func selected(title: String) {
     switch title {
     case "Scalp 2%":
-      if let quo = quote {
-        TradeManager.shared.scalpStockWithInstrument(url: quo.instrument, percentage: "1.02", shares: 1)
+      if let quo = quote, let quantity = shares.text?.intValue() {
+        TradeManager.shared.scalpStockWithInstrument(url: quo.instrument, percentage: "1.02", shares: quantity)
       }
     case "Scalp 5%":
-      if let quo = quote {
-        TradeManager.shared.scalpStockWithInstrument(url: quo.instrument, percentage: "1.05", shares: 1)
+      if let quo = quote, let quantity = shares.text?.intValue() {
+        TradeManager.shared.scalpStockWithInstrument(url: quo.instrument, percentage: "1.05", shares: quantity)
       }
     case "Scalp Custom":
       if let quo = quote, let percentage = percent.text, let quantity = shares.text?.intValue() {

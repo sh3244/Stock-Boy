@@ -110,6 +110,26 @@ class DataManager: NSObject {
     }
   }
 
+  func fetchRobinhoodQuotesWith(symbols: [String], completion:@escaping (([Quote]) -> Void)) {
+    var url = "https://api.robinhood.com/quotes/?symbols="
+    for i in 0..<symbols.count {
+      if i > 0 {
+        url = url + ","
+      }
+      url = url + symbols[i]
+    }
+    Alamofire.request(url, method: .get).responseJSON { response in
+      if response.result.value != nil {
+        if let json = response.result.value {
+          let objects: Quotes? = decode(json)
+          if let results = objects?.results {
+            completion(results)
+          }
+        }
+      }
+    }
+  }
+
   func fetchRobinhoodQuoteWith(url: String, completion:@escaping ((Quote) -> Void)) {
     Alamofire.request(url, method: .get).responseJSON { response in
       if response.result.value != nil {
@@ -288,7 +308,7 @@ class DataManager: NSObject {
     }
   }
 
-  func fetchRobinhoodOrdersWith(auth: Auth, completion:@escaping (([Order]) -> Void)) {
+  func fetchRobinhoodOrdersWith(auth: Auth, cursor: String = "", completion:@escaping (([Order]) -> Void)) {
     let subURL = "orders/"
     let headers = ["authorization": "token " + auth.token]
 

@@ -18,9 +18,7 @@ class LoginViewController: ViewController {
   let login = Button("Login")
   let logout = Button("Logout")
 
-  let cancel = Button("Cancel All Orders")
-
-  let loginStatus = StatusView("Not logged in", .red)
+  let loginStatus = StatusView("Not logged in", UISettings.badColor)
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -29,17 +27,14 @@ class LoginViewController: ViewController {
     username.delegate = self
     password.delegate = self
 
-    cancel.setTitleColor(.red, for: .normal)
-
     login.addTarget(self, action: #selector(performLogin), for: .touchUpInside)
     logout.addTarget(self, action: #selector(performLogout), for: .touchUpInside)
-    cancel.addTarget(self, action: #selector(cancelOrders), for: .touchUpInside)
 
     let defaults = UserDefaults.standard
     if let username = defaults.string(forKey: "username"), let password = defaults.string(forKey: "password") {
       LoginManager.shared.loginWith(username: username, password: password) { (auth) in
         self.loginStatus.title.text = "Logged in as " + username
-        self.loginStatus.backgroundColor = .green
+        self.loginStatus.backgroundColor = UISettings.goodColor
         if let controller = self.tabBarController {
           self.navigationController?.popViewController(animated: true)
           controller.selectedViewController = controller.viewControllers?.first
@@ -50,25 +45,23 @@ class LoginViewController: ViewController {
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([loginStatus, username, password, login, titleLabel, usernameLabel, passwordLabel, logout, cancel])
+    view.sv([loginStatus, username, password, login, titleLabel, usernameLabel, passwordLabel, logout])
 
     equalWidths(login, logout)
 
     view.layout(
       20,
       |titleLabel| ~ 40,
-      8,
+      20,
       |loginStatus| ~ 40,
       20,
-      |usernameLabel| ~ 40,
+      |-usernameLabel-| ~ 40,
       |username| ~ 40,
-      8,
-      |passwordLabel| ~ 40,
+      20,
+      |-passwordLabel-| ~ 40,
       |password| ~ 40,
-      8,
-      |login-logout| ~ 40,
-      120,
-      |cancel| ~ 40
+      20,
+      |-login-logout-| ~ 40
     )
   }
 
@@ -85,17 +78,11 @@ class LoginViewController: ViewController {
     if username.text?.validateName() ?? false && password.text?.validatePassword() ?? false {
       LoginManager.shared.loginWith(username: username.text!, password: password.text!) { (auth) in
         self.loginStatus.title.text = "Logged in as " + self.username.text!
-        self.loginStatus.backgroundColor = .green
+        self.loginStatus.backgroundColor = UISettings.goodColor
         let defaults = UserDefaults.standard
         defaults.setValue(self.username.text!, forKey: "username")
         defaults.setValue(self.password.text!, forKey: "password")
       }
-    }
-  }
-
-  func cancelOrders() {
-    if let auth = LoginManager.shared.auth {
-      DataManager.shared.cancelAllRobinhoodOrdersWith(auth: auth)
     }
   }
 

@@ -12,7 +12,7 @@ import Stevia
 class StatusView: View {
   let title = Label("status")
   var resetTitle = "status"
-  var resetColor = UIColor.gray
+  var resetColor = UISettings.neutralColor
 
   override init(frame: CGRect) {
     super.init(frame: frame)

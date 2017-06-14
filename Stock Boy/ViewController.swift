@@ -104,6 +104,14 @@ class ViewController: UIViewController, UITextFieldDelegate, UISearchBarDelegate
     TransitionManager.shared.end()
   }
 
+  func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    TransitionManager.shared.end()
+  }
+
+  func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    TransitionManager.shared.end()
+  }
+
   // MARK: Controller Features
 
   func revealView(_ view: UIView) {

@@ -14,7 +14,7 @@ import RxCocoa
 class OrdersViewController: ViewController, UITableViewDataSource {
   var tableView = TableView()
   var refreshControl = UIRefreshControl()
-  let headerView = HeaderView(["Symbol", "Type", "Shares", "Price", "Value"])
+  let headerView = HeaderView(["Symbol", "Type", "Shares", "Price", "Value", "Status"], [50, 50, 50, 50, 50, -50])
 
   var items: [Order] = []
 
@@ -34,7 +34,11 @@ class OrdersViewController: ViewController, UITableViewDataSource {
       }
       .addDisposableTo(disposeBag)
 
-    update()
+    let counter = myInterval(15)
+    _ = counter
+      .subscribe(onNext: { (value) in
+        self.update()
+      })
   }
 
   override func viewWillLayoutSubviews() {
@@ -87,6 +91,8 @@ class OrdersViewController: ViewController, UITableViewDataSource {
       if let quantity = Double(order.quantity), let price = Double(order.price ?? "") {
         orderCell.cost.text = String(quantity * price)
       }
+
+      orderCell.status.text = order.state
     }
   }
 

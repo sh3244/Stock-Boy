@@ -18,10 +18,10 @@ class TransitionManager: NSObject, UIScrollViewDelegate {
   var shouldAnimate = true
 
   func begin() {
-    shouldAnimate = true
+    shouldAnimate = false
   }
 
   func end() {
-    shouldAnimate = false
+    shouldAnimate = true
   }
 }

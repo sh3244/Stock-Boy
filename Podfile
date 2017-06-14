@@ -34,7 +34,7 @@ target 'Stock Boy' do
   #  pod 'Device', '~> 3.0.1'
   #  https://github.com/Ekhoo/Device
 
-  #  pod 'Whisper', '~> 4.0.0'
+  pod 'Whisper', '~> 4.0.0'
   #  https://github.com/hyperoslo/Whisper
   
 end

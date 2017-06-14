@@ -10,13 +10,14 @@ import UIKit
 import Stevia
 
 class PortfolioCell: TableViewCell {
-  var symbol = Label()
-  var shares = Label()
-  var price = Label()
-  var value = Label()
-  var change = Label()
+  let symbol = Label()
+  let shares = Label()
+  let price = Label()
+  let value = Label()
+  let cost = Label()
+  let performance = Label()
 
-  public static let heightValue: CGFloat = 40.0
+  public static let heightValue: CGFloat = UISettings.rowHeight
   public static let expandedHeightValue: CGFloat = 80.0
   let regularHeight: CGFloat = PortfolioCell.heightValue
   let expandedHeight: CGFloat = PortfolioCell.expandedHeightValue
@@ -26,11 +27,12 @@ class PortfolioCell: TableViewCell {
     contentView.subviews.forEach { (view) in
       view.removeFromSuperview()
     }
-    sv([symbol, shares, price, value, change])
-    equalWidths([symbol, shares, price, value, change])
+    sv([symbol, shares, price, value, cost, performance])
+    symbol.width(60)
+    equalWidths([symbol, shares, price, value, cost])
     layout(
       0,
-      |-symbol-shares-price-value-change-| ~ 40,
+      |-symbol-shares-price-value-cost-performance-| ~ 30,
       0
     )
   }

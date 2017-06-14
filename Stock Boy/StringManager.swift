@@ -132,7 +132,7 @@ extension String {
   }
 
   func toUSD() -> String {
-    return self.tackZeros().replacingFirstMatching("([0-9]+)(.)?([0-9])?([0-9])?.*", with: "\\$$1$2$3$4").trimTrailingZeros()
+    return self.tackZeros().replacingFirstMatching("([0-9]+)(.)?([0-9])?([0-9])?.*", with: "$1$2$3$4").trimTrailingZeros()
   }
 
   func toPercentChange() -> String {

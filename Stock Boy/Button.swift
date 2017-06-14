@@ -12,10 +12,12 @@ class Button: UIButton {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = UISettings.backgroundColor
+    backgroundColor = UISettings.neutralColor
     titleLabel?.textColor = UISettings.foregroundColor
     showsTouchWhenHighlighted = true
     titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+    layer.cornerRadius = 4
+    layer.masksToBounds = true
   }
 
   required init?(coder aDecoder: NSCoder) {

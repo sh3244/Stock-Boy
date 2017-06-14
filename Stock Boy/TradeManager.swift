@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import Whisper
 
 class TradeManager: NSObject {
   var lastOrder: Order?
@@ -20,6 +21,16 @@ class TradeManager: NSObject {
     return instance
   }()
 
+  func announce(message: String, thenRun completion:@escaping ((Void) -> Void)) {
+    DispatchQueue.main.async {
+      let murmur = Murmur(title: message)
+      Whisper.show(whistle: murmur, action: .show(1))
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        completion()
+      }
+    }
+  }
+
   func scalpStockWithInstrument(url: String, percentage: String, shares: Int) {
     guard let auth = LoginManager.shared.auth else {
       return
@@ -29,8 +40,9 @@ class TradeManager: NSObject {
       DataManager.shared.fetchRobinhoodQuoteWith(symbol: instrument.symbol, completion: { (quote) in
         DataManager.shared.submitRobinhoodBuyWith(auth: auth, quote: quote, price: String(format: "%.2f", quote.last_trade_price.floatValueLow()).floatValueLow(), shares: shares, completion: { (order) in
           self.lastOrder = order
-          print("Scalp Buy Sent")
-          self.submitSellWhenOrderComplete(order: order, quote: quote, shares: shares, percentage: percentage)
+          self.announce(message: "Scalp Buy Sent...Attempt Scalp For 60s...", thenRun: {
+            self.submitSellWhenOrderComplete(order: order, quote: quote, shares: shares, percentage: percentage)
+          })
         })
       })
     }
@@ -40,26 +52,39 @@ class TradeManager: NSObject {
     guard let auth = LoginManager.shared.auth else {
       return
     }
+    let counter = Observable<Int>.interval(2.0, scheduler: ConcurrentDispatchQueueScheduler(qos: .utility))
 
-    DispatchQueue.global().async {
-      print("Scalping...")
-
-      let counter = Observable<Int>.interval(3.0, scheduler: SerialDispatchQueueScheduler(qos: .utility))
-      let _ = counter.subscribe({ (event) in
-        DataManager.shared.fetchRobinhoodOrderWith(auth: auth, url: order.url, completion: { (order) in
-          print("Checking Scalp Buy...", (order.average_price?.floatValueLow() ?? 0.0), quote.last_trade_price.floatValueHigh() * percentage.floatValueHigh())
-          DataManager.shared.submitRobinhoodSellWith(auth: auth, quote: quote, price: String(format: "%.2f", quote.last_trade_price.floatValueHigh() * percentage.floatValueHigh()).floatValueHigh(), shares: shares, completion: { (order) in
-            self.lastOrder = order
-            print("Scalp Submitted", quote.last_trade_price.floatValueHigh() * percentage.floatValueHigh())
+    var sold = false
+    DispatchQueue.global(qos: .utility).async {
+      let scalp = counter.subscribe({ (event) in
+        if sold {
+          return
+        }
+        self.announce(message: "Checking Buy...", thenRun: {
+          DataManager.shared.fetchRobinhoodOrderWith(auth: auth, url: order.url, completion: { (order) in
+            if order.state == "filled" {
+              DataManager.shared.submitRobinhoodSellWith(auth: auth, quote: quote, price: String(format: "%.2f", quote.last_trade_price.floatValueHigh() * percentage.floatValueHigh()).floatValueHigh(), shares: shares, completion: { (order) in
+                self.lastOrder = order
+                self.announce(message: "Buy Complete, Scalp Sell (" + shares.description + " shares" + ") For Sale...", thenRun: {
+                })
+                sold = true
+                return
+              })
+            }
+            if order.state == "cancelled" {
+              return
+            }
           })
         })
       })
 
-      Thread.sleep(forTimeInterval: 30)
+      Thread.sleep(forTimeInterval: 10)
+      scalp.dispose()
 
       DataManager.shared.fetchRobinhoodOrderWith(auth: auth, url: order.url, completion: { (order) in
-        DataManager.shared.cancelRobinhoodOrderWith(auth: auth, order: order)
-        print("Scalp Canceled")
+        self.announce(message: "Scalp Failed, Cancelling...", thenRun: {
+          DataManager.shared.cancelRobinhoodOrderWith(auth: auth, order: order)
+        })
       })
     }
   }
@@ -69,8 +94,21 @@ struct Strategy {
   var finished = false
   var stage = 0
   var target = 0
-  
+
   mutating func runStage() {
     stage += 1
+  }
+}
+
+func getHistoricalPrices(symbol: String, completion:@escaping (([String]) -> Void)) {
+  DataManager.shared.fetchRobinhoodHistoricalsWith(symbol: symbol, parameters: Historicals.oneYearParameters()) { (historicals) in
+    let object: Historicals? = historicals
+    if let objs = object?.historicals {
+      var prices: [String] = []
+      for historical in objs {
+        prices.append(historical.close_price)
+      }
+      completion(prices)
+    }
   }
 }
