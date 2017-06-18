@@ -294,21 +294,24 @@ class DataManager: NSObject {
     }
   }
 
-  func fetchRobinhoodOrdersWith(auth: Auth) {
-    let subURL = "orders/"
+  func fetchRobinhoodOrdersWith(auth: Auth, url: String, completion:@escaping (([Order], String) -> Void)) {
     let headers = ["authorization": "token " + auth.token]
 
-    Alamofire.request(baseURL + subURL, method: .get, headers: headers).responseJSON { response in
+    if url.isEmpty {
+      fetchRobinhoodOrdersWith(auth: auth, completion: completion)
+    }
+
+    Alamofire.request(url, method: .get, headers: headers).responseJSON { response in
       if let json = response.result.value {
         let object: Orders? = decode(json)
         if let obj = object {
-          self.orders.value.append(obj)
+          completion(obj.results, url)
         }
       }
     }
   }
 
-  func fetchRobinhoodOrdersWith(auth: Auth, cursor: String = "", completion:@escaping (([Order]) -> Void)) {
+  func fetchRobinhoodOrdersWith(auth: Auth, completion:@escaping (([Order], String) -> Void)) {
     let subURL = "orders/"
     let headers = ["authorization": "token " + auth.token]
 
@@ -316,16 +319,91 @@ class DataManager: NSObject {
       if let json = response.result.value {
         let object: Orders? = decode(json)
         if let obj = object {
-          completion(obj.results)
+          completion(obj.results, baseURL + subURL)
+        }
+      }
+    }
+  }
+
+  func fetchPreviousRobinhoodOrdersWith(auth: Auth, url: String, completion:@escaping (([Order], String) -> Void)) {
+    let subURL = "orders/"
+    let headers = ["authorization": "token " + auth.token]
+
+    if url.isEmpty {
+      Alamofire.request(baseURL + subURL, method: .get, headers: headers).responseJSON { response in
+        if let json = response.result.value {
+          if let dictionary = json as? [String: Any] {
+            if let previous = dictionary["previous"] as? String {
+              self.fetchRobinhoodOrdersWith(auth: auth, url: previous, completion: completion)
+            }
+          }
+        }
+      }
+    }
+    else {
+      Alamofire.request(url, method: .get, headers: headers).responseJSON { response in
+        if let json = response.result.value {
+          if let dictionary = json as? [String: Any] {
+            if let previous = dictionary["previous"] as? String {
+              self.fetchRobinhoodOrdersWith(auth: auth, url: previous, completion: completion)
+            }
+          }
+        }
+      }
+    }
+  }
+
+  func fetchNextRobinhoodOrdersWith(auth: Auth, url: String, completion:@escaping (([Order], String) -> Void)) {
+    let subURL = "orders/"
+    let headers = ["authorization": "token " + auth.token]
+
+    if url.isEmpty {
+      Alamofire.request(baseURL + subURL, method: .get, headers: headers).responseJSON { response in
+        if let json = response.result.value {
+          if let dictionary = json as? [String: Any] {
+            if let next = dictionary["next"] as? String {
+              self.fetchRobinhoodOrdersWith(auth: auth, url: next, completion: completion)
+            }
+          }
+        }
+      }
+    }
+    else {
+      Alamofire.request(url, method: .get, headers: headers).responseJSON { response in
+        if let json = response.result.value {
+          if let dictionary = json as? [String: Any] {
+            if let next = dictionary["next"] as? String {
+              self.fetchRobinhoodOrdersWith(auth: auth, url: next, completion: completion)
+            }
+          }
         }
       }
     }
   }
 
   func cancelAllRobinhoodOrdersWith(auth: Auth) {
-    fetchRobinhoodOrdersWith(auth: auth) { orders in
-      for order in orders {
-        self.cancelRobinhoodOrderWith(auth: auth, order: order)
+    DispatchQueue.main.async {
+      self.fetchRobinhoodOrdersWith(auth: auth) { orders, url in
+        for order in orders {
+          self.cancelRobinhoodOrderWith(auth: auth, order: order)
+        }
+        var cursor = url
+        self.fetchNextRobinhoodOrdersWith(auth: auth, url: cursor, completion: { (orders, uurl) in
+          for order in orders {
+            self.cancelRobinhoodOrderWith(auth: auth, order: order)
+          }
+          cursor = uurl
+
+          while cursor != url {
+            self.fetchNextRobinhoodOrdersWith(auth: auth, url: cursor, completion: { (orders, uurl) in
+              for order in orders {
+                self.cancelRobinhoodOrderWith(auth: auth, order: order)
+              }
+              cursor = uurl
+              print(cursor)
+            })
+          }
+        })
       }
     }
   }
@@ -336,8 +414,8 @@ class DataManager: NSObject {
       return
     }
     Alamofire.request(cancel, method: .post, headers: headers).responseJSON { response in
-
+      
     }
   }
-
+  
 }

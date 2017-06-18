@@ -13,6 +13,7 @@
 		222F6A621EDF307C00ED0144 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F46CFE1EB271E300C9AC39 /* Position.swift */; };
 		224550561EB3DD090099CDBA /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224550551EB3DD090099CDBA /* TransitionManager.swift */; };
 		224550581EB3EAB60099CDBA /* UISettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224550571EB3EAB60099CDBA /* UISettings.swift */; };
+		227DACAE1EF5FBB4004B345B /* DecisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227DACAD1EF5FBB4004B345B /* DecisionManager.swift */; };
 		2296C9181ECB5BA30035FA43 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2296C9171ECB5BA30035FA43 /* NotificationManager.swift */; };
 		22A239621EADC26000F16245 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A239611EADC26000F16245 /* Account.swift */; };
 		22A239631EADC4B200F16245 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A239611EADC26000F16245 /* Account.swift */; };
@@ -83,11 +84,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		029C6AE5B5DF91CC820A1F7C /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 		2211F8241EB3ABB90064F02C /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		2214AB351EAC4D9D00795C64 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		224550551EB3DD090099CDBA /* TransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionManager.swift; sourceTree = "<group>"; };
 		224550571EB3EAB60099CDBA /* UISettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISettings.swift; sourceTree = "<group>"; };
+		227DACAD1EF5FBB4004B345B /* DecisionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecisionManager.swift; sourceTree = "<group>"; };
 		2296C9171ECB5BA30035FA43 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		22A239611EADC26000F16245 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		22A239641EAEB81E00F16245 /* Orders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Orders.swift; sourceTree = "<group>"; };
@@ -140,6 +141,7 @@
 		A2D615C11EB6AD3D00870533 /* TradeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeManager.swift; sourceTree = "<group>"; };
 		A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuoteCell.swift; sourceTree = "<group>"; };
 		A2F9F78C1EA9103300340A51 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		C533DA92B393BB9CAA46A512 /* Pods-Stock Boy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stock Boy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Stock Boy/Pods-Stock Boy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,7 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				81100AEC0AA477588B529485 /* Pods-Stock Boy.release.xcconfig */,
-				029C6AE5B5DF91CC820A1F7C /* Pods-Stock Boy.debug.xcconfig */,
+				C533DA92B393BB9CAA46A512 /* Pods-Stock Boy.debug.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -173,18 +175,18 @@
 		A21460971EA6A8C800831F14 /* Subclass */ = {
 			isa = PBXGroup;
 			children = (
-				22F46CF81EB2488A00C9AC39 /* View.swift */,
 				A28988BA1EA9403F00FC50AF /* Button.swift */,
 				22C078481EAC8A78006A0AF4 /* ImageView.swift */,
 				A28988BC1EA9410D00FC50AF /* Label.swift */,
-				A214609A1EA6BC1200831F14 /* SearchBar.swift */,
-				A21460931EA6A62400831F14 /* ViewController.swift */,
-				A21460911EA69F3200831F14 /* TabBarController.swift */,
 				A21460951EA6A79000831F14 /* NavigationController.swift */,
+				A214609A1EA6BC1200831F14 /* SearchBar.swift */,
+				A21460911EA69F3200831F14 /* TabBarController.swift */,
+				2211F8241EB3ABB90064F02C /* TableView.swift */,
 				2214AB351EAC4D9D00795C64 /* TableViewCell.swift */,
 				22F46CF61EB2433B00C9AC39 /* TextField.swift */,
-				2211F8241EB3ABB90064F02C /* TableView.swift */,
 				224550571EB3EAB60099CDBA /* UISettings.swift */,
+				22F46CF81EB2488A00C9AC39 /* View.swift */,
+				A21460931EA6A62400831F14 /* ViewController.swift */,
 			);
 			name = Subclass;
 			sourceTree = "<group>";
@@ -223,22 +225,23 @@
 			isa = PBXGroup;
 			children = (
 				A226E8701EA69C9900354283 /* AppDelegate.swift */,
-				A2BA3F9C1EB12DCC00F42CF6 /* LoginManager.swift */,
-				A214609E1EA6CEEF00831F14 /* StringManager.swift */,
-				A2F9F78C1EA9103300340A51 /* DataManager.swift */,
-				2296C9171ECB5BA30035FA43 /* NotificationManager.swift */,
 				22C0784E1EADB174006A0AF4 /* ChartManager.swift */,
-				224550551EB3DD090099CDBA /* TransitionManager.swift */,
+				A2F9F78C1EA9103300340A51 /* DataManager.swift */,
+				A2BA3F9C1EB12DCC00F42CF6 /* LoginManager.swift */,
+				2296C9171ECB5BA30035FA43 /* NotificationManager.swift */,
+				A214609E1EA6CEEF00831F14 /* StringManager.swift */,
 				A2D615C11EB6AD3D00870533 /* TradeManager.swift */,
+				227DACAD1EF5FBB4004B345B /* DecisionManager.swift */,
+				224550551EB3DD090099CDBA /* TransitionManager.swift */,
 				A21AA1621EC1311800E9FE9B /* Utilities.swift */,
+				A226E8791EA69C9900354283 /* Assets.xcassets */,
 				A2BA3F981EB1257500F42CF6 /* Controller */,
-				A2BA3F991EB1258000F42CF6 /* View */,
+				A214609C1EA6C2B700831F14 /* Extensions.swift */,
+				A226E87E1EA69C9900354283 /* Info.plist */,
+				A226E87B1EA69C9900354283 /* LaunchScreen.storyboard */,
 				A2605D4F1EA97B1700FBEF8A /* Model */,
 				A21460971EA6A8C800831F14 /* Subclass */,
-				A226E8791EA69C9900354283 /* Assets.xcassets */,
-				A226E87B1EA69C9900354283 /* LaunchScreen.storyboard */,
-				A226E87E1EA69C9900354283 /* Info.plist */,
-				A214609C1EA6C2B700831F14 /* Extensions.swift */,
+				A2BA3F991EB1258000F42CF6 /* View */,
 			);
 			path = "Stock Boy";
 			sourceTree = "<group>";
@@ -246,17 +249,17 @@
 		A2605D4F1EA97B1700FBEF8A /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A214608F1EA69E0F00831F14 /* Auth.swift */,
 				22A239611EADC26000F16245 /* Account.swift */,
-				A24284BC1EABF48B0057D2EE /* Watchlist.swift */,
+				A214608F1EA69E0F00831F14 /* Auth.swift */,
+				A2605D4D1EA97B1100FBEF8A /* Fundamentals.swift */,
+				22C0784A1EADA6C6006A0AF4 /* Historicals.swift */,
 				A2605D431EA9768000FBEF8A /* Instruments.swift */,
-				A2605D451EA976AC00FBEF8A /* Quotes.swift */,
+				22A239641EAEB81E00F16245 /* Orders.swift */,
 				A2BA3F9A1EB125B400F42CF6 /* Portfolio.swift */,
 				22F46CFE1EB271E300C9AC39 /* Position.swift */,
-				22A239641EAEB81E00F16245 /* Orders.swift */,
-				22C0784A1EADA6C6006A0AF4 /* Historicals.swift */,
-				A2605D4D1EA97B1100FBEF8A /* Fundamentals.swift */,
+				A2605D451EA976AC00FBEF8A /* Quotes.swift */,
 				22C078461EAC6503006A0AF4 /* rx.swift */,
+				A24284BC1EABF48B0057D2EE /* Watchlist.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -264,13 +267,13 @@
 		A2BA3F981EB1257500F42CF6 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				A226E8741EA69C9900354283 /* WatchlistViewController.swift */,
 				A226E8721EA69C9900354283 /* ChartViewController.swift */,
+				A2BA3F9E1EB12E8700F42CF6 /* LoginViewController.swift */,
 				A2BA3F901EB0F58E00F42CF6 /* OrdersViewController.swift */,
 				A2BA3F941EB1158C00F42CF6 /* PortfolioViewController.swift */,
-				A2BA3F9E1EB12E8700F42CF6 /* LoginViewController.swift */,
-				A2D615BF1EB6970A00870533 /* TradeViewController.swift */,
 				A21460981EA6AF9400831F14 /* StockTabBarController.swift */,
+				A2D615BF1EB6970A00870533 /* TradeViewController.swift */,
+				A226E8741EA69C9900354283 /* WatchlistViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -278,12 +281,12 @@
 		A2BA3F991EB1258000F42CF6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */,
+				22F46D001EB2832A00C9AC39 /* HeaderView.swift */,
 				A2BA3F921EB0F5FC00F42CF6 /* OrderCell.swift */,
 				A2BA3F961EB115DB00F42CF6 /* PortfolioCell.swift */,
-				22F46CFA1EB248A400C9AC39 /* StatusView.swift */,
+				A2F9F78A1EA90E2400340A51 /* QuoteCell.swift */,
 				22F46CFC1EB252B300C9AC39 /* SelectionView.swift */,
-				22F46D001EB2832A00C9AC39 /* HeaderView.swift */,
+				22F46CFA1EB248A400C9AC39 /* StatusView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				224550581EB3EAB60099CDBA /* UISettings.swift in Sources */,
 				A226E8711EA69C9900354283 /* AppDelegate.swift in Sources */,
 				A214609F1EA6CEEF00831F14 /* StringManager.swift in Sources */,
+				227DACAE1EF5FBB4004B345B /* DecisionManager.swift in Sources */,
 				A226E8731EA69C9900354283 /* ChartViewController.swift in Sources */,
 				A28988BB1EA9403F00FC50AF /* Button.swift in Sources */,
 				A28988BD1EA9410D00FC50AF /* Label.swift in Sources */,
@@ -545,7 +549,6 @@
 /* Begin XCBuildConfiguration section */
 		A21460AB1EA6D29900831F14 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 029C6AE5B5DF91CC820A1F7C /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 2GK5GPF253;
@@ -667,7 +670,7 @@
 		};
 		A226E8821EA69C9900354283 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 029C6AE5B5DF91CC820A1F7C /* Pods-Stock Boy.debug.xcconfig */;
+			baseConfigurationReference = C533DA92B393BB9CAA46A512 /* Pods-Stock Boy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 82QRSDA4CN;

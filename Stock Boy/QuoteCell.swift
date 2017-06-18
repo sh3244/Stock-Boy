@@ -13,7 +13,7 @@ class QuoteCell: TableViewCell {
   let symbol = Label(type: .symbol)
   let name = Label()
   let price = Label(type: .usd)
-  let change = Label(type: .usdChange)
+  let change = Label(type: .risk)
   let changePercent = Label(type: .percentChange)
   let open = Label(type: .usd, prefix: "Open: ")
   let high = Label(type: .usd, prefix: "High: ")

@@ -20,25 +20,52 @@ class OrdersViewController: ViewController, UITableViewDataSource {
 
   let disposeBag = DisposeBag()
 
+  var currentURL: String = ""
+
+  func loadNextPage() {
+    if let auth = LoginManager.shared.auth {
+      DataManager.shared.fetchNextRobinhoodOrdersWith(auth: auth, url: currentURL, completion: { (orders, url) in
+        self.items = orders
+        self.tableView.reloadData()
+        self.revealView(self.tableView)
+        self.currentURL = url
+      })
+    }
+  }
+
+  func loadPreviousPage() {
+    if let auth = LoginManager.shared.auth {
+      DataManager.shared.fetchPreviousRobinhoodOrdersWith(auth: auth, url: currentURL, completion: { (orders, url) in
+        self.items = orders
+        self.tableView.reloadData()
+        self.revealView(self.tableView)
+        self.currentURL = url
+      })
+    }
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Previous", style: .plain, target: self, action: #selector(loadPreviousPage))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(loadNextPage))
 
     tableView.register(OrderCell.self, forCellReuseIdentifier: "orderCell")
     tableView.refreshControl = refreshControl
     tableView.dataSource = self
     tableView.delegate = self
+
     refreshControl.rx.controlEvent(.valueChanged)
       .subscribe { _ in
         self.update()
         self.refreshControl.endRefreshing()
       }
       .addDisposableTo(disposeBag)
+  }
 
-    let counter = myInterval(15)
-    _ = counter
-      .subscribe(onNext: { (value) in
-        self.update()
-      })
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    self.update()
   }
 
   override func viewWillLayoutSubviews() {
@@ -54,10 +81,11 @@ class OrdersViewController: ViewController, UITableViewDataSource {
 
   func update() {
     if let auth = LoginManager.shared.auth {
-      DataManager.shared.fetchRobinhoodOrdersWith(auth: auth, completion: { (orders) in
+      DataManager.shared.fetchRobinhoodOrdersWith(auth: auth, url: currentURL, completion: { (orders, url) in
         self.items = orders
         self.tableView.reloadData()
         self.revealView(self.tableView)
+        self.currentURL = url
       })
     }
   }

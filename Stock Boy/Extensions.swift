@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 // MARK: Unused
 
 func resizedIcon(image: UIImage, targetSize: Double) -> UIImage? {

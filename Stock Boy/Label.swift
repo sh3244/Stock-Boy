@@ -18,6 +18,7 @@ enum LabelType {
   case volume
   case symbol
   case regular
+  case risk
 }
 
 class Label: UILabel {
@@ -34,6 +35,7 @@ class Label: UILabel {
     textAlignment = .center
     font = UIFont.systemFont(ofSize: UISettings.textSize)
     backgroundColor = .clear
+    numberOfLines = 0
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -64,6 +66,18 @@ class Label: UILabel {
     }
     set {
       switch type {
+      case .risk:
+        if newValue?.isGreaterThan("0") ?? false {
+          textColor = UISettings.badColor
+        } else if newValue?.isLessThan("0") ?? false {
+          textColor = UISettings.goodColor
+        } else {
+          textColor = UISettings.neutralColor
+        }
+        if ctext != newValue?.toUSD() ?? "" {
+          ctext = newValue?.toUSD() ?? ""
+          blink()
+        }
       case .usdChange:
         if newValue?.isGreaterThan("0") ?? false {
           textColor = UISettings.goodColor

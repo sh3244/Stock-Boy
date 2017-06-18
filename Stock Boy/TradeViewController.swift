@@ -15,11 +15,21 @@ class TradeViewController: ViewController, SelectionViewDelegate {
   let otherSelectionView = SelectionView(["Buy", "Sell", "Cancel All"])
   let statusView = StatusView("", .gray)
   let searchBar = SearchBar()
-  let custom = Label("Custom Parameters", type: .title)
   let percent = TextField(placeholder: "Target Percentage (1.06)")
   let shares = TextField(placeholder: "Shares (100)")
   let targetPrice = TextField(placeholder: "Price (1.01)")
   let price = Label("", type: .title, prefix: "Current Price: ")
+
+  // risk, targetMax, targetMin, volatility, averages, derivatives
+  let risk = Label(type: .risk, prefix: "Risk: ")
+  let targetMax = Label(type: .usd, prefix: "High Ball: ")
+  let targetMin = Label(type: .usd, prefix: "Low Ball: ")
+  let volatility = Label(type: .regular, prefix: "Volatility: ")
+  let averages = Label(type: .regular, prefix: "Averages: ")
+  let derivatives = Label(type: .regular, prefix: "Derivatives: ")
+  let volumes = Label(type: .regular, prefix: "Volumes: ")
+  let gain = Label(type: .percentChange, prefix: "Gain: ")
+  let loss = Label(type: .percentChange, prefix: "Loss: ")
 
   var quote: Quote?
 
@@ -71,12 +81,27 @@ class TradeViewController: ViewController, SelectionViewDelegate {
       self.statusView.title.text = quo.symbol
       self.price.text = quo.last_trade_price
       self.targetPrice.text = quo.last_trade_price
+
+      DecisionManager.shared.generateProposalFor(symbol: quo.symbol, completion: { (proposal) in
+        self.risk.text = proposal.risk.description
+        self.targetMin.text = proposal.targetMin.description
+        self.targetMax.text = proposal.targetMax.description
+        self.volatility.text = proposal.volatility.description
+        
+        self.averages.text = proposal.averagesArray.description
+        self.derivatives.text = proposal.derivatives.description
+        self.volumes.text = proposal.volumesArray.description
+        self.gain.text = proposal.gain.description
+        self.loss.text = proposal.loss.description
+      })
     }
   }
 
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
-    view.sv([searchBar, selectionView, statusView, custom, percent, shares, price, targetPrice, otherSelectionView])
+    view.sv([searchBar, selectionView, statusView, percent, shares, price, targetPrice, otherSelectionView])
+    view.sv([risk, targetMax, targetMin, volatility, averages, derivatives, volumes, gain, loss])
+    equalSizes([risk, targetMax, targetMin, volatility, gain, loss])
     view.layout(
       0,
       |searchBar|,
@@ -86,15 +111,23 @@ class TradeViewController: ViewController, SelectionViewDelegate {
       8,
       |selectionView|,
       8,
-      |custom| ~ 40,
-      8,
       |percent| ~ 40,
       8,
       |shares| ~ 40,
       8,
       |targetPrice| ~ 40,
       8,
-      |otherSelectionView|
+      |otherSelectionView|,
+      8,
+      |targetMax-targetMin-risk|,
+      8,
+      |gain-loss-volatility|,
+      8,
+      |averages|,
+      8,
+      |derivatives|,
+      8,
+      |volumes|
     )
   }
 
@@ -125,9 +158,7 @@ class TradeViewController: ViewController, SelectionViewDelegate {
         })
       }
     case "Cancel All":
-      if let auth = LoginManager.shared.auth {
-        DataManager.shared.cancelAllRobinhoodOrdersWith(auth: auth)
-      }
+      TradeManager.shared.cancelAllOrders()
     default:
       break
     }

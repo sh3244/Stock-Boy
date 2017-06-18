@@ -13,13 +13,14 @@ import RxSwift
 class WatchlistViewController: ViewController {
   let tableView = TableView()
   let refreshControl = UIRefreshControl()
-  let selectionView = SelectionView(["% ↑", "% ↓", "Symbol ↑", "Symbol ↓"])
-  let headerView = HeaderView(["Symbol", "Name", "Price", "Change", "%"], [50, -100, 50, 50, 50])
+  let selectionView = SelectionView(["% ↑", "% ↓", "Sym ↑", "Sym ↓", "Risk ↑", "Risk ↓"])
+  let headerView = HeaderView(["Symbol", "Name", "Price", "Risk", "%"], [50, -100, 50, 50, 50])
 
   var quotes: [Quote] = []
+  var proposals: [Proposal] = []
   var instruments: [Instrument] = []
 
-  var paused = false
+  var paused = true
 
   var sortBlock: ((Void) -> Void) = {}
 
@@ -32,7 +33,7 @@ class WatchlistViewController: ViewController {
     tableView.refreshControl = refreshControl
     refreshControl.addTarget(self, action: #selector(pullRefresh), for: .valueChanged)
 
-    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Updating", style: .plain, target: self, action: #selector(autoUpdate))
+    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Paused", style: .plain, target: self, action: #selector(autoUpdate))
 
     sortBlock = {
       self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
@@ -46,10 +47,10 @@ class WatchlistViewController: ViewController {
 
     self.refreshTable()
 
-    let counter = myInterval(1)
+    let counter = myInterval(3)
     _ = counter
       .subscribe(onNext: { (value) in
-        if !self.paused {
+        if !self.paused && !self.isEditing {
           self.refreshTable()
         }
       })
@@ -90,12 +91,15 @@ class WatchlistViewController: ViewController {
         DataManager.shared.fetchRobinhoodInstrumentsWith(watchlist: watchlist.results, completion: { (instruments) in
           self.instruments = instruments
           DataManager.shared.fetchRobinhoodQuotesWith(instruments: instruments, completion: { (quotes) in
-            DispatchQueue.main.async {
-              self.quotes = quotes
-              self.sortBlock()
-              self.tableView.reloadData()
-              self.revealView(self.tableView)
-            }
+            DecisionManager.shared.generateProposalsFor(quotes: self.quotes, completion: { (proposals) in
+              DispatchQueue.main.async {
+                self.quotes = quotes
+                self.proposals = proposals
+                self.sortBlock()
+                self.tableView.reloadData()
+                self.revealView(self.tableView)
+              }
+            })
           })
         })
       })
@@ -110,11 +114,6 @@ extension WatchlistViewController : UITableViewDataSource {
     if selected.contains(indexPath) {
       if let index = selected.index(of: indexPath) {
         selected.remove(at: index)
-
-        // TODO
-//        let quote = quotes[indexPath.row]
-//        let chart = ChartViewController(quote.symbol, symbol: quote.symbol)
-//        self.navigationController?.pushViewController(chart, animated: true)
       }
     }
     else {
@@ -136,7 +135,11 @@ extension WatchlistViewController : UITableViewDataSource {
     if let quoteCell = cell as? QuoteCell {
       quoteCell.symbol.text = quote.symbol
       quoteCell.price.text = quote.last_trade_price
-      quoteCell.change.text = String((Double(quote.last_trade_price) ?? 1) - (Double(quote.adjusted_previous_close) ?? 1))
+      //      quoteCell.change.text = String((Double(quote.last_trade_price) ?? 1) - (Double(quote.adjusted_previous_close) ?? 1))
+      let proposal = proposals.first(where: { (proposal) -> Bool in
+        return proposal.symbol == quote.symbol
+      })
+      quoteCell.change.text = proposal?.risk
       quoteCell.changePercent.text = String((Double(quote.last_trade_price) ?? 1) / (Double(quote.adjusted_previous_close) ?? 1))
       DataManager.shared.fetchRobinhoodInstrumentWith(url: quote.instrument, completion: { (instrument) in
         quoteCell.name.text = instrument.name
@@ -170,9 +173,30 @@ extension WatchlistViewController : UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return quotes.count
   }
-  
+
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1
+  }
+
+  // Editing
+
+  func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
+    self.setEditing(true, animated: false)
+
+    let more = UITableViewRowAction(style: .normal, title: "Trade") { action, index in
+      self.setEditing(false, animated: false)
+      let quote = self.quotes[index.row]
+      let controller = TradeViewController("Trade " + quote.symbol, symbol: quote.symbol)
+      self.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    more.backgroundColor = .red
+
+    return [more]
+  }
+
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    return true
   }
 }
 
@@ -198,22 +222,47 @@ extension WatchlistViewController: SelectionViewDelegate {
           return first > second
         })
       }
-    case "Symbol ↑":
+    case "Sym ↑":
       sortBlock = {
         self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
           return quote1.symbol < quote2.symbol
         })
       }
-    case "Symbol ↓":
+    case "Sym ↓":
       sortBlock = {
         self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
           return quote1.symbol > quote2.symbol
+        })
+      }
+    case "Risk ↑":
+      sortBlock = {
+        self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
+          let first = self.proposals.first(where: { (proposal) -> Bool in
+            return proposal.symbol == quote1.symbol
+          })
+          let second = self.proposals.first(where: { (proposal) -> Bool in
+            return proposal.symbol == quote2.symbol
+          })
+          return Double(first?.risk ?? "") ?? 0.0 < Double(second?.risk ?? "") ?? 0.0
+        })
+      }
+    case "Risk ↓":
+      sortBlock = {
+        self.quotes = self.quotes.sorted(by: { (quote1, quote2) -> Bool in
+          let first = self.proposals.first(where: { (proposal) -> Bool in
+            return proposal.symbol == quote1.symbol
+          })
+          let second = self.proposals.first(where: { (proposal) -> Bool in
+            return proposal.symbol == quote2.symbol
+          })
+          return Double(first?.risk ?? "") ?? 0.0 > Double(second?.risk ?? "") ?? 0.0
         })
       }
     default:
       break
     }
     self.sortBlock()
+    self.tableView.reloadData()
   }
 }
 

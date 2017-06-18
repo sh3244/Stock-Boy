@@ -12,6 +12,7 @@ import Whisper
 
 class TradeManager: NSObject {
   var lastOrder: Order?
+  let group = DispatchGroup()
 
   let disposeBag = DisposeBag()
 
@@ -29,6 +30,43 @@ class TradeManager: NSObject {
         completion()
       }
     }
+  }
+
+  // Cancels the last 500 orders
+  func cancelAllOrders() {
+    guard let auth = LoginManager.shared.auth else {
+      return
+    }
+
+    var currentURL = ""
+
+    announce(message: "Trying to Cancel All Orders") { _ in
+      DataManager.shared.fetchRobinhoodOrdersWith(auth: auth, completion: { (orders, url) in
+        currentURL = url
+        for order in orders {
+          DataManager.shared.cancelRobinhoodOrderWith(auth: auth, order: order)
+        }
+
+        self.announce(message: "Cancelling More Orders", thenRun: { _ in
+          self.cancelOrdersWithPages(remaining: 10, url: currentURL)
+        })
+      })
+    }
+  }
+
+  func cancelOrdersWithPages(remaining: Int, url: String) {
+    guard let auth = LoginManager.shared.auth, remaining != 0 else {
+      return
+    }
+
+    DataManager.shared.fetchNextRobinhoodOrdersWith(auth: auth, url: url, completion: { (orders, newURL) in
+      self.announce(message: "Canceling Orders", thenRun: { _ in
+        for order in orders {
+          DataManager.shared.cancelRobinhoodOrderWith(auth: auth, order: order)
+        }
+        self.cancelOrdersWithPages(remaining: remaining - 1, url: newURL)
+      })
+    })
   }
 
   func scalpStockWithInstrument(url: String, percentage: String, shares: Int) {
@@ -65,7 +103,8 @@ class TradeManager: NSObject {
             if order.state == "filled" {
               DataManager.shared.submitRobinhoodSellWith(auth: auth, quote: quote, price: String(format: "%.2f", quote.last_trade_price.floatValueHigh() * percentage.floatValueHigh()).floatValueHigh(), shares: shares, completion: { (order) in
                 self.lastOrder = order
-                self.announce(message: "Buy Complete, Scalp Sell (" + shares.description + " shares" + ") For Sale...", thenRun: {
+                self.announce(message: "Buy Complete, Scalp Sell (" + shares.description + " shares" + ") Subbed...", thenRun: {
+
                 })
                 sold = true
                 return
@@ -78,7 +117,7 @@ class TradeManager: NSObject {
         })
       })
 
-      Thread.sleep(forTimeInterval: 10)
+      Thread.sleep(forTimeInterval: 60)
       scalp.dispose()
 
       DataManager.shared.fetchRobinhoodOrderWith(auth: auth, url: order.url, completion: { (order) in
