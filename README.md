@@ -1,7 +1,7 @@
 # Stock-Boy
 
-Realtime iOS client for trading on Robinhood's platform.
+iOS client for viewing and trading on Robinhood's platform.
 
-Includes basic scalping and automated trading, order management and basic account management.
+Stock Boy supports automated scalp orders via one-click, order management and account management/overview.
 
-Proof of concept serverless
+Proof of concept
